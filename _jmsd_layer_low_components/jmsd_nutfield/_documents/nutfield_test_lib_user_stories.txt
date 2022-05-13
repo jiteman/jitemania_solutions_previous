@@ -1,0 +1,5 @@
+create test test
+empty test detection test
+booelan assertion test
+emptiness assertion test
+equality assertion test

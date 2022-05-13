@@ -1,0 +1,86 @@
+#pragma once
+
+#include "default_Comparator.hpp"
+
+
+#include "jmsf/algorithming/Comparator.hin"
+#include "jmsf/typeing/Comparison_result.h"
+
+#include "jmsf/memorying/Constructor.hin"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/memorying/Allocator.h"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace algorithming {
+namespace defaulting {
+
+
+template< class A_type >
+typeing::Comparison_result default_Comparator< A_type >::compare( const A_type &first, const A_type &second ) const {
+	return typeing::Comparison_result::create( first, second );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+default_Comparator< A_type >::~default_Comparator() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+default_Comparator< A_type >::default_Comparator() noexcept
+{}
+
+template< class A_type >
+// static
+memorying::Omp< Comparator< A_type > > default_Comparator< A_type >::create(
+	const memorying::Womp< memorying::Allocator > &default_comparator_allocator )
+{
+	jmsf_Should_never_be_empty( default_comparator_allocator );
+
+	return
+		memorying::Constructor< Comparator< A_type >, default_Comparator< A_type > >::construct(
+			default_comparator_allocator );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//typeing_Comparator< A_type >::typeing_Comparator( const typeing_Comparator< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const typeing_Comparator< A_type > &typeing_Comparator< A_type >::operator =( const typeing_Comparator< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//typeing_Comparator< A_type >::typeing_Comparator( typeing_Comparator< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//typeing_Comparator< A_type > &typeing_Comparator< A_type >::operator =( typeing_Comparator< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace defaulting
+} // namespace algorithming
+} // namespace jmsf

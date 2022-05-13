@@ -1,0 +1,111 @@
+#pragma once
+
+#include "native_Shared.hpp"
+
+
+#include "native_Weak.hin"
+
+#include "jmsf/encodebuba/validating/macroses_native_Should.h"
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+
+
+template< class A_type >
+bool native_Shared< A_type >::is_empty() const noexcept {
+	return true;
+}
+
+template< class A_type >
+bool native_Shared< A_type >::is_not_empty() const noexcept {
+	return !this->is_empty();
+}
+
+template< class A_type >
+A_type native_Shared< A_type >::operator *() const {
+//	jmsf_native_Should_never_be_null_native_pointer_with_type( nullptr, JMSF_ENCODEBUBA_TYPE_NAME( A_type ) );
+	_jmsf_native_Should_never_reach_here_with_type( "native_Shared< A_type >::operator *()", JMSF_ENCODEBUBA_TYPE_NAME( A_type ) );
+//	throw excepting::exception_Null_pointer_dereferenced( __FILE__, __LINE__ );
+	return 0;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Weak< A_type > native_Shared< A_type >::get_as_weak() const noexcept {
+	return native_Weak< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+bool native_Shared< A_type >::operator ==( const native_Shared &another ) const noexcept {
+	return this->is_empty() && another.is_empty();
+}
+
+template< class A_type >
+bool native_Shared< A_type >::operator !=( const native_Shared &another ) const noexcept {
+	return !this->operator ==( another );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+native_Shared< A_type >::~native_Shared() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Shared< A_type >::native_Shared() noexcept {
+	_the_pointer_to_object = nullptr;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Shared< A_type >::native_Shared() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+native_Shared< A_type > native_Shared< A_type >::create() {
+	return native_Shared< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Shared< A_type >::native_Shared( const native_Shared< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//native_Shared< A_type > &native_Shared< A_type >::operator =( const native_Shared< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Shared< A_type >::native_Shared( native_Shared< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//native_Shared< A_type > &native_Shared< A_type >::operator =( native_Shared< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

@@ -1,0 +1,50 @@
+===============================================================================================
+-----------------------------------------------------------------------------------------------
+Maintain the codebase:
+
+-----------------------------------------------------------------------------------------------
+Update the codebase:
+	Complex:
+		change method and way of Environments' initialization
+			@ add native shared and weak (or use ::std versions)
+			+ native_Reference_counters
+			* native_Object_with_reference_counters
+				delete reference counters if total counter reached nil
+				delete object if shared reference counter reached nil
+				empty object if shared reference counter is nil
+				increase shared reference counter if copied as shared
+				decrease shared reference counter if destroyed as shared
+				increase weak reference counter if copied as weak
+				decrease weak reference counter if destroyed as weak
+				
+		move all native stuff to encodebuba
+			? rename encodebuba -> jmsf_native
+			+ create jmsf_native_Should_ based on jmsf_Should_
+			+ create native_File_and_line			
+			
+		console, debug [msvc|qt-creator] CULE output
+			@ ms_windows project transform to al_windows
+			al_qt project
+						
+AVL-tree:	
+	* remove method (? deleting this node)
+		preserve all other nodes
+	? imprecise find: do we need closest values if exact match found
+	
+AVL-tree traverser:
+	? remove take_node() and get_node() methods
+		add reference to the tree
+	not traversing out of tree structure
+	traversing in order of storing
+	traversing in order of objects
+	different traversers
+	? unprecise find (nearest/closest values (up|down))
+	move_(previous/next) for traverser
+
+TAVL-tree:
+	get previous object (TAVL)
+	get next object (TAVL)
+
+TAVL-tree traverser:
+	move_(previous/next)_traversed for traverser
+	

@@ -1,0 +1,17 @@
+#pragma once
+
+#include "Event.hpp"
+
+
+template< typename R,typename P >
+bool Event::wait( ::std::chrono::duration< R,P > const &relative_time ) const {
+	::std::unique_lock lock( _the_mutex );
+
+	return _condition_variable.wait_for( lock, relative_time, [ & ]()->bool{ return _is_set; } );
+
+//	if (!m_condition.wait_for( lock, crRelTime, [ & ]()->bool{ return m_bFlag; } ) ) {
+//		return false;
+//	}
+
+//	return true;
+}

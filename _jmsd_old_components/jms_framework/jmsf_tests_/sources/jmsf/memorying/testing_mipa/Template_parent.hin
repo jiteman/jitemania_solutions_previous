@@ -1,0 +1,54 @@
+#pragma once
+
+#include "Template_parent.hpp"
+
+
+#include "sensing_mipa/sensation_of_mipa_Construction_and_destruction.h"
+
+#include "jmsf/pointing/Shared.hin"
+
+
+namespace jmsf {
+namespace memorying {
+namespace testing_mipa {
+
+
+template< class A_type >
+int Template_parent< A_type >::template_get_integer() const noexcept {
+	return _template_integer;
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Template_parent< A_type >::~Template_parent() noexcept {
+	_the_template_parent_sensor->register_template_destruction();
+}
+
+template< class A_type >
+Template_parent< A_type >::Template_parent(
+	const int template_integer,
+	const pointing::Shared< sensing_mipa::sensation_of_mipa_Construction_and_destruction > &a_sensor )
+	:
+		_template_integer( template_integer ),
+		_the_template_parent_sensor( a_sensor )
+{
+	_the_template_parent_sensor->register_template_construction();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace testing_mipa
+} // namespace memorying
+} // namespace jmsf
+
+

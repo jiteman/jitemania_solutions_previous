@@ -1,0 +1,130 @@
+#pragma once
+
+#include "Singleton.hpp"
+
+#include "internalling/Scoped_for_singleton.hin"
+
+#include "jmsf/pointing/Nonlinked.hin"
+
+#include "jmsf/memorying/Destructor.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Object_pointer.hin"
+
+#include "jmsf/typeing/Aso.hin"
+
+#include "jmsf/jmsf_logging_macroses.h"
+#include "jmsf/validating/macroses_Type_name.h"
+#include "jmsf/validating/macroses_Should.h"
+
+#include <utility> // ::std::move
+
+
+namespace jmsf {
+namespace patterning {
+
+
+template< class A_type >
+// static
+typeing::Boolean Singleton< A_type >::is_empty() noexcept {
+	return static_scoped_instance.is_empty();
+}
+
+template< class A_type >
+// static
+typeing::Boolean Singleton< A_type >::is_not_empty() noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Singleton< A_type >::~Singleton() noexcept {
+//	::std::cout << ::std::endl << "Singleton< %A_type% >::~Singleton() with: < " << JMSF_TYPE_NAME( A_type ) << " >"<< ::std::endl;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+// static
+pointing::Nonlinked< A_type > Singleton< A_type >::instance() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( static_scoped_instance.is_empty(), "Singleton< A_type >::instance() - is empty", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( static_scoped_instance );
+
+	return
+		pointing::Nonlinked< A_type >::create_from_static(
+			memorying::Womp< A_type >::create(
+				memorying::Object_pointer< A_type >::create_from_pointer(
+					static_scoped_instance.operator ->() ) ) );
+}
+
+template< class A_type >
+// static
+void Singleton< A_type >::set_instance( const memorying::Omp< A_type > &an_instance_omp ) noexcept {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( static_scoped_instance.is_not_empty(), "Singleton< A_type >::set_instance() - is not empty", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_always_be_empty( static_scoped_instance );
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( an_instance_omp.is_empty(), "Singleton< A_type >::set_instance() - parameter is empty", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( an_instance_omp );
+
+	if ( an_instance_omp.is_empty() ) return;
+
+	static_scoped_instance = internalling::Scoped_for_singleton< A_type >::create( an_instance_omp );
+}
+
+//template< class A_type >
+//// static
+//memorying::Omp< A_type > &Singleton< A_type >::take_instance() noexcept {
+//	return _owomp_singleton_instance.get_omp();
+//}
+
+template< class A_type >
+// static
+void Singleton< A_type >::destroy_instance() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( static_scoped_instance.is_empty(), "Singleton< A_type >::destroy_instance() - is empty", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( static_scoped_instance );
+	static_scoped_instance = internalling::Scoped_for_singleton< A_type >();
+
+//	if ( static_scoped_instance.is_not_empty() ) {
+//		::std::cout << ::std::endl << "Singleton< %A_type% >::destroy_instance() with: " << JMSF_TYPE_NAME( A_type ) << ::std::endl;
+//		::std::cout << "Warning: performing dynamic manual destruction" << ::std::endl;
+//	} else {
+//		::std::cout << ::std::endl << "Singleton< %A_type% >::destroy_instance() with: " << JMSF_TYPE_NAME( A_type ) << ::std::endl;
+//		::std::cout << "Warning: dynamic manual destruction was already performed" << ::std::endl;
+//	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Singleton< A_type >::Singleton() noexcept
+{}
+
+// template< class A_type >
+// A_type *Singleton< A_type >::testing_setInstance( A_type *testingInstance ) {
+// 	A_type *previousInstance = static_cast< A_type * >( _instance.releasePointer() );
+// 	_instance.setPointer( testingInstance );
+// 	return previousInstance;
+// }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Singleton< A_type >::Singleton( const Singleton< A_type > & ) noexcept // other
+//{}
+
+//template< class A_type >
+//const Singleton< A_type > &Singleton< A_type >::operator =( const Singleton< A_type > &another ) noexcept {
+//	if ( this == &another ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+// static
+internalling::Scoped_for_singleton< A_type > Singleton< A_type >::static_scoped_instance;
+
+
+} // namespace patterning
+} // namespace jmsf

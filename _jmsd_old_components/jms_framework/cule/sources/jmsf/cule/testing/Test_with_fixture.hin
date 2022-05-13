@@ -1,0 +1,88 @@
+#pragma once
+
+#include "Test_with_fixture.hpp"
+
+#include "jmsf/cule/testing/Test_fixture.h"
+
+
+namespace jmsf {
+namespace cule {
+namespace testing {
+
+
+template< class A_type >
+void Test_with_fixture< A_type >::set_up_fixture() const {
+	_the_fixture = new A_type;
+	static_cast< Test_fixture * >( _the_fixture )->set_up();
+}
+
+template< class A_type >
+void Test_with_fixture< A_type >::tear_down_fixture() const {
+	static_cast< Test_fixture * >( _the_fixture )->tear_down();
+	delete _the_fixture;
+	_the_fixture = nullptr;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+A_type *Test_with_fixture< A_type >::get_test_fixture() const noexcept {
+	return _the_fixture;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Test_with_fixture< A_type >::~Test_with_fixture() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Test_with_fixture< A_type >::Test_with_fixture(
+	const texting::String_literal &test_name,
+	const ::jmsf::validating::File_and_line &file_and_line ) noexcept
+	:
+		Test( test_name, file_and_line )
+{
+	_the_fixture = nullptr;
+}
+
+//template< class A_type >
+//Test_with_fixture< A_type >::Test_with_fixture() noexcept {
+//	_the_fixture = nullptr;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Test_with_fixture< A_type >::Test_with_fixture( const Test_with_fixture< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Test_with_fixture< A_type > &Test_with_fixture< A_type >::operator =( const Test_with_fixture< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Test_with_fixture< A_type >::Test_with_fixture( Test_with_fixture< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Test_with_fixture< A_type > &Test_with_fixture< A_type >::operator =( Test_with_fixture< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace testing
+} // namespace cule
+} // namespace jmsf

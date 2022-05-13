@@ -1,0 +1,153 @@
+#pragma once
+
+#include "Tavl_node.hpp"
+
+
+#include "jmsf/texting/Ansii_text.h"
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/pointing/cShared.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/typeing/Integers.hin"
+
+
+
+namespace jmsf {
+namespace structing {
+namespace noding {
+
+
+template< class A_type >
+typeing::Boolean Tavl_node< A_type >::is_empty() const noexcept {
+	return typeing::True;
+}
+
+template< class A_type >
+typeing::Boolean Tavl_node< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+void Tavl_node< A_type >::set_left_child( const memorying::Omp< Tavl_node > &a_left_child ) noexcept {
+	_left_child = a_left_child;
+}
+
+template< class A_type >
+void Tavl_node< A_type >::set_right_child( const memorying::Omp< Tavl_node > &a_right_child ) noexcept {
+	_right_child = a_right_child;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+const memorying::Omp< Tavl_node< A_type > > &Tavl_node< A_type >::get_left_child() const noexcept {
+	return _left_child;
+}
+
+template< class A_type >
+const memorying::Omp< Tavl_node< A_type > > &Tavl_node< A_type >::get_right_child() const noexcept {
+	return _right_child;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean Tavl_node< A_type >::operator ==( const Tavl_node &/*another*/ ) const noexcept {
+	return typeing::True;
+}
+
+template< class A_type >
+typeing::Boolean Tavl_node< A_type >::operator !=( const Tavl_node &another ) const noexcept {
+	return !operator ==( another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+pointing::cShared< texting::Ansii_text > Tavl_node< A_type >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	return texting::Aaa_sl( an_aaa, JMSF_SL( "0" ) );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Tavl_node< A_type >::~Tavl_node() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Tavl_node< A_type >::Tavl_node() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Tavl_node< A_type >::Tavl_node( const A_type &an_object ) noexcept
+	:
+		_the_object( an_object )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+memorying::Omp< Tavl_node< A_type > > Tavl_node< A_type >::create(
+	const memorying::Womp< memorying::Allocator > &a_tavl_allocator,
+	const A_type &an_object )
+{
+	return memorying::Constructor< Tavl_node< A_type >, Tavl_node< A_type > >::construct( a_tavl_allocator, an_object );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Tavl_node< A_type >::Tavl_node( const Tavl_node< A_type > &another ) noexcept
+//	:
+//		_is_left_thread( another._is_left_thread ),
+//		_is_right_thread( another._is_right_thread ),
+//		_left_child( another._left_child ),
+//		_right_child( another._right_child ),
+//		_balance_factor( another._balance_factor )
+//{}
+
+//template< class A_type >
+//const Tavl_node< A_type > &Tavl_node< A_type >::operator =( const Tavl_node< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	_is_left_thread = another._is_left_thread;
+//	_is_right_thread = another._is_right_thread;
+//	_left_child = another._left_child;
+//	_right_child = another._right_child;
+//	_balance_factor = another._balance_factor;
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Tavl_node< A_type >::Tavl_node( Tavl_node< A_type > &&another ) noexcept
+//	:
+//		_is_left_thread( ::std::move( another._is_left_thread ) ),
+//		_is_right_thread( ::std::move( another._is_right_thread ) ),
+//		_left_child( ::std::move( another._left_child ) ),
+//		_right_child( ::std::move( another._right_child ) ),
+//		_balance_factor( ::std::move( another._balance_factor ) )
+//{}
+
+//template< class A_type >
+//Tavl_node< A_type > &Tavl_node< A_type >::operator =( Tavl_node< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	_is_left_thread = ::std::move( another._is_left_thread );
+//	_is_right_thread = ::std::move( another._is_right_thread );
+//	_left_child = ::std::move( another._left_child );
+//	_right_child = ::std::move( another._right_child );
+//	_balance_factor = ::std::move( another._balance_factor );
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace noding
+} // namespace structing
+} // namespace jmsf

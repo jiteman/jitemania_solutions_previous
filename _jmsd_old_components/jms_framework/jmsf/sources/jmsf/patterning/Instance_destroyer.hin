@@ -1,0 +1,63 @@
+#pragma once
+
+#include "Instance_destroyer.hpp"
+
+
+#include "jmsf/validating/macroses_Type_name.h"
+#include <iostream>
+
+
+namespace jmsf {
+namespace patterning {
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Instance_destroyer< A_type >::~Instance_destroyer() noexcept {
+	::std::cout << ::std::endl << "Instance_destroyer< %A_type% >::~Instance_destroyer() with: < " << JMSF_TYPE_NAME( A_type ) << " > before destruction" << ::std::endl;
+	A_type::destroy_instance();
+	::std::cout << ::std::endl << "Instance_destroyer< %A_type% >::~Instance_destroyer() with: < " << JMSF_TYPE_NAME( A_type ) << " > after destruction" << ::std::endl;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Instance_destroyer< A_type >::Instance_destroyer() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Instance_destroyer< A_type >::Instance_destroyer( const Instance_destroyer< A_type > &/*another*/ ) noexcept {
+}
+
+template< class A_type >
+const Instance_destroyer< A_type > &Instance_destroyer< A_type >::operator =( const Instance_destroyer< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// copy
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Instance_destroyer< A_type >::Instance_destroyer( Instance_destroyer< A_type > &&/*another*/ ) noexcept {
+}
+
+template< class A_type >
+Instance_destroyer< A_type > &Instance_destroyer< A_type >::operator =( Instance_destroyer< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// move
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace patterning
+} // namespace jmsf

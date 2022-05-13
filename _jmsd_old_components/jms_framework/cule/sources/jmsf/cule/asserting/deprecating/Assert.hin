@@ -1,0 +1,169 @@
+#pragma once
+
+#include "Assert.hpp"
+
+
+#include "jmsf/cule/cule_Allocators.h"
+
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+#include "jmsf/pointing/cWeak.hin"
+
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+#include "jmsf/texting/String_literal.h"
+//#include "jmsf/pointing/Pointer.hin"
+//#include "jmsf/pointing/Constant_pointer.hin"
+
+#include "jmsf/memorying/Womp.hin"
+
+#include "jmsf/validating/macroses_Type_name.h"
+
+
+namespace jmsf {
+namespace cule {
+namespace asserting {
+namespace deprecating {
+
+
+template< class A_type >
+// static
+void Assert::object_should_be_empty( const A_type &an_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( an_object.is_empty() ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "this object of type <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> is not empty, but it was expected to be empty" ) ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::object_should_not_be_empty( const A_type &an_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( an_object.is_not_empty() ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "this object of type <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> is empty, but it was expected not to be empty" ) ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::solids_should_be_equal_by_operator( const A_type &expected_object, const A_type &actual_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( expected_object == actual_object ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "the actual object of type <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> is: " ) ) );
+	ansii_stream->put( actual_object.to_ansii_text( aaa ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( ", but it was expected to be: " ) ) );
+	ansii_stream->put( expected_object.to_ansii_text( aaa ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::solids_should_not_be_equal_by_operator( const A_type &expected_object, const A_type &actual_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( expected_object != actual_object ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "the actual object of type <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> is: " ) ) );
+	ansii_stream->put( actual_object.to_ansii_text( aaa ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( ", but it was expected to be different" ) ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::objects_should_be_equal( const A_type &expected_object, const A_type &actual_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( expected_object.is_equal( actual_object ) ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "the actual object of <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> type is equal to: " ) ) );
+	ansii_stream->put( actual_object.to_ansii_text( aaa ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( ", but it was expected to be equal to: " ) ) );
+	ansii_stream->put( expected_object.to_ansii_text( aaa ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::objects_should_not_be_equal( const A_type &expected_object, const A_type &actual_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( expected_object.is_not_equal( actual_object ) ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "the actual object of <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> type is equal to: " ) ) );
+	ansii_stream->put( actual_object.to_ansii_text( aaa ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( ", but it was expected to be different" ) ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::objects_should_be_same( const A_type &expected_object, const A_type &actual_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( expected_object.is_same( actual_object ) ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "the actual object of <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> type is: " ) ) );
+	ansii_stream->put( actual_object.to_ansii_text( aaa ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( ", but it was expected to be the same as: " ) ) );
+	ansii_stream->put( expected_object.to_ansii_text( aaa ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+template< class A_type >
+// static
+void Assert::objects_should_not_be_same( const A_type &expected_object, const A_type &actual_object, const ::jmsf::validating::File_and_line &file_and_line ) {
+	if ( expected_object.is_not_same( actual_object ) ) return;
+
+	const memorying::Womp< texting::Ansii_allocating_assistor > &aaa = cule_Allocators::instance()->get_ansii_allocating_assistor();
+	pointing::Shared< texting::Ansii_stream > ansii_stream = aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "the actual object of <" ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( "> type is the same as: " ) ) );
+	ansii_stream->put( actual_object.to_ansii_text( aaa ) );
+	ansii_stream->put( texting::Aaa_sl( aaa, JMSF_SL( ", but it was expected to be different" ) ) );
+
+	throw_cule_exception( texting::Aaa_cs( aaa, ansii_stream ), file_and_line );
+}
+
+
+} // namespace deprecating
+} // namespace asserting
+} // namespace cule
+} // namespace jmsf

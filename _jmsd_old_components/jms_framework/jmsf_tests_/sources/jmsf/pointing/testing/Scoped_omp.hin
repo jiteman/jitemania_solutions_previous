@@ -1,0 +1,59 @@
+#pragma once
+
+#include "Scoped_omp.hpp"
+
+
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/memorying/Destructor.hin"
+
+
+namespace jmsf {
+namespace pointing {
+namespace testing {
+
+
+template< class A_type >
+typeing::Boolean Scoped_omp< A_type >::is_empty() const noexcept {
+	return _is_empty;
+}
+
+template< class A_type >
+typeing::Boolean Scoped_omp< A_type >::is_not_empty() const noexcept {
+	return !this->is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Scoped_omp< A_type >::Scoped_omp( typeing::Boolean const is_empty ) noexcept {
+	_is_empty = is_empty;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+Scoped_omp< A_type > Scoped_omp< A_type >::create( memorying::Omp< A_type > const &an_omp ) {
+	memorying::Destructor< A_type >::destruct( an_omp );
+
+	return Scoped_omp< A_type >( typeing::False );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace testing
+} // namespace pointing
+} // namespace jmsf

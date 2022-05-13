@@ -1,0 +1,253 @@
+#pragma once
+
+
+#include "List_traverser.hpp"
+
+#include "jmsf/structing/containing/List_agent.hin"
+#include "jmsf/structing/noding/Doubly_linked_node.hin"
+
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/memorying/Omp.hin"
+
+#include "jmsf/memorying/Destructor.hin"
+
+
+namespace jmsf {
+namespace structing {
+namespace traversing {
+
+
+// common getters
+template< class A_type >
+typeing::Boolean List_traverser< A_type >::is_done() const noexcept {
+	return _the_node.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean List_traverser< A_type >::is_not_done() const noexcept {
+	return _the_node.is_not_empty();
+}
+//~common getters
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// element getters
+template< class A_type >
+const A_type &List_traverser< A_type >::get_object() const {
+	return _the_node->get_object();
+}
+
+template< class A_type >
+A_type &List_traverser< A_type >::take_object() {
+	return _the_node->take_object();
+}
+
+//~element getters
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// iterations
+template< class A_type >
+void List_traverser< A_type >::rewind_to_begin() noexcept {
+	_the_node = _the_list_agent->take_begin();
+	_is_reversed = typeing::False;
+}
+
+template< class A_type >
+void List_traverser< A_type >::rewind_to_end() noexcept {
+	_the_node = _the_list_agent->take_end();
+	_is_reversed = typeing::True;
+}
+
+template< class A_type >
+void List_traverser< A_type >::move_one_step_to_begin() {
+	if ( _the_node.is_empty() ) {
+		// operation on empty node
+		return;
+	}
+
+	_the_node = _the_node->take_previous_node();
+}
+
+template< class A_type >
+void List_traverser< A_type >::move_one_step_to_end() {
+	if ( _the_node.is_empty() ) {
+		// operation on empty node
+		return;
+	}
+
+	_the_node = _the_node->take_next_node();
+}
+
+//~iterations
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// appending modifiers
+template< class A_type >
+void List_traverser< A_type >::insert_after( const A_type &an_object, const memorying::Allocator &node_allocator ) {
+	if ( _the_node.is_empty() ) {
+		// operation on empty node
+		return;
+	}
+
+	memorying::Omp< noding::Doubly_linked_node< A_type > > new_node =
+		noding::Doubly_linked_node< A_type >::create(
+			an_object,
+			_the_node,
+			_the_node->take_next_node(),
+			node_allocator );
+
+	if ( _the_node->take_next_node().is_not_empty() ) {
+		_the_node->take_next_node()->set_previous_node( new_node );
+	}
+
+	_the_node->set_next_node( new_node );
+	++_the_list_agent->take_quantity();
+	_the_node = new_node;
+}
+
+template< class A_type >
+void List_traverser< A_type >::insert_before( const A_type &an_object, const memorying::Allocator &node_allocator ) {
+	if ( _the_node.is_empty() ) {
+		// operation on empty node
+		return;
+	}
+
+	memorying::Omp< noding::Doubly_linked_node< A_type > > new_node =
+		noding::Doubly_linked_node< A_type >::create(
+			an_object,
+			_the_node->take_previous_node(),
+			_the_node,
+			node_allocator );
+
+	if ( _the_node->take_previous_node().is_not_empty() ) {
+		_the_node->take_previous_node()->set_next_node( new_node );
+	}
+
+	_the_node->set_previous_node( new_node );
+	++_the_list_agent->take_quantity();
+	_the_node = new_node;
+}
+
+//~appending modifiers
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// erasing modifiers
+template< class A_type >
+void List_traverser< A_type >::erase_object() {
+	if ( _the_node.is_empty() ) {
+		// operation on empty node
+	}
+
+	memorying::Omp< noding::Doubly_linked_node< A_type > > node_to_erase = _the_node;
+
+	_the_node = _is_reversed ? _the_node->take_previous_node() : _the_node->take_next_node();
+
+	if ( node_to_erase->take_previous_node().is_not_empty() ) {
+		node_to_erase->take_previous_node()->set_next_node( node_to_erase->take_next_node() );
+	}
+
+	if ( node_to_erase->take_next_node().is_not_empty() ) {
+		node_to_erase->take_next_node()->set_previous_node( node_to_erase->take_previous_node() );
+	}
+
+	--_the_list_agent->take_quantity();
+	memorying::Destructor< noding::Doubly_linked_node< A_type > >::destruct( node_to_erase );
+}
+
+template< class A_type >
+A_type List_traverser< A_type >::withdraw_object() {
+	if ( _the_node.is_empty() ) {
+		// operation on empty node
+		return A_type();
+	}
+
+	memorying::Omp< noding::Doubly_linked_node< A_type > > node_to_erase = _the_node;
+
+	_the_node = _is_reversed ? _the_node->take_previous_node() : _the_node->take_next_node();
+
+	if ( node_to_erase->take_previous_node().is_not_empty() ) {
+		node_to_erase->take_previous_node()->set_next_node( node_to_erase->take_next_node() );
+	}
+
+	if ( node_to_erase->take_next_node().is_not_empty() ) {
+		node_to_erase->take_next_node()->set_previous_node( node_to_erase->take_previous_node() );
+	}
+
+	--_the_list_agent->take_quantity();
+	A_type withdrawingObject = node_to_erase->take_object();
+	memorying::Destructor< noding::Doubly_linked_node< A_type > >::destruct( node_to_erase );
+	return withdrawingObject;
+}
+
+//~erasing modifiers
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+void List_traverser< A_type >::inverse_reversing() noexcept {
+	_is_reversed = _is_reversed.inversion();
+}
+
+template< class A_type >
+void List_traverser< A_type >::set_reversing( const typeing::Boolean isReversed ) noexcept {
+	_is_reversed = isReversed;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+List_traverser< A_type >::~List_traverser() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+List_traverser< A_type >::List_traverser() noexcept
+{}
+
+template< class A_type >
+List_traverser< A_type > List_traverser< A_type >::create_next() {
+	return List_traverser< A_type >( _the_list_agent, _the_node->get_next_node(), _is_reversed );
+}
+
+template< class A_type >
+List_traverser< A_type > List_traverser< A_type >::create_previous() {
+	return List_traverser< A_type >( _the_list_agent, _the_node->get_previous_node(), _is_reversed );
+}
+
+template< class A_type >
+List_traverser< A_type >::List_traverser(
+	const memorying::Womp< containing::List_agent< A_type > > &list_agent,
+	const memorying::Omp< noding::Doubly_linked_node< A_type > > &a_node,
+	const typeing::Boolean is_reversed ) noexcept
+	:
+		_the_list_agent( list_agent ),
+		_the_node( a_node ),
+		_is_reversed( is_reversed )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+List_traverser< A_type >::List_traverser( const List_traverser< A_type > &another ) noexcept
+	:
+		_the_list_agent( another._the_list_agent ),
+		_the_node( another._the_node ),
+		_is_reversed( another._is_reversed )
+{}
+
+template< class A_type >
+const List_traverser< A_type > &List_traverser< A_type >::operator =( const List_traverser< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_list_agent = another._the_list_agent;
+	_the_node = another._the_node;
+	_is_reversed = another._is_reversed;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace traversing
+} // namespace structing
+} // namespace jmsf

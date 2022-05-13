@@ -1,0 +1,90 @@
+#pragma once
+
+#include "Scoped_for_singleton.hpp"
+
+
+#include "jmsf/pointing/Scoped.hin"
+
+#include "jmsf/jmsf_logging_macroses.h"
+#include "jmsf/validating/macroses_Type_name.h"
+#include "jmsf/validating/macroses_Should.h"
+
+#include <utility>
+
+
+namespace jmsf {
+namespace patterning {
+namespace internalling {
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Scoped_for_singleton< A_type >::~Scoped_for_singleton() noexcept {
+	JMSF_INIT_DEINIT_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( pointing::Scoped< A_type >::is_not_empty(), "Scoped_for_singleton< A_type >::~Scoped_for_singleton()", JMSF_TYPE_NAME( A_type ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Scoped_for_singleton< A_type >::Scoped_for_singleton() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Scoped_for_singleton< A_type >::Scoped_for_singleton( const memorying::Omp< A_type > &object_memory_pointer ) noexcept
+	:
+		pointing::Scoped< A_type >( object_memory_pointer )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+Scoped_for_singleton< A_type > Scoped_for_singleton< A_type >::create( const memorying::Omp< A_type > &object_memory_pointer ) {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( object_memory_pointer.is_empty(), "Scoped_for_singleton< A_type >::create( Omp )", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( object_memory_pointer );
+	return Scoped_for_singleton< A_type >( object_memory_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Scoped_for_singleton< A_type >::Scoped_for_singleton( const Scoped_for_singleton< A_type > &another ) noexcept
+	:
+		pointing::Scoped< A_type >( ::std::move( const_cast< Scoped_for_singleton< A_type > & >( another ) ) )
+{}
+
+template< class A_type >
+const Scoped_for_singleton< A_type > &Scoped_for_singleton< A_type >::operator =( const Scoped_for_singleton< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	pointing::Scoped< A_type >::operator =( ::std::move( const_cast< Scoped_for_singleton< A_type > & >( another ) ) );
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Scoped_for_singleton< A_type >::Scoped_for_singleton( Scoped_for_singleton< A_type > &&another ) noexcept
+	:
+		pointing::Scoped< A_type >( ::std::move( another ) )
+{}
+
+template< class A_type >
+Scoped_for_singleton< A_type > &Scoped_for_singleton< A_type >::operator =( Scoped_for_singleton< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	pointing::Scoped< A_type >::operator =( ::std::move( another ) );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace internalling
+} // namespace patterning
+} // namespace jmsf

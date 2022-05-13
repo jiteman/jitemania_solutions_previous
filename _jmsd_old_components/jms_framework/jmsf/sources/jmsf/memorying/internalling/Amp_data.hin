@@ -1,0 +1,133 @@
+#pragma once
+
+#include "Amp_data.hpp"
+
+#include "Omp_data.hin"
+
+
+namespace jmsf {
+namespace memorying {
+namespace internalling {
+
+
+template< class A_type >
+typeing::Boolean Amp_data< A_type >::is_empty() const noexcept {
+	return _the_omp_data.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Amp_data< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+const Object_pointer< A_type > &Amp_data< A_type >::get_object() const {
+	jmsf_Should_never_be( _the_omp_data.is_empty() );
+
+	return _the_omp_data.get_object();
+}
+
+template< class A_type >
+typeing::Memory_natural Amp_data< A_type >::get_displacement() const {
+	jmsf_Should_never_be( _the_omp_data.is_empty() );
+
+	return _the_omp_data.get_displacement();
+}
+
+template< class A_type >
+typeing::Memory_natural Amp_data< A_type >::get_size() const {
+	jmsf_Should_never_be( _the_omp_data.is_empty() );
+
+	return _the_size;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Object_pointer< A_type > &Amp_data< A_type >::take_object() {
+	jmsf_Should_never_be( _the_omp_data.is_empty() );
+
+	return _the_omp_data.take_object();
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Amp_data< A_type >::~Amp_data() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Amp_data< A_type >::Amp_data() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Amp_data< A_type >::Amp_data(
+	const Omp_data< A_type > &an_omp_data,
+	const typeing::Memory_natural a_size ) noexcept
+	:
+		_the_omp_data( an_omp_data ),
+		_the_size( a_size )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+template< class A_created_type >
+Amp_data< A_type > Amp_data< A_type >::create(
+	const Memory_address a_memory_address )
+{
+	jmsf_Should_never_be_with_type( a_memory_address.is_empty(), JMSF_TYPE_NAME( A_created_type ) );
+
+	return
+		Amp_data< A_type >(
+			Omp_data< A_type >::template create< A_created_type >( a_memory_address ),
+			typeing::size_of< A_created_type >() );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Amp_data< A_type >::Amp_data( const Amp_data< A_type > &another ) noexcept
+	:
+		_the_omp_data( another._the_omp_data ),
+		_the_size( another._the_size )
+{}
+
+template< class A_type >
+const Amp_data< A_type > &Amp_data< A_type >::operator =( const Amp_data< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_omp_data = another._the_omp_data;
+	_the_size = another._the_size;
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Amp_data< A_type >::Amp_data( Amp_data< A_type > &&another ) noexcept
+	:
+		_the_omp_data( ::std::move( another._the_omp_data ) ),
+		_the_size( ::std::move( another._the_size ) )
+{}
+
+template< class A_type >
+Amp_data< A_type > &Amp_data< A_type >::operator =( Amp_data< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_omp_data = ::std::move( another._the_omp_data );
+	_the_size = ::std::move( another._the_size );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace internalling
+} // namespace memorying
+} // namespace jmsf

@@ -1,0 +1,10 @@
+#define FORCE_INLINE inline __attribute__( ( always_inline ) )
+// (As far as I remember, the inline still have to be specified).
+// This is for GCC. MSVC has __forceinline
+
+// Even if they knew, I wouldn't use that information for your case.
+// These switches are used to adjust the parameters of the heuristics.
+// In your case, you don't need this.
+/ You don't want to adjust heuristics, but you want to tell the compiler: "inline this, no matter what".
+// This is always_inline for.
+

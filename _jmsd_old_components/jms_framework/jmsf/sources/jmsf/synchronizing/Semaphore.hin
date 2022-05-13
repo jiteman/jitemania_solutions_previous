@@ -1,0 +1,17 @@
+#pragma once
+
+
+#include "Semaphore.hpp"
+
+
+template< typename R,typename P >
+bool Semaphore::wait( ::std::chrono::duration< R, P > const &relative_time ) {
+	::std::unique_lock< ::std::mutex > lock( _the_mutex );
+
+	if ( !_condition_variable.wait_for( lock, relative_time, [ & ]()->bool{ return _signal_counter > 0; } ) ) {
+		return false;
+	}
+
+	--_signal_counter;
+	return true;
+}

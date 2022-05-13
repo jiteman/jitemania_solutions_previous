@@ -1,0 +1,136 @@
+#pragma once
+
+
+#include "Doubly_linked_node.hpp"
+
+//#include "jmsf/temping/Pointers.hin"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Allocator.h"
+#include "jmsf/memorying/Constructor.hin"
+
+
+namespace jmsf {
+namespace structing {
+namespace noding {
+
+
+template< class A_type >
+A_type &Doubly_linked_node< A_type >::take_object() noexcept {
+	return _the_object;
+}
+
+template< class A_type >
+const A_type &Doubly_linked_node< A_type >::get_object() const noexcept {
+	return _the_object;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+memorying::Omp< Doubly_linked_node< A_type > > &Doubly_linked_node< A_type >::take_previous_node() noexcept {
+	return _previous_node;
+}
+
+template< class A_type >
+const memorying::Omp< Doubly_linked_node< A_type > > &Doubly_linked_node< A_type >::get_previous_node() const noexcept {
+	return _previous_node;
+}
+
+template< class A_type >
+memorying::Omp< Doubly_linked_node< A_type > > &Doubly_linked_node< A_type >::take_next_node() noexcept {
+	return _next_node;
+}
+
+template< class A_type >
+const memorying::Omp< Doubly_linked_node< A_type > > &Doubly_linked_node< A_type >::get_next_node() const noexcept {
+	return _next_node;
+}
+
+template< class A_type >
+void Doubly_linked_node< A_type >::set_previous_node( const memorying::Omp< Doubly_linked_node< A_type > > &previousNode ) noexcept {
+	_previous_node = previousNode;
+}
+
+template< class A_type >
+void Doubly_linked_node< A_type >::set_next_node( const memorying::Omp< Doubly_linked_node< A_type > > &nextNode ) noexcept {
+	_next_node = nextNode;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Doubly_linked_node< A_type >::~Doubly_linked_node() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// statics
+template< class A_type >
+memorying::Omp< Doubly_linked_node< A_type > > Doubly_linked_node< A_type >::create( const memorying::Womp< memorying::Allocator > &an_allocator ) {
+	return memorying::Constructor< Doubly_linked_node< A_type >, Doubly_linked_node< A_type > >::construct( an_allocator );
+}
+
+template< class A_type >
+memorying::Omp< Doubly_linked_node< A_type > > Doubly_linked_node< A_type >::create( const A_type &an_object, const memorying::Womp< memorying::Allocator > &an_allocator ) {
+	return memorying::Constructor< Doubly_linked_node< A_type >, Doubly_linked_node< A_type > >::construct( an_allocator, an_object );
+}
+
+template< class A_type >
+memorying::Omp< Doubly_linked_node< A_type > > Doubly_linked_node< A_type >::create(
+	const A_type &an_object,
+	const memorying::Omp< Doubly_linked_node > &previous_node,
+	const memorying::Omp< Doubly_linked_node > &next_node,
+	const memorying::Womp< memorying::Allocator > &an_allocator )
+{
+	return memorying::Constructor< Doubly_linked_node< A_type >, Doubly_linked_node< A_type > >::construct( an_allocator, an_object, previous_node, next_node );
+}
+//~statics
+
+template< class A_type >
+Doubly_linked_node< A_type >::Doubly_linked_node() noexcept
+	:
+		_the_object( A_type() )
+{}
+
+template< class A_type >
+Doubly_linked_node< A_type >::Doubly_linked_node( const A_type &object ) noexcept
+	:
+		_the_object( object )
+{}
+
+template< class A_type >
+Doubly_linked_node< A_type >::Doubly_linked_node(
+	const A_type &object,
+	const memorying::Omp< Doubly_linked_node< A_type > > &previousNode,
+	const memorying::Omp< Doubly_linked_node< A_type > > &nextNode ) noexcept
+	:
+		_previous_node( previousNode ),
+		_next_node( nextNode ),
+		_the_object( object )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Doubly_linked_node< A_type >::Doubly_linked_node( const Doubly_linked_node< A_type > &another ) noexcept
+	:
+		_previous_node( another._previous_node ),
+		_next_node( another._next_node ),
+		_the_object( another._the_object )
+{}
+
+template< class A_type >
+const Doubly_linked_node< A_type > &Doubly_linked_node< A_type >::operator =( const Doubly_linked_node< A_type > &another ) noexcept {
+	if ( this == &another ) return *this;
+
+	_the_object = another._the_object;
+	_previous_node = another._previous_node;
+	_next_node = another._next_node;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace noding
+} // namespace structing
+} // namespace jmsf

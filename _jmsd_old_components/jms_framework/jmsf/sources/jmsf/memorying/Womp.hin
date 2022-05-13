@@ -1,0 +1,166 @@
+#pragma once
+
+#include "Womp.hpp"
+
+
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+
+#include "Omp.hin"
+#include "Object_pointer.hin"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/jmsf_logging_macroses.h"
+#include "jmsf/validating/macroses_Should.h"
+#include "jmsf/validating/macroses_Type_name.h"
+
+#include <utility>
+
+
+namespace jmsf {
+namespace memorying {
+
+
+template< class A_type >
+typeing::Boolean Womp< A_type >::is_empty() const noexcept {
+	return _the_object_pointer.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Womp< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+const A_type &Womp< A_type >::operator *() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Womp< A_type >::operator *()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return *_the_object_pointer.get();
+}
+
+template< class A_type >
+const A_type *Womp< A_type >::operator ->() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Womp< A_type >::operator ->()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return _the_object_pointer.get();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+A_type &Womp< A_type >::operator *() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Womp< A_type >::operator *()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return *_the_object_pointer.take();
+}
+
+template< class A_type >
+A_type *Womp< A_type >::operator ->() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Womp< A_type >::operator ->()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return _the_object_pointer.take();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Memory_natural Womp< A_type >::get_object_address() const noexcept {
+	return
+		typeing::create_address_from_pointer(
+			_the_object_pointer.get() );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean Womp< A_type >::operator ==( const Womp< A_type > &another ) const noexcept {
+	return _the_object_pointer == another._the_object_pointer;
+}
+
+template< class A_type >
+typeing::Boolean Womp< A_type >::operator !=( const Womp< A_type > &another ) const noexcept {
+	return !operator ==( another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+pointing::cShared< texting::Ansii_text > Womp< A_type >::to_ansii_text( const Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	pointing::Shared< texting::Ansii_stream > ansii_stream = an_aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( an_aaa, JMSF_SL( "[ " ) ) );
+	ansii_stream->put( _the_object_pointer.to_ansii_text( an_aaa ) );
+	ansii_stream->put( texting::Aaa_sl( an_aaa, JMSF_SL( " ]" ) ) );
+
+	return texting::Aaa_cs( an_aaa, ansii_stream );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Womp< A_type >::~Womp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Womp< A_type >::Womp() noexcept
+{}
+
+// static
+template< class A_type >
+Womp< A_type > Womp< A_type >::create( const Object_pointer< A_type > &an_object_pointer ) {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( a_memory_pointer.is_empty(), "Womp< A_type >::create_from_memory_pointer( mp )", JMSF_TYPE_NAME( A_type ) );
+
+	if ( an_object_pointer.is_empty() ) {
+		jmsf_Should_never_be_empty( Womp< A_type >() ); // for A_type
+	}
+
+	return Womp< A_type >( an_object_pointer );
+}
+
+template< class A_type >
+Womp< A_type >::Womp( const Object_pointer< A_type > &an_object_pointer ) noexcept
+	:
+		_the_object_pointer( an_object_pointer )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Womp< A_type >::Womp( const Womp< A_type > &another ) noexcept
+	:
+		_the_object_pointer( another._the_object_pointer )
+{}
+
+template< class A_type >
+const Womp< A_type > &Womp< A_type >::operator =( const Womp< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_object_pointer = another._the_object_pointer;
+	return *this;
+}
+
+template< class A_type >
+Womp< A_type >::Womp( Womp< A_type > &&another ) noexcept
+	:
+		_the_object_pointer( ::std::move( another._the_object_pointer ) )
+{}
+
+template< class A_type >
+Womp< A_type > &Womp< A_type >::operator =( Womp< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_object_pointer = ::std::move( another._the_object_pointer );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace memorying
+} // namespace jmsf

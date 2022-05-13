@@ -1,0 +1,99 @@
+#pragma once
+
+#include "native_Object_with_reference_counters.hpp"
+
+
+#include "jmsf/encodebuba/nativing/internalling/native_Reference_counters.h"
+
+#include "jmsf/encodebuba/validating/macroses_native_Should.h"
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+namespace internalling {
+
+
+template< class A_type >
+native_boolean native_Object_with_reference_counters< A_type >::is_empty() const noexcept {
+	return _is_empty;
+}
+
+template< class A_type >
+native_boolean native_Object_with_reference_counters< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+native_Object_with_reference_counters< A_type >::~native_Object_with_reference_counters() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Object_with_reference_counters< A_type >::native_Object_with_reference_counters( const native_boolean an_is_true ) noexcept {
+	_is_empty = an_is_true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Object_with_reference_counters< A_type >::native_Object_with_reference_counters() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+native_Object_with_reference_counters< A_type > native_Object_with_reference_counters< A_type >::create(
+	native_Reference_counters *a_reference_counters,
+	A_type *an_object_pointer )
+{
+	jmsf_native_Should_never_be_null_native_pointer( a_reference_counters );
+	jmsf_native_Should_never_be_null_native_pointer( an_object_pointer );
+
+	a_reference_counters->destroy();
+	an_object_pointer->destroy();
+
+	return native_Object_with_reference_counters< A_type >( false );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Object_with_reference_counters< A_type >::native_Object_with_reference_counters( const native_Object_with_reference_counters< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//native_Object_with_reference_counters< A_type > &native_Object_with_reference_counters< A_type >::operator =( const native_Object_with_reference_counters< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Object_with_reference_counters< A_type >::native_Object_with_reference_counters( native_Object_with_reference_counters< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//native_Object_with_reference_counters< A_type > &native_Object_with_reference_counters< A_type >::operator =( native_Object_with_reference_counters< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace internalling
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

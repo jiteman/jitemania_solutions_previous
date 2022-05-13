@@ -1,0 +1,48 @@
+#include "temporary_Allocator.h"
+
+#include "Memory_pointer.h"
+
+#include "jmsf/typeing/Naturals.hin"
+
+
+#include "jmsf/al_std/stl_hin/cstdlib_al_std.hin"
+
+
+namespace jmsf {
+namespace memorying {
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Memory_pointer temporary_Allocator::allocate_memory( const typeing::Memory_natural a_size, const typeing::Memory_natural  ) { // alignment
+	return
+		a_size.is_nill() ?
+				Memory_pointer()
+			:
+				Memory_pointer::create_from_address( typeing::create_address_from_pointer( ::std::malloc( a_size.get_value() ) ) );
+}
+
+void temporary_Allocator::deallocate_memory( const Memory_pointer &a_memory, const typeing::Memory_natural  ) { // alignment
+	if ( a_memory.is_empty() ) return;
+
+	Memory_pointer &non_const_memory_pointer = const_cast< Memory_pointer & >( a_memory );
+	::std::free( non_const_memory_pointer.take() );
+}
+
+
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+temporary_Allocator::~temporary_Allocator() noexcept
+{}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+} // namespace memorying
+} // namespace jmsf

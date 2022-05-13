@@ -1,0 +1,167 @@
+#pragma once
+
+#include "Avl_tree_traverser.hpp"
+
+
+#include "jmsf/structing/noding/Avl_tree_node.hin"
+
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace structing {
+namespace traversing {
+
+
+template< class A_type >
+typeing::Boolean Avl_tree_traverser< A_type >::is_empty() const noexcept {
+	return typeing::Boolean::create( _the_node_pointer.is_empty() );
+}
+
+template< class A_type >
+typeing::Boolean Avl_tree_traverser< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+const A_type &Avl_tree_traverser< A_type >::get_object() const {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	return _the_node_pointer->get_object();
+}
+
+template< class A_type >
+A_type &Avl_tree_traverser< A_type >::take_object() {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+	return _the_node_pointer->take_object();
+}
+
+template< class A_type >
+const memorying::Omp< noding::Avl_tree_node< A_type > > &Avl_tree_traverser< A_type >::get_node() const noexcept {
+	return _the_node_pointer;
+}
+
+template< class A_type >
+memorying::Omp< noding::Avl_tree_node< A_type > > &Avl_tree_traverser< A_type >::take_node() const noexcept {
+	return _the_node_pointer;
+}
+
+template< class A_type >
+void Avl_tree_traverser< A_type >::move_one_step_up() const {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	_the_node_pointer = _the_node_pointer->take_parent();
+}
+
+template< class A_type >
+void Avl_tree_traverser< A_type >::move_one_step_up() {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	_the_node_pointer = _the_node_pointer->take_parent();
+}
+
+template< class A_type >
+void Avl_tree_traverser< A_type >::move_one_step_down_left() const {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	_the_node_pointer = _the_node_pointer->take_left_child();
+}
+
+template< class A_type >
+void Avl_tree_traverser< A_type >::move_one_step_down_left() {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	_the_node_pointer = _the_node_pointer->take_left_child();
+}
+
+template< class A_type >
+void Avl_tree_traverser< A_type >::move_one_step_down_right() const {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	_the_node_pointer = _the_node_pointer->take_right_child();
+}
+
+template< class A_type >
+void Avl_tree_traverser< A_type >::move_one_step_down_right() {
+	jmsf_Should_never_be_empty( _the_node_pointer );
+
+	_the_node_pointer = _the_node_pointer->take_right_child();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+const memorying::Womp< structing::containing::Avl_tree< A_type > > &Avl_tree_traverser< A_type >::get_tree() const noexcept {
+	return _the_avl_tree;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Avl_tree_traverser< A_type >::~Avl_tree_traverser() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Avl_tree_traverser< A_type >::Avl_tree_traverser() noexcept
+{}
+
+template< class A_type >
+Avl_tree_traverser< A_type >::Avl_tree_traverser(
+	const memorying::Womp< structing::containing::Avl_tree< A_type > > &an_avl_tree,
+	const memorying::Omp< noding::Avl_tree_node< A_type > > &a_node_pointer ) noexcept
+	:
+		_the_node_pointer( a_node_pointer ),
+		_the_avl_tree( an_avl_tree )
+{}
+
+template< class A_type >
+// static
+Avl_tree_traverser< A_type > Avl_tree_traverser< A_type >::create(
+	const memorying::Womp< structing::containing::Avl_tree< A_type > > &an_avl_tree,
+	const memorying::Omp< noding::Avl_tree_node< A_type > > &a_node_pointer )
+{
+	jmsf_Should_never_be_empty( an_avl_tree );
+
+	return Avl_tree_traverser< A_type >{ an_avl_tree, a_node_pointer };
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Avl_tree_traverser< A_type >::Avl_tree_traverser( const Avl_tree_traverser< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Avl_tree_traverser< A_type > &Avl_tree_traverser< A_type >::operator =( const Avl_tree_traverser< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Avl_tree_traverser< A_type >::Avl_tree_traverser( Avl_tree_traverser< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Avl_tree_traverser< A_type > &Avl_tree_traverser< A_type >::operator =( Avl_tree_traverser< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace traversing
+} // namespace structing
+} // namespace jmsf

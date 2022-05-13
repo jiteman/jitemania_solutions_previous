@@ -1,0 +1,161 @@
+#pragma once
+
+#include "Test_exception.hpp"
+
+
+#include "jmsf/cule/cule_Allocators.h"
+#include "jmsf/cule/excepting/Test_fault_exception.h"
+
+#include "jmsf/cule/asserting/deprecating/Assert.hin"
+
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+
+#include "jmsf/validating/Foreign_exception.h"
+#include "jmsf/validating/macroses_Type_name.h"
+
+#include "jmsf/encodebuba/validating/native_Exception.h"
+
+
+namespace jmsf {
+namespace cule {
+namespace testing {
+
+
+template< class A_type >
+void Test_exception< A_type >::run() const {
+	try {
+		try {
+			test_exception_to_run_with();
+			::jmsf::pointing::Shared< ::jmsf::texting::Ansii_stream > ansii_stream =
+				::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor()->create_ansii_stream();
+
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "expected exception: <" ) ) );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> but there was no exception" ) ) );
+
+			::jmsf::cule::asserting::deprecating::Assert_throw_cule_exception(
+				::jmsf::texting::Aaa_cs(
+					::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(),
+					ansii_stream ),
+				get_file_and_line() );
+
+		} catch ( const A_type &/*an_expected_exception*/ ) {
+
+		} catch ( const ::jmsf::cule::excepting::Test_fault_exception &/*a_test_fault_exception*/ ) {
+			throw;
+
+		} catch ( const ::jmsf::encodebuba::validating::native_Exception &a_jmsf_encodebuba_base_exception ) {
+			::jmsf::pointing::Shared< ::jmsf::texting::Ansii_stream > ansii_stream =
+				::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor()->create_ansii_stream();
+
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "expected exception: <" ) ) );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> but there was <" ) ) );
+
+			ansii_stream->put(
+				::jmsf::texting::Aaa_sl(
+					::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(),
+					JMSF_SL( a_jmsf_encodebuba_base_exception.get_exception_name() ) ) );
+
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> exception" ) ) );
+
+			::jmsf::cule::asserting::deprecating::Assert_throw_cule_exception(
+				::jmsf::texting::Aaa_cs(
+					::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(),
+					ansii_stream ),
+				get_file_and_line() );
+		} catch ( const ::jmsf::validating::Exception &a_jmsf_base_exception ) {
+			::jmsf::pointing::Shared< ::jmsf::texting::Ansii_stream > ansii_stream =
+				::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor()->create_ansii_stream();
+
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "expected exception: <" ) ) );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> but there was <" ) ) );
+			ansii_stream->put( a_jmsf_base_exception.get_exception_name().get_as_cshared() );
+			ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> exception" ) ) );
+
+			::jmsf::cule::asserting::deprecating::Assert_throw_cule_exception(
+				::jmsf::texting::Aaa_cs(
+					::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(),
+					ansii_stream ),
+				get_file_and_line() );
+
+		} JMSF_CATCH_FOREIGN_EXCEPTIONS( "CULE" );
+
+	} catch ( const ::jmsf::validating::Foreign_exception &a_foreign_exception ) {
+
+		::jmsf::pointing::Shared< ::jmsf::texting::Ansii_stream > ansii_stream =
+			::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor()->create_ansii_stream();
+
+		ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "expected exception: <" ) ) );
+		ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( JMSF_TYPE_NAME( A_type ) ) ) );
+		ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> but there was <" ) ) );
+		ansii_stream->put( a_foreign_exception.get_exception_category().get_as_cshared() );
+		ansii_stream->put( ::jmsf::texting::Aaa_sl( ::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(), JMSF_SL( "> exception with reason: " ) ) );
+		ansii_stream->put( a_foreign_exception.get_reason_description().get_as_cshared() );
+
+		::jmsf::cule::asserting::deprecating::Assert_throw_cule_exception(
+			::jmsf::texting::Aaa_cs(
+				::jmsf::cule::cule_Allocators::instance()->get_ansii_allocating_assistor(),
+				ansii_stream ),
+			get_file_and_line() );
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Test_exception< A_type >::~Test_exception() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Test_exception< A_type >::Test_exception(
+	const texting::String_literal &test_name,
+	const ::jmsf::validating::File_and_line &file_and_line ) noexcept
+	:
+		Test( test_name, file_and_line )
+{}
+
+//template< class A_type >
+//Test_exception< A_type >::Test_exception() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Test_exception< A_type >::Test_exception( const Test_exception< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Test_exception< A_type > &Test_exception< A_type >::operator =( const Test_exception< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Test_exception< A_type >::Test_exception( Test_exception< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Test_exception< A_type > &Test_exception< A_type >::operator =( Test_exception< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace testing
+} // namespace cule
+} // namespace jmsf

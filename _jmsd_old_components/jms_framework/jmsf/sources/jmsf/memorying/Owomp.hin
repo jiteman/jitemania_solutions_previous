@@ -1,0 +1,128 @@
+#pragma once
+
+#include "Owomp.hpp"
+
+
+#include "Womp.hin"
+#include "Omp.hin"
+
+#include "jmsf/jmsf_logging_macroses.h"
+#include "jmsf/validating/macroses_Type_name.h"
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace memorying {
+
+
+template< class A_type >
+const Omp< A_type > &Owomp< A_type >::get_omp() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Owomp< A_type >::get_omp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _object_memory_pointer;
+}
+
+template< class A_type >
+const Womp< A_type > &Owomp< A_type >::get_womp() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Owomp< A_type >::get_womp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _weak_object_memory_pointer;
+}
+
+template< class A_type >
+Omp< A_type > &Owomp< A_type >::take_omp() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Owomp< A_type >::take_omp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _object_memory_pointer;
+}
+
+template< class A_type >
+Womp< A_type > &Owomp< A_type >::take_womp() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Owomp< A_type >::take_womp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _weak_object_memory_pointer;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean Owomp< A_type >::is_empty() const noexcept {
+	return _object_memory_pointer.is_empty() || _weak_object_memory_pointer.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Owomp< A_type >::is_not_empty() const noexcept {
+	return _object_memory_pointer.is_not_empty() && _weak_object_memory_pointer.is_empty();
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Owomp< A_type >::~Owomp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Owomp< A_type >::Owomp() noexcept
+{}
+
+template< class A_type >
+Owomp< A_type >::Owomp( const Omp< A_type > &an_object_memory_pointer ) noexcept
+	:
+		_object_memory_pointer( an_object_memory_pointer ),
+		_weak_object_memory_pointer( an_object_memory_pointer.get_as_womp() )
+{}
+
+// static
+template< class A_type >
+Owomp< A_type > Owomp< A_type >::create( const Omp< A_type > &an_object_memory_pointer ) {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( an_object_memory_pointer.is_empty(), "Owomp< A_type >::create()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( an_object_memory_pointer );
+	return Owomp< A_type >( an_object_memory_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Owomp< A_type >::Owomp( const Owomp< A_type > &another ) noexcept
+	:
+		_object_memory_pointer( another._object_memory_pointer ),
+		_weak_object_memory_pointer( another._weak_object_memory_pointer )
+{}
+
+template< class A_type >
+const Owomp< A_type > &Owomp< A_type >::operator =( const Owomp< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_object_memory_pointer = another._object_memory_pointer;
+	_weak_object_memory_pointer = another._weak_object_memory_pointer;
+	return *this;
+}
+
+template< class A_type >
+Owomp< A_type >::Owomp( Owomp< A_type > &&another ) noexcept
+	:
+		_object_memory_pointer( another._object_memory_pointer ),
+		_weak_object_memory_pointer( another._weak_object_memory_pointer )
+{
+	another._object_memory_pointer = Omp< A_type >();
+	another._weak_object_memory_pointer = Womp< A_type >();
+}
+
+template< class A_type >
+Owomp< A_type > &Owomp< A_type >::operator =( Owomp< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_object_memory_pointer = another._object_memory_pointer;
+	_weak_object_memory_pointer = another._weak_object_memory_pointer;
+	another._object_memory_pointer = Omp< A_type >();
+	another._weak_object_memory_pointer = Womp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace memorying
+} // namespace jmsf

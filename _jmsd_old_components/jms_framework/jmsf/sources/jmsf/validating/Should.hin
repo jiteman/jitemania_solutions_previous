@@ -1,0 +1,518 @@
+#pragma once
+
+#include "Should.h"
+
+
+//#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+#include "jmsf/texting/String_literal.h"
+
+#include "jmsf/jmsf_Allocators.h"
+
+#include "jmsf/pointing/Weak.hin"
+#include "jmsf/pointing/cWeak.hin"
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+#include "jmsf/pointing/Nonlinked.hin"
+#include "jmsf/pointing/cNonlinked.hin"
+#include "jmsf/pointing/Scoped.hin"
+#include "jmsf/pointing/cScoped.hin"
+
+#include "jmsf/memorying/Awamp.hin"
+#include "jmsf/memorying/Owomp.hin"
+#include "jmsf/memorying/Wamp.hin"
+#include "jmsf/memorying/Amp.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Object_pointer.hin"
+
+#include "File_and_line.h"
+#include "macroses_Type_name.h"
+#include "excepting/exception_Should_with_type_information.h"
+
+#include "jmsf/jmsf_logging_macroses.h"
+
+
+namespace jmsf {
+namespace validating {
+
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Object_pointer< A_type > &an_object_pointer, const File_and_line &file_and_line ) {
+	if ( an_object_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( memorying::Object_pointer< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Object_pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( memorying::Object_pointer< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Object_pointer< A_type > &an_object_pointer, const File_and_line &file_and_line ) {
+	if ( an_object_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( memorying::Object_pointer< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Object_pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Object_pointer< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Omp< A_type > &object_memory_pointer, const File_and_line &file_and_line ) {
+	if ( object_memory_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_null( memorying::Omp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Omp is not empty" ),
+			JMSF_SL( "Should::always_be_null( memorying::Omp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Omp< A_type > &object_memory_pointer, const File_and_line &file_and_line ) {
+	if ( object_memory_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( memorying::Omp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Omp is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Omp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Womp< A_type > &weak_object_memory_pointer, const File_and_line &file_and_line ) {
+	if ( weak_object_memory_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( memorying::Womp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Womp is not empty" ),
+			JMSF_SL( "Should::always_be_empty( memorying::Womp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Womp< A_type > &weak_object_memory_pointer, const File_and_line &file_and_line ) {
+	if ( weak_object_memory_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( memorying::Womp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Womp is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Womp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Owomp< A_type > &object_weak_object_memory_pointer, const File_and_line &file_and_line ) {
+	if ( object_weak_object_memory_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_null( memorying::Owomp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Owomp is not empty" ),
+			JMSF_SL( "Should::always_be_empty( memorying::Owomp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Owomp< A_type > &object_weak_object_memory_pointer, const File_and_line &file_and_line ) {
+	if ( object_weak_object_memory_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_null( memorying::Owomp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Owomp is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Owomp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+//==============================================================================================================================
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Amp< A_type > &array_memory_pointer, const File_and_line &file_and_line ) {
+	if ( array_memory_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( memorying::Amp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Amp is not empty" ),
+			JMSF_SL( "Should::always_be_empty( memorying::Amp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Amp< A_type > &array_memory_pointer, const File_and_line &file_and_line ) {
+	if ( array_memory_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_nullempty( memorying::Amp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Amp is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Amp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Wamp< A_type > &weak_array_memory_pointer, const File_and_line &file_and_line ) {
+	if ( weak_array_memory_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( memorying::Wamp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Wamp is not empty" ),
+			JMSF_SL( "Should::always_be_empty( memorying::Wamp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Wamp< A_type > &weak_array_memory_pointer, const File_and_line &file_and_line ) {
+	if ( weak_array_memory_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( memorying::Wamp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Wamp is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Wamp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const memorying::Awamp< A_type > &array_weak_array_memory_pointer, const File_and_line &file_and_line ) {
+	if ( array_weak_array_memory_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( memorying::Awamp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Awamp is not empty" ),
+			JMSF_SL( "Should::always_be_empty( memorying::Awamp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const memorying::Awamp< A_type > &array_weak_array_memory_pointer, const File_and_line &file_and_line ) {
+	if ( array_weak_array_memory_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( memorying::Awamp< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Awamp is empty" ),
+			JMSF_SL( "Should::never_be_empty( memorying::Awamp< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::Weak< A_type > &a_weak_pointer, const File_and_line &file_and_line ) {
+	if ( a_weak_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::Weak< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Weak pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::Weak< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::Weak< A_type > &a_weak_pointer, const File_and_line &file_and_line ) {
+	if ( a_weak_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::Weak< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Weak pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::Weak< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::cWeak< A_type > &a_cweak_pointer, const File_and_line &file_and_line ) {
+	if ( a_cweak_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::cWeak< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Weak pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::cWeak< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::cWeak< A_type > &a_cweak_pointer, const File_and_line &file_and_line ) {
+	if ( a_cweak_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::cWeak< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Weak pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::cWeak< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::Shared< A_type > &a_shared_pointer, const File_and_line &file_and_line ) {
+	if ( a_shared_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::Shared< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Shared pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::Shared< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::Shared< A_type > &a_shared_pointer, const File_and_line &file_and_line ) {
+	if ( a_shared_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::Shared< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Shared pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::Shared< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::cShared< A_type > &a_cshared_pointer, const File_and_line &file_and_line ) {
+	if ( a_cshared_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::cShared< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Shared pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::cShared< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::cShared< A_type > &a_cshared_pointer, const File_and_line &file_and_line ) {
+	if ( a_cshared_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::cShared< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Shared pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::cShared< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::Nonlinked< A_type > &a_nonlinked_pointer, const File_and_line &file_and_line ) {
+	if ( a_nonlinked_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::Nonlinked< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Nonlinked pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::Nonlinked< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::Nonlinked< A_type > &a_nonlinked_pointer, const File_and_line &file_and_line ) {
+	if ( a_nonlinked_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::Nonlinked< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Nonlinked pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::Nonlinked< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::cNonlinked< A_type > &a_cnonlinked_pointer, const File_and_line &file_and_line ) {
+	if ( a_cnonlinked_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::cNonlinked< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Nonlinked pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::cNonlinked< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::cNonlinked< A_type > &a_cnonlinked_pointer, const File_and_line &file_and_line ) {
+	if ( a_cnonlinked_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::cNonlinked< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Nonlinked pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::cNonlinked< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::Scoped< A_type > &a_scoped_pointer, const File_and_line &file_and_line ) {
+	if ( a_scoped_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::Scoped< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Scoped pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::Scoped< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::Scoped< A_type > &a_scoped_pointer, const File_and_line &file_and_line ) {
+	if ( a_scoped_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::Scoped< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Scoped pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::Scoped< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::always_be_empty( const pointing::cScoped< A_type > &a_cscoped_pointer, const File_and_line &file_and_line ) {
+	if ( a_cscoped_pointer.is_not_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_empty( pointing::cScoped< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Scoped pointer is not empty" ),
+			JMSF_SL( "Should::always_be_empty( pointing::cScoped< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+// static
+template< class A_type >
+void Should::never_be_empty( const pointing::cScoped< A_type > &a_cscoped_pointer, const File_and_line &file_and_line ) {
+	if ( a_cscoped_pointer.is_empty() ) {
+		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_empty( pointing::cScoped< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+		throw_exception_with_type(
+			JMSF_SL( "Constant Scoped pointer is empty" ),
+			JMSF_SL( "Should::never_be_empty( pointing::cScoped< %A_type% > )" ),
+			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+			file_and_line );
+	}
+}
+
+//// Seinsei: todonext - next two method should sound like "always/never be null" with parameters Proxy and Constant_proxy +
+//// method "never be null pointer" with parameters Proxy and Constant_proxy
+//// static
+//template< class A_type >
+//void Should::always_be_null( const pointing::Proxy< A_type > &a_proxy, const File_and_line &file_and_line );
+
+//// static
+//template< class A_type >
+//void Should::never_be_null( const pointing::Proxy< A_type > &a_proxy, const File_and_line &file_and_line );
+
+//// static
+//template< class A_type >
+//void Should::always_be_null( const pointing::Constant_proxy< A_type > &a_constant_proxy, const File_and_line &file_and_line );
+
+//// static
+//template< class A_type >
+//void Should::never_be_null( const pointing::Constant_proxy< A_type > &a_constant_proxy, const File_and_line &file_and_line );
+
+//// static
+//template< class A_type >
+//void Should::never_be_null_pointer( const pointing::Proxy< A_type > &a_proxy, const File_and_line &file_and_line );
+
+//// static
+//template< class A_type >
+//void Should::never_be_null_pointer( const pointing::Constant_proxy< A_type > &a_constant_proxy, const File_and_line &file_and_line );
+
+
+//// Seinsei: todonext - figure out how to process null objects
+//// static
+//template< class A_type >
+//void Should::always_be_null_object( const A_type *pointer, const File_and_line &fileAndLine ) {
+//	if ( pointer == nullptr ) {
+//		throw excepting::exception_Should( JMSF_SL( "Should::always_be_null_object( nullptr )" ), fileAndLine );
+//	}
+
+//	if ( pointer->isNull().inversion() ) {
+//		throw excepting::exception_Should( JMSF_SL( "Should::always_be_null_object( not NullObject )" ), fileAndLine );
+//	}
+//}
+
+//// static
+//template< class A_type >
+//void Should::never_be_null_object( const A_type *pointer, const File_and_line &fileAndLine ) {
+//	if ( pointer == nullptr ) {
+//		throw excepting::exception_Should( JMSF_SL( "Should::never_be_null_object( nullptr )" ), fileAndLine );
+//	}
+
+//	if ( pointer->isNull() ) {
+//		throw excepting::exception_Should( JMSF_SL( "Should::never_be_null_object( NullObject )" ), fileAndLine );
+//	}
+//}
+
+
+} // namespace validating
+} // namespace jmsf

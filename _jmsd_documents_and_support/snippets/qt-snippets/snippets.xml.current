@@ -1,0 +1,1392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippets>
+    <snippet group="C++" trigger="jach" id="" complement="A - class header" removed="false" modified="false">%{CurrentDocument:FileBaseName}::</snippet>
+    <snippet group="C++" trigger="jafd" id="" complement="A - forward declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName};</snippet>
+    <snippet group="C++" trigger="jafdt" id="" complement="A - forward declaration template" removed="false" modified="false">template&lt; typename &gt; class %{CurrentDocument:FileBaseName};</snippet>
+    <snippet group="C++" trigger="jaih" id="" complement="A - include header" removed="false" modified="false">#include &quot;%{CurrentDocument:FileBaseName}.h&quot;
+</snippet>
+    <snippet group="C++" trigger="jaii" id="" complement="A - include header for template implementation" removed="false" modified="false">#include &quot;%{CurrentDocument:FileBaseName}.hin&quot;
+</snippet>
+    <snippet group="C++" trigger="jaip" id="" complement="A - include header for template declaration" removed="false" modified="false">#include &quot;%{CurrentDocument:FileBaseName}.hpp&quot;
+</snippet>
+    <snippet group="C++" trigger="jaix" id="" complement="A - include header for forward declaration" removed="false" modified="false">#include &quot;%{CurrentDocument:FileBaseName}.hxx&quot;
+</snippet>
+    <snippet group="C++" trigger="jand" id="" complement="A - namespace double" removed="false" modified="false">namespace $first_namespace$ {
+namespace $second_namespace$ {
+
+
+$end$
+
+
+} // namespace $second_namespace$
+} // namespace $first_namespace$
+</snippet>
+    <snippet group="C++" trigger="janq" id="" complement="A - namespace quadruple" removed="false" modified="false">namespace $first_namespace$ {
+namespace $second_namespace$ {
+namespace $third_namespace$ {
+namespace $fourth_namespace$ {
+
+
+$end$
+
+
+} // namespace $fourth_namespace$
+} // namespace $third_namespace$
+} // namespace $second_namespace$
+} // namespace $first_namespace$
+</snippet>
+    <snippet group="C++" trigger="jans" id="" complement="A - namespace single" removed="false" modified="false">namespace $first_namespace$ {
+
+
+$end$
+
+
+} // namespace $first_namespace$
+</snippet>
+    <snippet group="C++" trigger="jant" id="" complement="A - namespace triple" removed="false" modified="false">namespace $first_namespace$ {
+namespace $second_namespace$ {
+namespace $third_namespace$ {
+
+
+$end$
+
+
+} // namespace $third_namespace$
+} // namespace $second_namespace$
+} // namespace $first_namespace$
+</snippet>
+    <snippet group="C++" trigger="japo" id="" complement="A - pragma once" removed="false" modified="false">#pragma once
+
+</snippet>
+    <snippet group="C++" trigger="jath" id="" complement="A - template header" removed="false" modified="false">%{CurrentDocument:FileBaseName}&lt; A_type &gt;::</snippet>
+    <snippet group="C++" trigger="jatp" id="" complement="A - template prefix" removed="false" modified="false">template&lt; class A_type &gt;
+</snippet>
+    <snippet group="C++" trigger="jbbcd" id="" complement="B - base class declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	virtual ~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+};</snippet>
+    <snippet group="C++" trigger="jbbci" id="" complement="B - base class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbcd" id="" complement="B - class declaration (concrete)" removed="false" modified="false">class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbci" id="" complement="B - class implementation (concrete)" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbdcd" id="" complement="B - derived class declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} :
+	public $base_class_name$
+{
+
+public:
+	// virtuals $base_class_name$
+	//~virtuals $base_class_name$
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $base_class_name$
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbdci" id="" complement="B - derived class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbid" id="" complement="B - interface declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	virtual ~%{CurrentDocument:FileBaseName}() noexcept = 0;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+protected:
+	~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	~%{CurrentDocument:FileBaseName}( const ~%{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	~%{CurrentDocument:FileBaseName} &amp;operator =( const ~%{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	~%{CurrentDocument:FileBaseName}( ~%{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	~%{CurrentDocument:FileBaseName} &amp;operator =( ~%{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbii" id="" complement="B - interface implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+%{CurrentDocument:FileBaseName}::~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbrd" id="" complement="B - realization declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} :
+	public $interface_name$
+{
+
+public:
+	// virtuals $interface_name$
+	//~virtuals $interface_name$
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $interface_name$
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbri" id="" complement="B - realization implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbtbcd" id="" complement="B - template base class declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	virtual ~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbtbci" id="" complement="B - template base class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbtcd" id="" complement="B - template class declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbtci" id="" complement="B - template class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbtdcd" id="" complement="B - template derived class declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} :
+	public $base_class_name$&lt; A_type &gt;
+{
+
+public:
+	// virtuals $base_class_name$&lt; A_type &gt;
+	//~virtuals $base_class_name$&lt; A_type &gt;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $base_class_name$&lt; A_type &gt;
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbtdci" id="" complement="B - template derived class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbtid" id="" complement="B - template interface declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	virtual ~%{CurrentDocument:FileBaseName}() noexcept = 0;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+protected:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+				
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbtii" id="" complement="B - template interface implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template&lt; class A_type &gt;
+%{CurrentDocument:FileBaseName}&lt; A_type &gt;::~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jbtrd" id="" complement="B - template realization declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} :
+	public $interface_name$&lt; A_type &gt;
+{
+
+public:
+	// virtuals $interface_name$&lt; A_type &gt;
+	//~virtuals $interface_name$&lt; A_type &gt;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $interface_name$&lt; A_type &gt;
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jbtri" id="" complement="B - template realization implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jcbcd" id="" complement="C - factory method base class declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	virtual ~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static %{CurrentDocument:FileBaseName} create();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+protected:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};
+</snippet>
+    <snippet group="C++" trigger="jcbci" id="" complement="C - factory method base class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+%{CurrentDocument:FileBaseName} %{CurrentDocument:FileBaseName}::create() {
+	return %{CurrentDocument:FileBaseName}();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jccd" id="" complement="C - factory method class declaration (concrete)" removed="false" modified="false">class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static %{CurrentDocument:FileBaseName} create();
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jcci" id="" complement="C - factory method class implementation (concrete)" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+%{CurrentDocument:FileBaseName} %{CurrentDocument:FileBaseName}::create() {
+	return %{CurrentDocument:FileBaseName}();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jcdcd" id="" complement="C - factory method derived class declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} :
+	public $base_class_name$
+{
+
+public:
+	// virtuals $base_class_name$
+	//~virtuals $base_class_name$
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $base_class_name$
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static $base_class_name$ create();
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jcdci" id="" complement="C - factory method derived class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+$base_class_name$ %{CurrentDocument:FileBaseName}::create() {
+	return %{CurrentDocument:FileBaseName}();
+}
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jcid" id="" complement="C - factory method interface declaration (empty - use interface declaration)" removed="false" modified="false"></snippet>
+    <snippet group="C++" trigger="jcii" id="" complement="C - factory method interface implementation (empty - use interface implementation)" removed="false" modified="false"></snippet>
+    <snippet group="C++" trigger="jcrd" id="" complement="C - factory method realization declaration" removed="false" modified="false">class %{CurrentDocument:FileBaseName} :
+	public $interface_name$
+{
+
+public:
+	// virtuals $interface_name$
+	//~virtuals $interface_name$
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+private:
+	// virtual $interface_name$
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static $interface_name$ create();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jcri" id="" complement="C - factory method realization implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+$interface_name$ %{CurrentDocument:FileBaseName}::create() {
+	return %{CurrentDocument:FileBaseName}();
+}
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jctbcd" id="" complement="C - factory method template base class declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	virtual ~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static %{CurrentDocument:FileBaseName} create();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+protected:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jctbci" id="" complement="C - factory method template base class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template&lt; class A_type &gt;
+%{CurrentDocument:FileBaseName}&lt; A_type &gt; %{CurrentDocument:FileBaseName}&lt; A_type &gt;::create() {
+	return %{CurrentDocument:FileBaseName}&lt; A_type &gt;();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jctcd" id="" complement="C - factory method template class declaration (concrete)" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} {
+
+public:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	~%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static %{CurrentDocument:FileBaseName} create();
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jctci" id="" complement="C - factory method template class implementation (concrete)" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template&lt; class A_type &gt;
+%{CurrentDocument:FileBaseName}&lt; A_type &gt; %{CurrentDocument:FileBaseName}&lt; A_type &gt;::create() {
+	return %{CurrentDocument:FileBaseName}&lt; A_type &gt;();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jctdcd" id="" complement="C - factory method template derived class declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} :
+	public $base_class_name$&lt; A_type &gt;
+{
+
+public:
+	// virtuals $base_class_name$&lt; A_type &gt;
+	//~virtuals $base_class_name$&lt; A_type &gt;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $base_class_name$&lt; A_type &gt;
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static $base_class_name$&lt; A_type &gt; create();
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jctdci" id="" complement="C - factory method template derived class implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template&lt; class A_type &gt;
+$base_class_name$&lt; A_type &gt; %{CurrentDocument:FileBaseName}&lt; A_type &gt;::create() {
+	return %{CurrentDocument:FileBaseName}&lt; A_type &gt;();
+}
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="jctid" id="" complement="C - factory method template interface declaration (empty - use template interface declaration)" removed="false" modified="false"></snippet>
+    <snippet group="C++" trigger="jctii" id="" complement="C - factory method template interface implementation (empty - use template interface implementation)" removed="false" modified="false"></snippet>
+    <snippet group="C++" trigger="jctrd" id="" complement="C - factory method template realization declaration" removed="false" modified="false">template&lt; class A_type &gt;
+class %{CurrentDocument:FileBaseName} :
+	public $interface_name$&lt; A_type &gt;
+{
+
+public:
+	// virtuals $interface_name$&lt; A_type &gt;
+	//~virtuals $interface_name$&lt; A_type &gt;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual $interface_name$&lt; A_type &gt;
+	~%{CurrentDocument:FileBaseName}() noexcept override = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}() noexcept = default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+//	%{CurrentDocument:FileBaseName}() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	static $interface_name$&lt; A_type &gt; create();
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	%{CurrentDocument:FileBaseName}( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+	%{CurrentDocument:FileBaseName} &amp;operator =( const %{CurrentDocument:FileBaseName} &amp;another ) noexcept = delete;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	%{CurrentDocument:FileBaseName}( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = default;
+	
+private:
+	%{CurrentDocument:FileBaseName} &amp;operator =( %{CurrentDocument:FileBaseName} &amp;&amp;another ) noexcept = delete;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};</snippet>
+    <snippet group="C++" trigger="jctri" id="" complement="C - factory method template realization implementation" removed="false" modified="false">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template&lt; class A_type &gt;
+$interface_name$&lt; A_type &gt; %{CurrentDocument:FileBaseName}&lt; A_type &gt;::create() {
+	return %{CurrentDocument:FileBaseName}&lt; A_type &gt;();
+}
+	
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</snippet>
+    <snippet group="C++" trigger="Q_PROPERTY" id="cpp_q_property" complement="" removed="true" modified="false">Q_PROPERTY($type$ $name$ READ $name$ WRITE set$name:c$ NOTIFY $name$Changed)</snippet>
+    <snippet group="C++" trigger="else" id="cpp_elsewithif" complement="with if" removed="true" modified="false">else if ($condition$) {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="else" id="cpp_else" complement="" removed="true" modified="false">else {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="do" id="cpp_do" complement="" removed="true" modified="false">do {
+    $$
+} while ($condition$);</snippet>
+    <snippet group="C++" trigger="class" id="cpp_classtemplate" complement="template" removed="true" modified="false">template &lt;typename $T$&gt;
+class $name$
+{
+public:
+    $name$() {}
+};</snippet>
+    <snippet group="C++" trigger="class" id="cpp_qwidgetclass" complement="derived from QWidget" removed="true" modified="false">class $name$ : public QWidget
+{
+    Q_OBJECT
+public:
+    $name$() {}
+    virtual ~$name$() {}
+};</snippet>
+    <snippet group="C++" trigger="class" id="cpp_qobjectclass" complement="derived from QObject" removed="true" modified="false">class $name$ : public QObject
+{
+    Q_OBJECT
+public:
+    $name$() {}
+    virtual ~$name$() {}
+};</snippet>
+    <snippet group="C++" trigger="class" id="cpp_genericclass" complement="" removed="true" modified="false">class $name$
+{
+public:
+    $name$() {}
+};</snippet>
+    <snippet group="C++" trigger="for" id="cpp_for" complement="" removed="true" modified="false">for (int $var$ = 0; $var$ &lt; $total$; ++$var$) {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="foreach" id="cpp_foreach" complement="" removed="true" modified="false">foreach ($var$, $container$) {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="if" id="cpp_if" complement="" removed="true" modified="false">if ($condition$) {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="if" id="cpp_ifandelse" complement="and else" removed="true" modified="false">if ($condition$) {
+    $$
+} else {
+}</snippet>
+    <snippet group="C++" trigger="main" id="cpp_main" complement="" removed="true" modified="false">int main(int argc, char *argv[])
+{
+    $$
+    return 0;
+}
+</snippet>
+    <snippet group="C++" trigger="namespace" id="cpp_namespace" complement="" removed="true" modified="true">namespace $name$ {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="switch" id="cpp_switch" complement="" removed="true" modified="false">switch ($control$) {
+case $value$:
+    $$
+    break;
+default:
+    break;
+}</snippet>
+    <snippet group="C++" trigger="try" id="cpp_trycatch" complement="and catch" removed="true" modified="false">try {
+    $$
+} catch (...) {
+}</snippet>
+    <snippet group="C++" trigger="while" id="cpp_while" complement="" removed="true" modified="true">while ($condition$) {
+    $$
+}</snippet>
+    <snippet group="C++" trigger="licqtc" id="license-qtc" complement="" removed="true" modified="false">/****************************************************************************
+**
+@if ('%{Env:QTC_COPYRIGHT_USER}' === '' || '%{Env:QTC_COPYRIGHT_EMAIL}' === '')
+** Copyright (C) %{CurrentDate:yyyy} $copyright_user$ &lt;$copyright_email$&gt;.
+@else
+** Copyright (C) %{CurrentDate:yyyy} %{Env:QTC_COPYRIGHT_USER} &lt;%{Env:QTC_COPYRIGHT_EMAIL}&gt;.
+@endif
+** Contact: https://www.qt.io/licensing/
+**
+** This file is part of %{CurrentProject:Name}
+**
+** Commercial License Usage
+** Licensees holding valid commercial Qt licenses may use this file in
+** accordance with the commercial license agreement provided with the
+** Software or, alternatively, in accordance with the terms contained in
+** a written agreement between you and The Qt Company. For licensing terms
+** and conditions see https://www.qt.io/terms-conditions. For further
+** information use the contact form at https://www.qt.io/contact-us.
+**
+** GNU General Public License Usage
+** Alternatively, this file may be used under the terms of the GNU
+** General Public License version 3 as published by the Free Software
+** Foundation with exceptions as appearing in the file LICENSE.GPL3-EXCEPT
+** included in the packaging of this file. Please review the following
+** information to ensure the GNU General Public License requirements will
+** be met: https://www.gnu.org/licenses/gpl-3.0.html.
+**
+****************************************************************************/
+
+$$</snippet>
+    <snippet group="C++" trigger="liclgpl" id="license-lgpl" complement="" removed="true" modified="false">/**
+@if ('%{CurrentProject:Name}' !== '')
+ ** This file is part of the %{CurrentProject:Name} project.
+@endif
+@if ('%{Env:QTC_COPYRIGHT_USER}' === '' || '%{Env:QTC_COPYRIGHT_EMAIL}' === '')
+ ** Copyright %{CurrentDate:yyyy} $copyright_user$ &lt;$copyright_email$&gt;.
+@else
+ ** Copyright %{CurrentDate:yyyy} %{Env:QTC_COPYRIGHT_USER} &lt;%{Env:QTC_COPYRIGHT_EMAIL}&gt;.
+@endif
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU Lesser General Public License as
+ ** published by the Free Software Foundation, either version 3 of the
+ ** License, or (at your option) any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU Lesser General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Lesser General Public License
+ ** along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ **/
+
+$$</snippet>
+    <snippet group="C++" trigger="licgpl" id="license-gpl" complement="" removed="true" modified="false">/**
+@if ('%{CurrentProject:Name}' !== '')
+ ** This file is part of the %{CurrentProject:Name} project.
+@endif
+@if ('%{Env:QTC_COPYRIGHT_USER}' === '' || '%{Env:QTC_COPYRIGHT_EMAIL}' === '')
+ ** Copyright %{CurrentDate:yyyy} $copyright_user$ &lt;$copyright_email$&gt;.
+@else
+ ** Copyright %{CurrentDate:yyyy} %{Env:QTC_COPYRIGHT_USER} &lt;%{Env:QTC_COPYRIGHT_EMAIL}&gt;.
+@endif
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ **/
+
+$$</snippet>
+    <snippet group="C++" trigger="licbsd" id="license-bsd" complement="" removed="true" modified="false">/**
+@if ('%{CurrentProject:Name}' !== '')
+ ** This file is part of the %{CurrentProject:Name} project.
+@endif
+@if ('%{Env:QTC_COPYRIGHT_USER}' === '' || '%{Env:QTC_COPYRIGHT_EMAIL}' === '')
+ ** Copyright %{CurrentDate:yyyy} $copyright_user$ &lt;$copyright_email$&gt;.
+@else
+ ** Copyright %{CurrentDate:yyyy} %{Env:QTC_COPYRIGHT_USER} &lt;%{Env:QTC_COPYRIGHT_EMAIL}&gt;.
+@endif
+ ** All rights reserved.
+ **
+ ** Redistribution and use in source and binary forms, with or without
+ ** modification, are permitted provided that the following conditions are
+ ** met:
+ **
+ ** 1. Redistributions of source code must retain the above copyright notice,
+ **    this list of conditions and the following disclaimer.
+ **
+ ** 2. Redistributions in binary form must reproduce the above copyright
+ **    notice, this list of conditions and the following disclaimer in the
+ **    documentation and/or other materials provided with the distribution.
+ **
+ ** THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY
+ ** EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ ** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ ** DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY
+ ** DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ ** (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ ** SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ ** CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ ** LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ ** OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ ** SUCH DAMAGE.
+ **/
+
+$$</snippet>
+    <snippet group="C++" trigger="lic" id="license-configured" complement="" removed="true" modified="false">%{Cpp:LicenseTemplate}
+$$</snippet>
+    <snippet group="C++" trigger="using" id="cpp_usingnamespace" complement="namespace" removed="true" modified="false">using namespace $name$;</snippet>
+</snippets>

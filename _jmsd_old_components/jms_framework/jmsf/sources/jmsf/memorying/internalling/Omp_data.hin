@@ -1,0 +1,169 @@
+#pragma once
+
+#include "Omp_data.hpp"
+
+
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+
+#include "jmsf/memorying/Object_pointer.hin"
+#include "jmsf/memorying/Memory_address.h"
+#include "jmsf/typeing/Naturals.hin"
+
+#include "jmsf/typeing/Aso.hin"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/validating/macroses_Should.h"
+#include "jmsf/validating/macroses_Type_name.h"
+
+#include <utility>
+
+
+namespace jmsf {
+namespace memorying {
+namespace internalling {
+
+
+template< class A_type >
+typeing::Boolean Omp_data< A_type >::is_empty() const noexcept {
+	return _the_object_pointer.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Omp_data< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+const Object_pointer< A_type > &Omp_data< A_type >::get_object() const {
+	jmsf_Should_never_be_empty( _the_object_pointer );
+
+	return _the_object_pointer;
+}
+
+template< class A_type >
+typeing::Memory_natural Omp_data< A_type >::get_displacement() const {
+	jmsf_Should_never_be_empty( _the_object_pointer );
+
+	return _the_displacement;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Object_pointer< A_type > &Omp_data< A_type >::take_object() {
+	jmsf_Should_never_be_empty( _the_object_pointer );
+
+	return _the_object_pointer;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean Omp_data< A_type >::operator ==( const Omp_data< A_type > &another ) const noexcept {
+	return _the_object_pointer == another._the_object_pointer;
+}
+
+template< class A_type >
+typeing::Boolean Omp_data< A_type >::operator !=( const Omp_data< A_type > &another ) const noexcept {
+	return !operator ==( another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+pointing::cShared< texting::Ansii_text > Omp_data< A_type >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	pointing::Shared< texting::Ansii_stream > ansii_stream = an_aaa->create_ansii_stream();
+
+	ansii_stream->put( _the_object_pointer.to_ansii_text( an_aaa ) );
+
+	return texting::Aaa_cs( an_aaa, ansii_stream );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Omp_data< A_type >::~Omp_data() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp_data< A_type >::Omp_data() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp_data< A_type >::Omp_data(
+	const Object_pointer< A_type > &an_object_pointer,
+	const typeing::Memory_natural a_displacement ) noexcept
+	:
+		_the_object_pointer( an_object_pointer ),
+		_the_displacement( a_displacement )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+template< class A_created_type >
+Omp_data< A_type > Omp_data< A_type >::create(
+	const Memory_address a_memory_address )
+{
+	jmsf_Should_never_be_with_type( a_memory_address.is_empty(), JMSF_TYPE_NAME( A_created_type ) );
+
+	const typeing::Memory_natural the_displacement = typeing::displacement_of< A_type, A_created_type >();
+
+	return
+		Omp_data< A_type >(
+			Object_pointer< A_type >::create_from_address(
+				the_displacement.is_nil() ?
+					a_memory_address.get() :
+					a_memory_address.get() + the_displacement ),
+			the_displacement );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp_data< A_type >::Omp_data( const Omp_data< A_type > &another ) noexcept
+	:
+		_the_object_pointer( another._the_object_pointer ),
+		_the_displacement( another._the_displacement )
+{}
+
+template< class A_type >
+const Omp_data< A_type > &Omp_data< A_type >::operator =( const Omp_data< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_object_pointer = another._the_object_pointer;
+	_the_displacement = another._the_displacement;
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp_data< A_type >::Omp_data( Omp_data< A_type > &&another ) noexcept
+	:
+		_the_object_pointer( ::std::move( another._the_object_pointer ) ),
+		_the_displacement( ::std::move( another._the_displacement ) )
+{}
+
+template< class A_type >
+Omp_data< A_type > &Omp_data< A_type >::operator =( Omp_data< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_object_pointer = ::std::move( another._the_object_pointer );
+	_the_displacement = ::std::move( another._the_displacement );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace internalling
+} // namespace memorying
+} // namespace jmsf

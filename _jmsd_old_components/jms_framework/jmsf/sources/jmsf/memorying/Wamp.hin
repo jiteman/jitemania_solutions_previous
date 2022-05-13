@@ -1,0 +1,153 @@
+#pragma once
+
+#include "Wamp.hpp"
+
+
+#include "internalling/Amp_data.hpp"
+#include "Awa_iterator.hin"
+
+#include "Memory_address.h"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/jmsf_logging_macroses.h"
+#include "jmsf/validating/macroses_Type_name.h"
+#include "jmsf/validating/macroses_Should.h"
+
+#include <utility>
+
+
+namespace jmsf {
+namespace memorying {
+
+
+template< class A_type >
+typeing::Boolean Wamp< A_type >::is_empty() const noexcept {
+	return _the_amp_data.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Wamp< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+Awa_iterator< A_type > Wamp< A_type >::get() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Wamp< A_type >::get()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return
+		Awa_iterator< A_type >::create(
+			_the_amp_data,
+			_the_quantity );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awa_iterator< A_type > Wamp< A_type >::take() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Wamp< A_type >::take()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return
+		Awa_iterator< A_type >::create(
+			_the_amp_data,
+			_the_quantity );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Memory_address Wamp< A_type >::get_object_address() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Wamp< A_type >::get_memory()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _the_amp_data.get_object().get_address();
+}
+
+template< class A_type >
+typeing::Memory_natural Wamp< A_type >::get_quantity() const noexcept {
+	return _the_quantity;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Wamp< A_type >::~Wamp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Wamp< A_type >::Wamp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Wamp< A_type >::Wamp(
+	const internalling::Amp_data< A_type > &an_amp_data,
+		typeing::Memory_natural a_quantity ) noexcept
+	:
+		_the_amp_data( an_amp_data ),
+		_the_quantity( a_quantity )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+Wamp< A_type > Wamp< A_type >::create(
+	const internalling::Amp_data< A_type > &an_amp_data,
+	typeing::Memory_natural a_quantity )
+{
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( an_amp_data.is_empty(), "Wamp< A_type >::create( an_amp_data, quantity )", JMSF_TYPE_NAME( A_type ) );
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( a_quantity.is_nil(), "Wamp< A_type >::create( an_amp_data, quantity )", JMSF_TYPE_NAME( A_type ) );
+
+	if ( an_amp_data.is_empty() ) {
+		jmsf_Should_never_be_empty( Wamp< A_type >() ); // for A_type
+	} else if ( a_quantity.is_nil() ) {
+		jmsf_Should_never_be_empty( Wamp< A_type >() ); // for A_type
+	}
+
+	return
+		Wamp< A_type >(
+			an_amp_data,
+			a_quantity );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Wamp< A_type >::Wamp( const Wamp< A_type > &another ) noexcept
+	:
+		_the_amp_data( another._the_amp_data ),
+		_the_quantity( another._the_quantity )
+{}
+
+template< class A_type >
+const Wamp< A_type > &Wamp< A_type >::operator =( const Wamp< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_amp_data = another._the_amp_data;
+	_the_quantity = another._the_quantity;
+	return *this;
+}
+
+template< class A_type >
+Wamp< A_type >::Wamp( Wamp< A_type > &&another ) noexcept
+	:
+		_the_amp_data( ::std::move( another._the_amp_data ) ),
+		_the_quantity( ::std::move( another._the_quantity ) )
+{}
+
+template< class A_type >
+Wamp< A_type > &Wamp< A_type >::operator =( Wamp< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_amp_data = ::std::move( another._the_amp_data );
+	_the_quantity = ::std::move( another._the_quantity );
+
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace memorying
+} // namespace jmsf

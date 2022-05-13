@@ -1,0 +1,82 @@
+jms qt-creator snippets
+
+jaabbr:
+j - leading symbol (for jms snippets)
+a - category (A, B, C, etc.)
+abbr - abbreviation of snippet
+
+
+categories:
+
+
+A - common
+
+namespaces (1 - ns, 2 - nd, 3 - nt, 4 - nq)
+pragmas (once - po)
+includes for headers (h, hxx, hpp, hin)
+template prefix (tp)
+forward declaration (fd)
+template forward declaration (fdt)
+
+
+B - simple
+
+class declaration (cd)
+class implementation (ci)
+base class declaration (cdb)
+base class implementation (cib)
+derived class declaration (cdd)
+derived class implementation (cid)
+
+template class declaration (tcd)
+template class implementation (tci)
+template base class declaration (tcdb)
+template base class implementation (tcib)
+template derived class declaration (tcdd)
+template derived class implementation (tcid)
+
+interface declaration (id)
+interface implementation (ii)
+realization declaration (rd)
+realization implementation (ri)
+
+template interface declaration (id)
+template interface implementation (ii)
+template realization declaration (rd)
+template realization implementation (ri)
+
+
+C - factory method
+
+class declaration (cd)
+class implementation (ci)
+base class declaration (cdb)
+base class implementation (cib)
+derived class declaration (cdd)
+derived class implementation (cid)
+
+template class declaration (tcd)
+template class implementation (tci)
+template base class declaration (tcdb)
+template base class implementation (tcib)
+template derived class declaration (tcdd)
+template derived class implementation (tcid)
+
+interface declaration (id)
+interface implementation (ii)
+realization declaration (rd)
+realization implementation (ri)
+
+template interface declaration (id)
+template interface implementation (ii)
+template realization declaration (rd)
+template realization implementation (ri)
+
+
+D - factory method pointer
+
+E - proxy
+
+F - patterns
+
+

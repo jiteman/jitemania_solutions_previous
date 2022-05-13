@@ -1,0 +1,298 @@
+#pragma once
+
+#include "Reals.hpp"
+
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+
+#include "jmsf/patterning/Singleton.hin"
+
+#include "Aso.hin"
+#include "Naturals.hin"
+#include "Integers.hin"
+#include "Boolean.h"
+
+#include "jmsf/al_std/stl_hin/cmath_al_std.hin"
+
+
+namespace jmsf {
+namespace typeing {
+
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::get_absolute() const noexcept {
+	return Reals< A_type, dummy >( math_compute_absolute( _real_value ) );
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::is_about_zero() const noexcept {
+	return math_is_about_zero( _real_value );
+}
+
+// math
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator +( const Reals< A_type, dummy > &another ) const noexcept {
+	Reals< A_type, dummy > result = *this;
+	result += another;
+	return result;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > &Reals< A_type, dummy >::operator +=( const Reals< A_type, dummy > &another ) noexcept {
+	_real_value += another._real_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator -( const Reals< A_type, dummy > &another ) const noexcept {
+	Reals< A_type, dummy > result = *this;
+	result -= another;
+	return result;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator -=( const Reals< A_type, dummy > &another ) noexcept {
+	_real_value -= another._real_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator -() const noexcept {
+	return Real( -_real_value );
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator *( const Reals< A_type, dummy > &another ) const noexcept {
+	Reals< A_type, dummy > result = *this;
+	result *= another;
+	return result;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > &Reals< A_type, dummy >::operator *=( const Reals< A_type, dummy > &another ) noexcept {
+	_real_value *= another._real_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator /( const Reals< A_type, dummy > &another ) const {
+	if ( another.is_about_zero() ) {
+		// throw division by zero
+	}
+
+	Reals< A_type, dummy > result = *this;
+	result /= another;
+	return result;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > &Reals< A_type, dummy >::operator /=( const Reals< A_type, dummy > &another ) {
+	if ( another.is_about_zero() ) {
+		// throw division by zero
+	}
+
+	_real_value /= another._real_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > Reals< A_type, dummy >::operator %( const Reals< A_type, dummy > &another ) const {
+	if ( another.is_about_zero() ) {
+		// throw division by zero
+	}
+
+	Reals< A_type, dummy > result = *this;
+	result %= another;
+	return result;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > &Reals< A_type, dummy >::operator %=( const Reals< A_type, dummy > &another ) {
+	if ( another.is_about_zero() ) {
+		// throw division by zero
+	}
+
+	_real_value  = ::std::fmod( math_compute_absolute( _real_value ), math_compute_absolute( another._real_value ) );
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// comparison
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::operator ==( const Reals< A_type, dummy > &another ) const noexcept {
+	return math_are_almost_equal( _real_value, another._real_value );
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::operator !=( const Reals< A_type, dummy > &another ) const noexcept {
+	return ( *this == another ).inversion();
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::operator <( const Reals< A_type, dummy > &another ) const noexcept {
+	return math_are_almost_equal( _real_value, another._real_value ) ? False : Boolean::create( _real_value < another._real_value );
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::operator <=( const Reals< A_type, dummy > &another ) const noexcept {
+	return math_are_almost_equal( _real_value, another._real_value ) ? True : Boolean::create( _real_value < another._real_value );
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::operator >( const Reals< A_type, dummy > &another ) const noexcept {
+	return math_are_almost_equal( _real_value, another._real_value ) ? False : Boolean::create( _real_value > another._real_value );
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::operator >=( const Reals< A_type, dummy > &another ) const noexcept {
+	return math_are_almost_equal( _real_value, another._real_value ) ? True : Boolean::create( _real_value > another._real_value );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::is_nill() const noexcept {
+	const Boolean is_this_real_zero = math_is_about_zero( _real_value );
+
+	if ( is_this_real_zero ) {
+		Reals< A_type, dummy > &non_constant_this = const_cast< Reals< A_type, dummy > & >( *this );
+		non_constant_this._real_value = A_type( 0 );
+	}
+
+	return is_this_real_zero;
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::is_not_nill() const noexcept {
+	return is_nill().inversion();
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::is_positive() const noexcept {
+	if ( is_nill() ) return False;
+
+	return Boolean::create( _real_value > A_type( 0 ) );
+}
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::is_negative() const noexcept {
+	if ( is_nill() ) return False;
+
+	return Boolean::create( _real_value < A_type( 0 ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+A_type Reals< A_type, dummy >::get_native_value() const noexcept {
+	return _real_value;
+}
+
+template< class A_type, int dummy >
+Memory_natural Reals< A_type, dummy >::get_sizeof() const noexcept {
+	return size_of< A_type >();
+}
+
+template< class A_type, int dummy >
+const pointing::cShared< texting::Ansii_text > Reals< A_type, dummy >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	pointing::Shared< texting::Ansii_stream > ansii_stream = an_aaa->create_ansii_stream();
+	ansii_stream->put( *this );
+	return texting::Aaa_cs( an_aaa, ansii_stream );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type, int dummy >
+Reals< A_type, dummy >::~Reals() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+Reals< A_type, dummy >::Reals() noexcept {
+	_real_value = A_type( 0 );
+}
+
+template< class A_type, int dummy >
+// static
+Reals< A_type, dummy > Reals< A_type, dummy >::create( const A_type real_value ) noexcept {
+	return Reals< A_type, dummy >( real_value );
+}
+
+template< class A_type, int dummy >
+template< class A_typeing_type, int A_natural_dummy >
+// static
+Reals< A_type, dummy > Reals< A_type, dummy >::create_from_natural( const typeing::Naturals< A_typeing_type, A_natural_dummy > natural ) {
+	return Reals< A_type, dummy >( static_cast< A_type >( natural.get_native_value() ) );
+}
+
+//template< class A_type, int dummy >
+//template< class A_typeing_type, int An_integer_dummy >
+//// static
+//Reals< A_type, dummy > Reals< A_type, dummy >::create_from_integer( const typeing::Naturals< A_typeing_type, An_integer_dummy > integer ) {
+//}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy >::Reals( const A_type real_value ) noexcept {
+	_real_value = real_value;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+Reals< A_type, dummy >::Reals( const Reals< A_type, dummy > &another ) noexcept
+	:
+		_real_value( another._real_value )
+{}
+
+template< class A_type, int dummy >
+const Reals< A_type, dummy > &Reals< A_type, dummy >::operator =( const Reals< A_type, dummy > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_real_value = another._real_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy >::Reals( Reals< A_type, dummy > &&another ) noexcept
+	:
+		_real_value( another._real_value )
+{
+	another._real_value = A_type( 0 );
+}
+
+template< class A_type, int dummy >
+Reals< A_type, dummy > &Reals< A_type, dummy >::operator =( Reals< A_type, dummy > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_real_value = another._real_value;
+	another._real_value = A_type( 0 );
+	return *this;
+}
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// statics
+template< class A_type, int dummy >
+A_type Reals< A_type, dummy >::math_compute_absolute( const A_type real_value ) noexcept {
+	return real_value < A_type( 0 ) ? -real_value : real_value;
+}
+
+// template<>
+// Boolean Reals< internals::platform_short_real >::math_is_about_zero( const internals::platform_short_real real_value ) noexcept {
+// 	return Boolean::create( !( math_compute_absolute( real_value ) > SHORT_REAL_DEFAULT_ACCURACY ) );
+// }
+//
+// template<>
+// Boolean Reals< internals::platform_real >::math_is_about_zero( const internals::platform_real real_value ) noexcept {
+// 	return Boolean::create( !( math_compute_absolute( real_value ) > REAL_DEFAULT_ACCURACY ) );
+// }
+
+template< class A_type, int dummy >
+Boolean Reals< A_type, dummy >::math_are_almost_equal( const A_type real_value, const A_type another_real_value ) noexcept {
+	return math_is_about_zero( real_value - another_real_value );
+}
+//~statics
+
+
+} // namespace typeing
+} // namespace jmsf

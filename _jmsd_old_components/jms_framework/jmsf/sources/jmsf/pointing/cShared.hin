@@ -1,0 +1,256 @@
+#pragma once
+
+#include "cShared.hpp"
+
+
+#include "cWeak.hin"
+#include "Shared.hin"
+
+#include "internalling/Reference_counted_omp.hin"
+#include "internalling/Reference_counters_connectivity.h"
+
+#include "jmsf/memorying/Constructor.hin"
+//#include "jmsf/memorying/Destructor.hin"
+#include "jmsf/memorying/Allocator.h"
+#include "jmsf/memorying/Omp.hin"
+
+#include "jmsf/validating/macroses_Should.h"
+
+#include <utility> // for ::std::move
+
+
+namespace jmsf {
+namespace pointing {
+
+
+template< class A_type >
+typeing::Boolean cShared< A_type >::is_empty() const noexcept {
+	if ( _reference_counted_omp_omp.is_empty() ) return typeing::True;
+
+	return _reference_counted_omp_omp->is_empty();
+}
+
+template< class A_type >
+typeing::Boolean cShared< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+const A_type &cShared< A_type >::operator *() {
+	jmsf_Should_never_be_empty( _reference_counted_omp_omp );
+	jmsf_Should_never_be( _reference_counted_omp_omp->is_empty() );
+
+	return _reference_counted_omp_omp->take_object();
+}
+
+template< class A_type >
+const A_type *cShared< A_type >::operator ->() {
+	jmsf_Should_never_be_empty( _reference_counted_omp_omp );
+	jmsf_Should_never_be( _reference_counted_omp_omp->is_empty() );
+
+	return &_reference_counted_omp_omp->take_object();
+}
+
+template< class A_type >
+const A_type &cShared< A_type >::operator *() const {
+	jmsf_Should_never_be_empty( _reference_counted_omp_omp );
+	jmsf_Should_never_be( _reference_counted_omp_omp->is_empty() );
+
+	return _reference_counted_omp_omp->get_object();
+}
+
+template< class A_type >
+const A_type *cShared< A_type >::operator ->() const {
+	jmsf_Should_never_be_empty( _reference_counted_omp_omp );
+	jmsf_Should_never_be( _reference_counted_omp_omp->is_empty() );
+
+	return &_reference_counted_omp_omp->get_object();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cWeak< A_type > cShared< A_type >::get_as_cweak() const noexcept {
+	if ( is_empty() ) return cWeak< A_type >();
+
+	return cWeak< A_type >::create_from_cshared( _reference_counted_omp_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean cShared< A_type >::operator ==( const cShared< A_type > &another ) const noexcept {
+	return _reference_counted_omp_omp == another._reference_counted_omp_omp;
+}
+
+template< class A_type >
+typeing::Boolean cShared< A_type >::operator !=( const cShared< A_type > &another ) const noexcept {
+	return !( *this == another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< texting::Ansii_text > cShared< A_type >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	return _reference_counted_omp_omp.to_ansii_text( an_aaa );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+internalling::Reference_counters_connectivity cShared< A_type >::get_connectivity() const noexcept {
+	if ( _reference_counted_omp_omp.is_empty() ) return internalling::Reference_counters_connectivity();
+
+	return
+		internalling::Reference_counters_connectivity(
+			_reference_counted_omp_omp->get_strong_reference_counter_value(),
+			_reference_counted_omp_omp->get_weak_reference_counter_value() );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+cShared< A_type >::~cShared() noexcept {
+	if ( _reference_counted_omp_omp.is_empty() ) return;
+
+	_reference_counted_omp_omp->decrease_strong_reference_counter();
+
+	if ( _reference_counted_omp_omp->are_both_reference_counters_nill() ) {
+		memorying::Destructor< internalling::Reference_counted_omp< A_type > >::destruct( _reference_counted_omp_omp );
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< A_type >::cShared() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< A_type >::cShared( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept
+	:
+		_reference_counted_omp_omp( reference_counted_omp_omp )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+cShared< A_type > cShared< A_type >::create(
+	const memorying::Womp< memorying::Allocator > &reference_counted_omp_allocator,
+	const memorying::Omp< A_type > &object_memory_pointer )
+{
+	jmsf_Should_never_be_empty( reference_counted_omp_allocator );
+	jmsf_Should_never_be_empty( object_memory_pointer );
+
+	return
+		cShared< A_type >(
+			internalling::Reference_counted_omp< A_type >::create(
+				reference_counted_omp_allocator,
+				object_memory_pointer ) );
+}
+
+// static
+template< class A_type >
+cShared< A_type > cShared< A_type >::create_from_weak( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept {
+	if ( reference_counted_omp_omp.is_empty() ) return cShared< A_type >();
+	if ( reference_counted_omp_omp->is_strong_reference_counter_nill() ) return cShared< A_type >();
+
+	memorying::Omp< internalling::Reference_counted_omp< A_type > > copy_of_reference_counted_omp_omp = reference_counted_omp_omp;
+	copy_of_reference_counted_omp_omp->increase_strong_reference_counter();
+
+	return cShared< A_type >( copy_of_reference_counted_omp_omp );
+}
+
+// static
+template< class A_type >
+cShared< A_type > cShared< A_type >::create_from_cweak( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept {
+	if ( reference_counted_omp_omp.is_empty() ) return cShared< A_type >();
+	if ( reference_counted_omp_omp->is_strong_reference_counter_nill() ) return cShared< A_type >();
+
+	memorying::Omp< internalling::Reference_counted_omp< A_type > > copy_of_reference_counted_omp_omp = reference_counted_omp_omp;
+	copy_of_reference_counted_omp_omp->increase_strong_reference_counter();
+
+	return cShared< A_type >( copy_of_reference_counted_omp_omp );
+}
+
+template< class A_type >
+cShared< A_type > cShared< A_type >::create_from_shared( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept {
+	if ( reference_counted_omp_omp.is_empty() ) return cShared< A_type >();
+
+	jmsf_Should_never_be( reference_counted_omp_omp->is_strong_reference_counter_nill() );
+
+	memorying::Omp< internalling::Reference_counted_omp< A_type > > copy_of_reference_counted_omp_omp = reference_counted_omp_omp;
+	copy_of_reference_counted_omp_omp->increase_strong_reference_counter();
+
+	return cShared< A_type >( copy_of_reference_counted_omp_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< A_type >::cShared( const cShared< A_type > &another ) noexcept
+	:
+		_reference_counted_omp_omp( another._reference_counted_omp_omp )
+{
+	if ( _reference_counted_omp_omp.is_empty() ) return;
+
+	_reference_counted_omp_omp->increase_strong_reference_counter();
+}
+
+template< class A_type >
+const cShared< A_type > &cShared< A_type >::operator =( const cShared< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// clear my data
+	if ( _reference_counted_omp_omp.is_not_empty() ) {
+		_reference_counted_omp_omp->decrease_strong_reference_counter();
+
+		if ( _reference_counted_omp_omp->are_both_reference_counters_nill() ) {
+			memorying::Destructor< internalling::Reference_counted_omp< A_type > >::destruct( _reference_counted_omp_omp );
+		}
+	}
+
+	// copy another data into my data
+	_reference_counted_omp_omp = another._reference_counted_omp_omp;
+
+	// update
+	if ( _reference_counted_omp_omp.is_not_empty() ) {
+		_reference_counted_omp_omp->increase_strong_reference_counter();
+	}
+
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< A_type >::cShared( cShared< A_type > &&another ) noexcept
+	:
+		_reference_counted_omp_omp( ::std::move( another._reference_counted_omp_omp ) )
+{
+//	another._reference_counted_omp = internalling_dev::Rec_omp< A_type >();
+}
+
+template< class A_type >
+cShared< A_type > &cShared< A_type >::operator =( cShared< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// clear my data
+	if ( _reference_counted_omp_omp.is_not_empty() ) {
+		_reference_counted_omp_omp->decrease_strong_reference_counter();
+
+		if ( _reference_counted_omp_omp->are_both_reference_counters_nill() ) {
+			memorying::Destructor< internalling::Reference_counted_omp< A_type > >::destruct( _reference_counted_omp_omp );
+		}
+	}
+
+	// move another data into my data
+	_reference_counted_omp_omp = ::std::move( another._reference_counted_omp_omp );
+//	another._reference_counted_omp_omp = internalling_dev::Rec_omp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace pointing
+} // namespace jmsf

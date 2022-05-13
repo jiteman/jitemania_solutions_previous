@@ -1,0 +1,40 @@
+#pragma once
+
+#include "Mathematics.hpp"
+
+
+namespace jmsf {
+namespace algorithming {
+
+
+template< class A_type >
+// static
+A_type Mathematics::absolute( const A_type &a_value ) noexcept {
+	return a_value.is_negative() ? -a_value : a_value;
+}
+
+template< class A_type >
+// static
+A_type Mathematics::maximum( const A_type &a_value_1, const A_type &a_value_2 ) noexcept {
+	return a_value_1 > a_value_2 ? a_value_1 : a_value_2;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//Mathematics::~Mathematics() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace algorithming
+} // namespace jmsf

@@ -1,0 +1,325 @@
+
+jom -j12
+
+jom 1.1.3 - empower your cores
+
+jom: parallel job execution disabled for Makefile
+Scanning dependencies of target SDL2main
+[  0%] Building C object CMakeFiles/SDL2main.dir/src/main/windows/SDL_windows_main.c.obj 
+SDL_windows_main.c
+[  1%] Linking C static library SDL2maind.lib
+[  1%] Built target SDL2main
+Scanning dependencies of target SDL2
+SDL.c
+[  4%] Building C object CMakeFiles/SDL2.dir/src/SDL_error.c.obj
+[  4%] Building C object CMakeFiles/SDL2.dir/src/SDL_hints.c.obj
+[  4%] Building C object CMakeFiles/SDL2.dir/src/SDL_log.c.obj
+SDL_dataqueue.c
+SDL_error.c
+[  6%] Building C object CMakeFiles/SDL2.dir/src/atomic/SDL_atomic.c.obj
+SDL_hints.c
+SDL_assert.c
+SDL_log.c
+SDL_atomic.c
+[  6%] Building C object CMakeFiles/SDL2.dir/src/atomic/SDL_spinlock.c.obj
+[  6%] Building C object CMakeFiles/SDL2.dir/src/audio/SDL_audio.c.obj
+SDL_spinlock.c
+SDL_audio.c
+[  7%] Building C object CMakeFiles/SDL2.dir/src/audio/SDL_audiocvt.c.obj
+SDL_audiocvt.c
+[  8%] Building C object CMakeFiles/SDL2.dir/src/audio/SDL_audiodev.c.obj
+[  8%] Building C object CMakeFiles/SDL2.dir/src/audio/SDL_audiotypecvt.c.obj
+SDL_audiodev.c
+[  9%] Building C object CMakeFiles/SDL2.dir/src/audio/SDL_mixer.c.obj
+SDL_audiotypecvt.c
+SDL_mixer.c
+[ 10%] Building C object CMakeFiles/SDL2.dir/src/audio/SDL_wave.c.obj
+[ 10%] Building C object CMakeFiles/SDL2.dir/src/cpuinfo/SDL_cpuinfo.c.obj
+[ 11%] Building C object CMakeFiles/SDL2.dir/src/dynapi/SDL_dynapi.c.obj
+SDL_cpuinfo.c
+SDL_wave.c
+SDL_dynapi.c
+[ 12%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_clipboardevents.c.obj
+[ 12%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_displayevents.c.obj
+SDL_clipboardevents.c
+[ 13%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_dropevents.c.obj
+SDL_displayevents.c
+[ 14%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_events.c.obj
+SDL_dropevents.c
+SDL_events.c
+[ 14%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_gesture.c.obj
+SDL_gesture.c
+[ 15%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_keyboard.c.obj
+[ 15%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_mouse.c.obj
+SDL_keyboard.c
+[ 16%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_quit.c.obj
+SDL_mouse.c
+SDL_quit.c
+[ 16%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_touch.c.obj
+[ 17%] Building C object CMakeFiles/SDL2.dir/src/events/SDL_windowevents.c.obj
+SDL_touch.c
+SDL_windowevents.c
+[ 18%] Building C object CMakeFiles/SDL2.dir/src/file/SDL_rwops.c.obj
+SDL_rwops.c
+[ 18%] Building C object CMakeFiles/SDL2.dir/src/libm/e_atan2.c.obj
+[ 19%] Building C object CMakeFiles/SDL2.dir/src/libm/e_exp.c.obj
+e_atan2.c
+e_exp.c
+[ 20%] Building C object CMakeFiles/SDL2.dir/src/libm/e_fmod.c.obj
+[ 20%] Building C object CMakeFiles/SDL2.dir/src/libm/e_log.c.obj
+e_fmod.c
+[ 21%] Building C object CMakeFiles/SDL2.dir/src/libm/e_log10.c.obj
+e_log.c
+[ 22%] Building C object CMakeFiles/SDL2.dir/src/libm/e_pow.c.obj
+e_log10.c
+[ 22%] Building C object CMakeFiles/SDL2.dir/src/libm/e_rem_pio2.c.obj
+e_pow.c
+[ 23%] Building C object CMakeFiles/SDL2.dir/src/libm/e_sqrt.c.obj
+e_rem_pio2.c
+[ 24%] Building C object CMakeFiles/SDL2.dir/src/libm/k_cos.c.obj
+[ 24%] Building C object CMakeFiles/SDL2.dir/src/libm/k_rem_pio2.c.obj
+k_rem_pio2.c
+e_sqrt.c
+k_cos.c
+[ 25%] Building C object CMakeFiles/SDL2.dir/src/libm/k_sin.c.obj
+[ 26%] Building C object CMakeFiles/SDL2.dir/src/libm/s_atan.c.obj
+[ 25%] Building C object CMakeFiles/SDL2.dir/src/libm/k_tan.c.obj
+k_sin.c
+k_tan.c
+s_atan.c
+[ 27%] Building C object CMakeFiles/SDL2.dir/src/libm/s_copysign.c.obj
+[ 27%] Building C object CMakeFiles/SDL2.dir/src/libm/s_cos.c.obj
+[ 28%] Building C object CMakeFiles/SDL2.dir/src/libm/s_fabs.c.obj
+s_copysign.c
+s_cos.c
+s_fabs.c
+[ 29%] Building C object CMakeFiles/SDL2.dir/src/libm/s_floor.c.obj
+[ 29%] Building C object CMakeFiles/SDL2.dir/src/libm/s_scalbn.c.obj
+[ 30%] Building C object CMakeFiles/SDL2.dir/src/libm/s_sin.c.obj
+s_floor.c
+s_scalbn.c
+s_sin.c
+[ 31%] Building C object CMakeFiles/SDL2.dir/src/libm/s_tan.c.obj
+[ 31%] Building C object CMakeFiles/SDL2.dir/src/render/SDL_d3dmath.c.obj
+s_tan.c
+[ 32%] Building C object CMakeFiles/SDL2.dir/src/render/SDL_render.c.obj
+SDL_d3dmath.c
+[ 32%] Building C object CMakeFiles/SDL2.dir/src/render/SDL_yuv_sw.c.obj
+SDL_render.c
+[ 33%] Building C object CMakeFiles/SDL2.dir/src/render/direct3d/SDL_render_d3d.c.obj
+SDL_yuv_sw.c
+[ 34%] Building C object CMakeFiles/SDL2.dir/src/render/direct3d/SDL_shaders_d3d.c.obj
+SDL_render_d3d.c
+[ 34%] Building C object CMakeFiles/SDL2.dir/src/render/direct3d11/SDL_render_d3d11.c.obj
+SDL_shaders_d3d.c
+[ 35%] Building C object CMakeFiles/SDL2.dir/src/render/direct3d11/SDL_shaders_d3d11.c.obj
+SDL_render_d3d11.c
+[ 36%] Building C object CMakeFiles/SDL2.dir/src/render/opengl/SDL_render_gl.c.obj
+SDL_shaders_d3d11.c
+[ 36%] Building C object CMakeFiles/SDL2.dir/src/render/opengl/SDL_shaders_gl.c.obj
+SDL_render_gl.c
+SDL_shaders_gl.c
+[ 37%] Building C object CMakeFiles/SDL2.dir/src/render/opengles/SDL_render_gles.c.obj
+[ 38%] Building C object CMakeFiles/SDL2.dir/src/render/opengles2/SDL_render_gles2.c.obj
+SDL_render_gles.c
+[ 38%] Building C object CMakeFiles/SDL2.dir/src/render/opengles2/SDL_shaders_gles2.c.obj
+SDL_render_gles2.c
+[ 39%] Building C object CMakeFiles/SDL2.dir/src/render/psp/SDL_render_psp.c.obj
+SDL_shaders_gles2.c
+SDL_render_psp.c
+[ 40%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_blendfillrect.c.obj
+[ 40%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_blendline.c.obj
+SDL_blendfillrect.c
+[ 41%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_blendpoint.c.obj
+SDL_blendline.c
+[ 41%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_drawline.c.obj
+SDL_blendpoint.c
+SDL_drawline.c
+[ 42%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_drawpoint.c.obj
+[ 43%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_render_sw.c.obj
+SDL_drawpoint.c
+SDL_render_sw.c
+[ 43%] Building C object CMakeFiles/SDL2.dir/src/render/software/SDL_rotate.c.obj
+[ 44%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_getenv.c.obj
+SDL_getenv.c
+[ 45%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_iconv.c.obj
+SDL_rotate.c
+SDL_iconv.c
+[ 45%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_malloc.c.obj
+[ 45%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_qsort.c.obj
+SDL_malloc.c
+[ 47%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_stdlib.c.obj
+SDL_qsort.c
+SDL_stdlib.c
+[ 47%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_string.c.obj
+SDL_string.c
+[ 48%] Building C object CMakeFiles/SDL2.dir/src/stdlib/SDL_strtokr.c.obj
+[ 48%] Building C object CMakeFiles/SDL2.dir/src/thread/SDL_thread.c.obj
+SDL_strtokr.c
+[ 49%] Building C object CMakeFiles/SDL2.dir/src/timer/SDL_timer.c.obj
+SDL_thread.c
+SDL_timer.c
+[ 50%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_RLEaccel.c.obj
+[ 50%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit.c.obj
+SDL_RLEaccel.c
+SDL_blit.c
+[ 51%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_0.c.obj
+[ 52%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_1.c.obj
+SDL_blit_0.c
+SDL_blit_1.c
+[ 52%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_A.c.obj
+[ 53%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_N.c.obj
+SDL_blit_A.c
+[ 54%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_auto.c.obj
+SDL_blit_N.c
+SDL_blit_auto.c
+[ 54%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_copy.c.obj
+[ 55%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_blit_slow.c.obj
+SDL_blit_copy.c
+SDL_blit_slow.c
+[ 55%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_bmp.c.obj
+[ 55%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_clipboard.c.obj
+SDL_bmp.c
+SDL_clipboard.c
+[ 57%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_egl.c.obj
+[ 58%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_fillrect.c.obj
+SDL_egl.c
+[ 58%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_pixels.c.obj
+SDL_fillrect.c
+SDL_pixels.c
+[ 59%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_rect.c.obj
+[ 59%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_shape.c.obj
+SDL_rect.c
+SDL_shape.c
+[ 60%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_stretch.c.obj
+[ 61%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_surface.c.obj
+SDL_stretch.c
+SDL_surface.c
+[ 62%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_video.c.obj
+[ 62%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_vulkan_utils.c.obj
+SDL_video.c
+SDL_vulkan_utils.c
+[ 62%] Building C object CMakeFiles/SDL2.dir/src/video/SDL_yuv.c.obj
+[ 63%] Building C object CMakeFiles/SDL2.dir/src/video/yuv2rgb/yuv_rgb.c.obj
+[ 63%] Building C object CMakeFiles/SDL2.dir/src/joystick/SDL_gamecontroller.c.obj
+SDL_yuv.c
+yuv_rgb.c
+SDL_gamecontroller.c
+[ 64%] Building C object CMakeFiles/SDL2.dir/src/joystick/SDL_joystick.c.obj
+SDL_joystick.c
+[ 65%] Building C object CMakeFiles/SDL2.dir/src/haptic/SDL_haptic.c.obj
+[ 65%] Building C object CMakeFiles/SDL2.dir/src/sensor/SDL_sensor.c.obj
+SDL_haptic.c
+SDL_sensor.c
+[ 66%] Building C object CMakeFiles/SDL2.dir/src/power/SDL_power.c.obj
+[ 67%] Building C object CMakeFiles/SDL2.dir/src/audio/dummy/SDL_dummyaudio.c.obj
+SDL_power.c
+[ 68%] Building C object CMakeFiles/SDL2.dir/src/audio/disk/SDL_diskaudio.c.obj
+SDL_dummyaudio.c
+SDL_diskaudio.c
+[ 68%] Building C object CMakeFiles/SDL2.dir/src/video/dummy/SDL_nullevents.c.obj
+[ 69%] Building C object CMakeFiles/SDL2.dir/src/video/dummy/SDL_nullframebuffer.c.obj
+SDL_nullevents.c
+SDL_nullframebuffer.c
+[ 69%] Building C object CMakeFiles/SDL2.dir/src/video/dummy/SDL_nullvideo.c.obj
+[ 69%] Building C object CMakeFiles/SDL2.dir/src/core/windows/SDL_windows.c.obj
+SDL_nullvideo.c
+SDL_windows.c
+[ 71%] Building C object CMakeFiles/SDL2.dir/src/core/windows/SDL_xinput.c.obj
+[ 71%] Building C object CMakeFiles/SDL2.dir/src/audio/directsound/SDL_directsound.c.obj
+[ 71%] Building C object CMakeFiles/SDL2.dir/src/audio/winmm/SDL_winmm.c.obj
+SDL_xinput.c
+SDL_winmm.c
+SDL_directsound.c
+[ 72%] Building C object CMakeFiles/SDL2.dir/src/audio/wasapi/SDL_wasapi.c.obj
+[ 73%] Building C object CMakeFiles/SDL2.dir/src/audio/wasapi/SDL_wasapi_win32.c.obj
+SDL_wasapi.c
+SDL_wasapi_win32.c
+[ 73%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsclipboard.c.obj
+[ 74%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsevents.c.obj
+SDL_windowsclipboard.c
+SDL_windowsevents.c
+[ 74%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsframebuffer.c.obj
+[ 75%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowskeyboard.c.obj
+SDL_windowsframebuffer.c
+SDL_windowskeyboard.c
+[ 76%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsmessagebox.c.obj
+SDL_windowsmessagebox.c
+[ 76%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsmodes.c.obj
+[ 77%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsmouse.c.obj
+SDL_windowsmodes.c
+[ 77%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsopengl.c.obj
+SDL_windowsmouse.c
+SDL_windowsopengl.c
+[ 78%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsopengles.c.obj
+[ 79%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsshape.c.obj
+SDL_windowsopengles.c
+SDL_windowsshape.c
+[ 79%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsvideo.c.obj
+SDL_windowsvideo.c
+[ 80%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowsvulkan.c.obj
+[ 81%] Building C object CMakeFiles/SDL2.dir/src/video/windows/SDL_windowswindow.c.obj
+SDL_windowsvulkan.c
+[ 81%] Building C object CMakeFiles/SDL2.dir/src/thread/windows/SDL_sysmutex.c.obj
+SDL_windowswindow.c
+SDL_sysmutex.c
+[ 82%] Building C object CMakeFiles/SDL2.dir/src/thread/windows/SDL_syssem.c.obj
+[ 83%] Building C object CMakeFiles/SDL2.dir/src/thread/windows/SDL_systhread.c.obj
+SDL_syssem.c
+SDL_systhread.c
+[ 83%] Building C object CMakeFiles/SDL2.dir/src/thread/windows/SDL_systls.c.obj
+SDL_systls.c
+[ 84%] Building C object CMakeFiles/SDL2.dir/src/thread/generic/SDL_syscond.c.obj
+[ 85%] Building C object CMakeFiles/SDL2.dir/src/power/windows/SDL_syspower.c.obj
+SDL_syscond.c
+[ 85%] Building C object CMakeFiles/SDL2.dir/src/filesystem/windows/SDL_sysfilesystem.c.obj
+SDL_syspower.c
+[ 86%] Building C object CMakeFiles/SDL2.dir/src/timer/windows/SDL_systimer.c.obj
+SDL_sysfilesystem.c
+SDL_systimer.c
+[ 87%] Building C object CMakeFiles/SDL2.dir/src/loadso/windows/SDL_sysloadso.c.obj
+[ 87%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_gamecube.c.obj
+[ 88%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_ps4.c.obj
+SDL_hidapi_ps4.c
+SDL_sysloadso.c
+SDL_hidapi_gamecube.c
+[ 88%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_rumble.c.obj
+SDL_hidapi_rumble.c
+[ 88%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_steam.c.obj
+[ 90%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_switch.c.obj
+SDL_hidapi_steam.c
+SDL_hidapi_switch.c
+[ 90%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_xbox360.c.obj
+[ 90%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_xbox360w.c.obj
+[ 91%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapi_xboxone.c.obj
+SDL_hidapi_xbox360.c
+SDL_hidapi_xbox360w.c
+SDL_hidapi_xboxone.c
+[ 92%] Building C object CMakeFiles/SDL2.dir/src/joystick/hidapi/SDL_hidapijoystick.c.obj
+[ 92%] Building C object CMakeFiles/SDL2.dir/src/hidapi/windows/hid.c.obj
+SDL_hidapijoystick.c
+hid.c
+[ 92%] Building C object CMakeFiles/SDL2.dir/src/joystick/windows/SDL_dinputjoystick.c.obj
+[ 93%] Building C object CMakeFiles/SDL2.dir/src/joystick/windows/SDL_mmjoystick.c.obj
+SDL_dinputjoystick.c
+[ 94%] Building C object CMakeFiles/SDL2.dir/src/joystick/windows/SDL_windowsjoystick.c.obj
+SDL_mmjoystick.c
+SDL_windowsjoystick.c
+[ 94%] Building C object CMakeFiles/SDL2.dir/src/joystick/windows/SDL_xinputjoystick.c.obj
+[ 95%] Building C object CMakeFiles/SDL2.dir/src/haptic/windows/SDL_dinputhaptic.c.obj
+SDL_xinputjoystick.c
+SDL_dinputhaptic.c
+[ 96%] Building C object CMakeFiles/SDL2.dir/src/haptic/windows/SDL_windowshaptic.c.obj
+[ 96%] Building C object CMakeFiles/SDL2.dir/src/haptic/windows/SDL_xinputhaptic.c.obj
+SDL_windowshaptic.c
+[ 98%] Building C object CMakeFiles/SDL2.dir/src/sensor/dummy/SDL_dummysensor.c.obj
+SDL_xinputhaptic.c
+SDL_dummysensor.c
+[ 98%] Building RC object CMakeFiles/SDL2.dir/src/main/windows/version.rc.res
+Microsoft (R) Windows (R) Resource Compiler Version 10.0.10011.16384
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+[ 99%] Linking C shared library SDL2d.dll
+   Creating library SDL2d.lib and object SDL2d.exp
+   Creating library SDL2d.lib and object SDL2d.exp
+[100%] Built target SDL2

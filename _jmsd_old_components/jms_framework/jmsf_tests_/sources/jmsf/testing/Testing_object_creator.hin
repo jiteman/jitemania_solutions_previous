@@ -1,0 +1,36 @@
+#pragma once
+
+#include "Testing_object_creator.hpp"
+
+
+#include "testing_Allocators.h"
+
+#include "jmsf/memorying/Omp.hin"
+
+
+namespace jmsf {
+namespace testing {
+
+
+template< class A_type >
+// static
+memorying::Omp< A_type > Testing_object_creator< A_type >::create_omp() {
+	return A_type::create( testing_Allocators::instance()->get_testing_object_allocator() );
+}
+
+template< class A_type >
+template< class A_first_parameter >
+// static
+memorying::Omp< A_type > Testing_object_creator< A_type >::create_omp( const A_first_parameter &an_object ) {
+	return A_type::create( testing_Allocators::instance()->get_testing_object_allocator(), an_object );
+}
+
+template< class A_type >
+// static
+pointing::Scoped< A_type > Testing_object_creator< A_type >::create_scoped() {
+	return pointing::Scoped< A_type >::create( Testing_object_creator< A_type >::create_omp() );
+}
+
+
+} // namespace testing
+} // namespace jmsf

@@ -1,0 +1,9 @@
+Format: name char/short/int/long/longlong/pointer
+
+standard	8 / 16 / 16 / 32 / 64 (at least)
+LP32		8 / 16 / 16 / 32 / 64 / 32
+ILP32		8 / 16 / 32 / 32 / 64 / 32
+LLP64		8 / 16 / 32 / 32 / 64 / 64
+LP64		8 / 16 / 32 / 64 / 64 / 64
+ILP64		8 / 16 / 64 / 64 / 64 / 64
+

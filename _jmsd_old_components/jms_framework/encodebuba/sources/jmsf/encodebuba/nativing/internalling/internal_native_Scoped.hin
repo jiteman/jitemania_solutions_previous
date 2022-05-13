@@ -1,0 +1,88 @@
+#pragma once
+
+#include "internal_native_Scoped.hpp"
+
+
+#include "jmsf/encodebuba/nativing/native_Scoped.hin"
+
+#include "jmsf/encodebuba/encodebuba_logging_macroses_.h"
+
+#include <utility>
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+namespace internalling {
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+internal_native_Scoped< A_type >::~internal_native_Scoped() noexcept {
+	ENCODEBUBA_INIT_DEINIT_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( native_Scoped< A_type >::is_not_empty(), "internal_native_Scoped< A_type >::~internal_native_Scoped() - is not empty", ENCODEBUBA_TYPE( A_type ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+internal_native_Scoped< A_type >::internal_native_Scoped() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+internal_native_Scoped< A_type >::internal_native_Scoped( const A_type *an_object_pointer ) noexcept
+	:
+		native_Scoped< A_type >( an_object_pointer )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+internal_native_Scoped< A_type > internal_native_Scoped< A_type >::create( const A_type *an_object_pointer ) {
+	return internal_native_Scoped< A_type >( an_object_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+internal_native_Scoped< A_type >::internal_native_Scoped( const internal_native_Scoped< A_type > &another ) noexcept
+	:
+		native_Scoped< A_type >( ::std::move( const_cast< internal_native_Scoped< A_type > & >( another ) ) )
+{}
+
+template< class A_type >
+const internal_native_Scoped< A_type > &internal_native_Scoped< A_type >::operator =( const internal_native_Scoped< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	native_Scoped< A_type >::operator =( ::std::move( const_cast< internal_native_Scoped< A_type > & >( another ) ) );
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+internal_native_Scoped< A_type >::internal_native_Scoped( internal_native_Scoped< A_type > &&another ) noexcept
+	:
+		native_Scoped< A_type >( ::std::move( another ) )
+{}
+
+template< class A_type >
+internal_native_Scoped< A_type > &internal_native_Scoped< A_type >::operator =( internal_native_Scoped< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	native_Scoped< A_type >::operator =( ::std::move( another ) );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace internalling
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

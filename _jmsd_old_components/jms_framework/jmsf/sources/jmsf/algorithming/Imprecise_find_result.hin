@@ -1,0 +1,85 @@
+#pragma once
+
+#include "Imprecise_find_result.hpp"
+
+
+namespace jmsf {
+namespace algorithming {
+
+
+template< class A_type >
+const A_type &Imprecise_find_result< A_type >::get_maximum_less() const noexcept {
+	return _maximum_less;
+}
+
+template< class A_type >
+const A_type &Imprecise_find_result< A_type >::get_minimum_greater() const noexcept {
+	return _minimum_greater;
+}
+
+template< class A_type >
+const A_type &Imprecise_find_result< A_type >::get_exact() const noexcept {
+	return _exact;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+void Imprecise_find_result< A_type >::set_maximum_less( const A_type &an_object ) {
+	_maximum_less = an_object;
+}
+
+template< class A_type >
+void Imprecise_find_result< A_type >::set_minimum_greater( const A_type &an_object ) {
+	_minimum_greater = an_object;
+}
+
+template< class A_type >
+void Imprecise_find_result< A_type >::set_exact( const A_type &an_object ) {
+	_exact = an_object;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Imprecise_find_result< A_type >::~Imprecise_find_result() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Imprecise_find_result< A_type >::Imprecise_find_result() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Imprecise_find_result< A_type >::Imprecise_find_result( const Imprecise_find_result< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Imprecise_find_result< A_type > &Imprecise_find_result< A_type >::operator =( const Imprecise_find_result< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Imprecise_find_result< A_type >::Imprecise_find_result( Imprecise_find_result< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Imprecise_find_result< A_type > &Imprecise_find_result< A_type >::operator =( Imprecise_find_result< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace algorithming
+} // namespace jmsf

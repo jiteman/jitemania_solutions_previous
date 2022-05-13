@@ -1,0 +1,129 @@
+#pragma once
+
+#include "Awamp.hpp"
+
+
+#include "Wamp.hin"
+#include "Amp.hin"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/validating/macroses_Should.h"
+
+#include "jmsf/jmsf_logging_macroses.h"
+
+
+namespace jmsf {
+namespace memorying {
+
+
+template< class A_type >
+const Amp< A_type > &Awamp< A_type >::get_amp() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Awamp< A_type >::get_amp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _array_memory_pointer;
+}
+
+template< class A_type >
+const Wamp< A_type > &Awamp< A_type >::get_wamp() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Awamp< A_type >::get_wamp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _weak_array_memory_pointer;
+}
+
+template< class A_type >
+Amp< A_type > &Awamp< A_type >::take_amp() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Awamp< A_type >::take_amp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _array_memory_pointer;
+}
+
+template< class A_type >
+Wamp< A_type > &Awamp< A_type >::take_wamp() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Awamp< A_type >::take_wamp()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+	return _weak_array_memory_pointer;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean Awamp< A_type >::is_empty() const noexcept {
+	return _array_memory_pointer.is_empty() || _weak_array_memory_pointer.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Awamp< A_type >::is_not_empty() const noexcept {
+	return _array_memory_pointer.is_not_empty() && _weak_array_memory_pointer.is_empty();
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Awamp< A_type >::~Awamp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awamp< A_type >::Awamp() noexcept
+{}
+
+template< class A_type >
+Awamp< A_type >::Awamp( const Amp< A_type > &an_array_memory_pointer ) noexcept
+	:
+		_array_memory_pointer( an_array_memory_pointer ),
+		_weak_array_memory_pointer( an_array_memory_pointer.get_wamp() )
+{}
+
+// static
+template< class A_type >
+Awamp< A_type > Awamp< A_type >::create( const Amp< A_type > &an_array_memory_pointer ) {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( an_array_memory_pointer.is_empty(), "Awamp< A_type >::create( amp )", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( an_array_memory_pointer );
+	return Awamp< A_type >( an_array_memory_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awamp< A_type >::Awamp( const Awamp< A_type > &another ) noexcept
+	:
+		_array_memory_pointer( another._array_memory_pointer ),
+		_weak_array_memory_pointer( another._weak_array_memory_pointer )
+{}
+
+template< class A_type >
+const Awamp< A_type > &Awamp< A_type >::operator =( const Awamp< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_array_memory_pointer = another._array_memory_pointer;
+	_weak_array_memory_pointer = another._weak_array_memory_pointer;
+	return *this;
+}
+
+template< class A_type >
+Awamp< A_type >::Awamp( Awamp< A_type > &&another ) noexcept
+	:
+		_array_memory_pointer( another._array_memory_pointer ),
+		_weak_array_memory_pointer( another._weak_array_memory_pointer )
+{
+	another._array_memory_pointer = Amp< A_type >();
+	another._weak_array_memory_pointer = Wamp< A_type >();
+}
+
+template< class A_type >
+Awamp< A_type > &Awamp< A_type >::operator =( Awamp< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_array_memory_pointer = another._array_memory_pointer;
+	_weak_array_memory_pointer = another._weak_array_memory_pointer;
+	another._array_memory_pointer = Amp< A_type >();
+	another._weak_array_memory_pointer = Wamp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace memorying
+} // namespace jmsf

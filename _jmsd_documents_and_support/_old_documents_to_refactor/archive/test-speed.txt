@@ -1,0 +1,14 @@
+Memory_pointer math on demand:
+
+Runned: 229 tests, execution time: 28 milliseconds
+
+Test execution rate is: 8178.57 tests per second
+Test case execution rate for 26 tests per test case is: 314.56 test cases per second
+
+
+Object_pointer reference pre-computed:
+
+Runned: 229 tests, execution time: 18 milliseconds
+
+Test execution rate is: 12722.2 tests per second
+Test case execution rate for 26 tests per test case is: 489.316 test cases per second

@@ -1,0 +1,215 @@
+#pragma once
+
+#include "cWeak.hpp"
+
+
+//#include "jmsf/texting/Ansii_allocating_assistor.h"
+//#include "jmsf/texting/Ansii_stream.hin"
+//#include "jmsf/texting/Ansii_text.h"
+//#include "jmsf/pointing/Shared.hin"
+#include "cShared.hin"
+
+#include "jmsf/memorying/Destructor.hin"
+#include "jmsf/memorying/Allocator.h"
+#include "jmsf/memorying/Omp.hin"
+#include "internalling/Reference_counters_connectivity.h"
+#include "internalling/Reference_counted_omp.hin"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+#include <utility> // ::std::move
+
+
+namespace jmsf {
+namespace pointing {
+
+
+template< class A_type >
+typeing::Boolean cWeak< A_type >::is_empty() const noexcept {
+	if ( _reference_counted_omp_omp.is_empty() ) return typeing::True;
+
+	return _reference_counted_omp_omp->is_empty();
+}
+
+template< class A_type >
+typeing::Boolean cWeak< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< A_type > cWeak< A_type >::get_as_cshared() const noexcept {
+	if ( is_empty() ) return cShared< A_type >();
+
+	return cShared< A_type >::create_from_weak( _reference_counted_omp_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean cWeak< A_type >::operator ==( const cWeak< A_type > &another ) const noexcept {
+	return _reference_counted_omp_omp == another._reference_counted_omp_omp;
+}
+
+template< class A_type >
+typeing::Boolean cWeak< A_type >::operator !=( const cWeak< A_type > &another ) const noexcept {
+	return !( *this == another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< texting::Ansii_text > cWeak< A_type >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	if ( _reference_counted_omp_omp.is_empty() ) return _reference_counted_omp_omp.to_ansii_text( an_aaa );
+
+	return _reference_counted_omp_omp->to_ansii_text( an_aaa );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+internalling::Reference_counters_connectivity cWeak< A_type >::get_connectivity() const noexcept {
+	if ( _reference_counted_omp_omp.is_empty() ) return internalling::Reference_counters_connectivity();
+
+	return
+		internalling::Reference_counters_connectivity(
+			_reference_counted_omp_omp->get_strong_reference_counter_value(),
+			_reference_counted_omp_omp->get_weak_reference_counter_value() );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+cWeak< A_type >::~cWeak() noexcept {
+	if ( _reference_counted_omp_omp.is_empty() ) return;
+
+	_reference_counted_omp_omp->decrease_weak_reference_counter();
+
+	if ( _reference_counted_omp_omp->are_both_reference_counters_nill() ) {
+		memorying::Destructor< internalling::Reference_counted_omp< A_type > >::destruct( _reference_counted_omp_omp );
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cWeak< A_type >::cWeak() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cWeak< A_type >::cWeak( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept
+	:
+		_reference_counted_omp_omp( reference_counted_omp_omp )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+cWeak< A_type > cWeak< A_type >::create_from_shared( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept {
+	if ( reference_counted_omp_omp.is_empty() ) return cWeak< A_type >();
+
+	jmsf_Should_never_be( reference_counted_omp_omp->is_strong_reference_counter_nill() );
+
+	memorying::Omp< internalling::Reference_counted_omp< A_type > > copy_of_reference_counted_omp_omp = reference_counted_omp_omp;
+	copy_of_reference_counted_omp_omp->increase_weak_reference_counter();
+
+	return cWeak< A_type >( copy_of_reference_counted_omp_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+cWeak< A_type > cWeak< A_type >::create_from_cshared( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept {
+	if ( reference_counted_omp_omp.is_empty() ) return cWeak< A_type >();
+
+	jmsf_Should_never_be( reference_counted_omp_omp->is_strong_reference_counter_nill() );
+
+	memorying::Omp< internalling::Reference_counted_omp< A_type > > copy_of_reference_counted_omp_omp = reference_counted_omp_omp;
+	copy_of_reference_counted_omp_omp->increase_weak_reference_counter();
+
+	return cWeak< A_type >( copy_of_reference_counted_omp_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+cWeak< A_type > cWeak< A_type >::create_from_weak( const memorying::Omp< internalling::Reference_counted_omp< A_type > > &reference_counted_omp_omp ) noexcept {
+	if ( reference_counted_omp_omp.is_empty() ) return cWeak< A_type >();
+	if ( reference_counted_omp_omp->is_strong_reference_counter_nill() ) return cWeak< A_type >();
+
+	memorying::Omp< internalling::Reference_counted_omp< A_type > > copy_of_reference_counted_omp_omp = reference_counted_omp_omp;
+	copy_of_reference_counted_omp_omp->increase_weak_reference_counter();
+
+	return cWeak< A_type >( copy_of_reference_counted_omp_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cWeak< A_type >::cWeak( const cWeak< A_type > &another ) noexcept
+	:
+		_reference_counted_omp_omp( another._reference_counted_omp_omp )
+{
+	if ( _reference_counted_omp_omp.is_empty() ) return;
+
+	_reference_counted_omp_omp->increase_weak_reference_counter();
+}
+
+template< class A_type >
+const cWeak< A_type > &cWeak< A_type >::operator =( const cWeak< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// clear my data
+	if ( _reference_counted_omp_omp.is_not_empty() ) {
+		_reference_counted_omp_omp->decrease_weak_reference_counter();
+
+		if ( _reference_counted_omp_omp->are_both_reference_counters_nill() ) {
+			memorying::Destructor< internalling::Reference_counted_omp< A_type > >::destruct( _reference_counted_omp_omp );
+		}
+	}
+
+	// copy another data into my data
+	_reference_counted_omp_omp = another._reference_counted_omp_omp;
+
+	// update my data
+	if ( _reference_counted_omp_omp.is_not_empty() ) {
+		_reference_counted_omp_omp->increase_weak_reference_counter();
+	}
+
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cWeak< A_type >::cWeak( cWeak< A_type > &&another ) noexcept
+	:
+		_reference_counted_omp_omp( ::std::move( another._reference_counted_omp_omp ) )
+{}
+
+template< class A_type >
+cWeak< A_type > &cWeak< A_type >::operator =( cWeak< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// clear my data
+	if ( _reference_counted_omp_omp.is_not_empty() ) {
+		_reference_counted_omp_omp->decrease_weak_reference_counter();
+
+		if ( _reference_counted_omp_omp->are_both_reference_counters_nill() ) {
+			memorying::Destructor< internalling::Reference_counted_omp< A_type > >::destruct( _reference_counted_omp_omp );
+		}
+	}
+
+	// move another data into my data
+	_reference_counted_omp_omp = ::std::move( another._reference_counted_omp_omp );
+
+	// clear another data
+//	another._reference_counted_omp = internalling_dev::Rec_omp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace pointing
+} // namespace jmsf
+

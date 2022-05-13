@@ -1,0 +1,14 @@
+#pragma once
+
+
+namespace jmsf {
+namespace memorying {
+namespace allocating {
+
+
+class System_allocator;
+
+
+} // namespace allocating
+} // namespace memorying
+} // namespace jmsf

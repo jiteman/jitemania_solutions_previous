@@ -1,0 +1,122 @@
+#pragma once
+
+#include "template_Mock_sensor.hpp"
+
+#include "jmsf/typeing/Naturals.hin"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace cule {
+namespace mocking {
+
+
+template< int Boolean_quantity, int Natural_quantity >
+typeing::Boolean template_Mock_sensor< Boolean_quantity, Natural_quantity >::is_touched( const typeing::Memory_natural::my_natural_integral_type an_index ) const {
+	jmsf_Should_always_be( typeing::Memory_natural::create( an_index ) < typeing::Memory_natural::create( Boolean_quantity ) );
+
+	return _the_boolean_array[ an_index ];
+}
+
+template< int Boolean_quantity, int Natural_quantity >
+typeing::Memory_natural template_Mock_sensor< Boolean_quantity, Natural_quantity >::get_counter( const typeing::Memory_natural::my_natural_integral_type an_index ) const {
+	jmsf_Should_always_be( typeing::Memory_natural::create( an_index ) < typeing::Memory_natural::create( Natural_quantity ) );
+
+	return _the_natural_array[ an_index ];
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< int Boolean_quantity, int Natural_quantity >
+void template_Mock_sensor< Boolean_quantity, Natural_quantity >::touch( const typeing::Memory_natural::my_natural_integral_type an_index ) const {
+	jmsf_Should_always_be( typeing::Memory_natural::create( an_index ) < typeing::Memory_natural::create( Boolean_quantity ) );
+
+	typeing::Boolean &indexed_boolean = _the_boolean_array[ an_index ];
+
+	jmsf_Should_never_be( indexed_boolean );
+
+	indexed_boolean = typeing::True;
+}
+
+template< int Boolean_quantity, int Natural_quantity >
+void template_Mock_sensor< Boolean_quantity, Natural_quantity >::untouch( const typeing::Memory_natural::my_natural_integral_type an_index ) const {
+	jmsf_Should_always_be( typeing::Memory_natural::create( an_index ) < typeing::Memory_natural::create( Boolean_quantity ) );
+
+	typeing::Boolean &indexed_boolean = _the_boolean_array[ an_index ];
+
+	jmsf_Should_always_be( indexed_boolean );
+
+	indexed_boolean = typeing::False;
+}
+
+template< int Boolean_quantity, int Natural_quantity >
+void template_Mock_sensor< Boolean_quantity, Natural_quantity >::increase( const typeing::Memory_natural::my_natural_integral_type an_index ) const {
+	jmsf_Should_always_be( typeing::Memory_natural::create( an_index ) < typeing::Memory_natural::create( Natural_quantity ) );
+
+	typeing::Memory_natural &indexed_natural = _the_natural_array[ an_index ];
+
+	jmsf_Should_never_be( indexed_natural.is_max() );
+
+	indexed_natural += typeing::Memory_natural_one;
+}
+
+template< int Boolean_quantity, int Natural_quantity >
+void template_Mock_sensor< Boolean_quantity, Natural_quantity >::decrease( const typeing::Memory_natural::my_natural_integral_type an_index ) const {
+	jmsf_Should_always_be( typeing::Memory_natural::create( an_index ) < typeing::Memory_natural::create( Natural_quantity ) );
+
+	typeing::Memory_natural &indexed_natural = _the_natural_array[ an_index ];
+
+	jmsf_Should_never_be( indexed_natural.is_nil() );
+
+	indexed_natural -= typeing::Memory_natural_one;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< int Boolean_quantity, int Natural_quantity >
+template_Mock_sensor< Boolean_quantity, Natural_quantity >::~template_Mock_sensor() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< int Boolean_quantity, int Natural_quantity >
+template_Mock_sensor< Boolean_quantity, Natural_quantity >::template_Mock_sensor() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//template_Mock_sensor< A_type >::template_Mock_sensor( template_Mock_sensor< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//template_Mock_sensor< A_type > &template_Mock_sensor< A_type >::operator =( const template_Mock_sensor< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy derived part
+//	static_cast< base_class_name< A_type > & >( *this ) = another;
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//template_Mock_sensor< A_type >::template_Mock_sensor( template_Mock_sensor< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//template_Mock_sensor< A_type > &template_Mock_sensor< A_type >::operator =( template_Mock_sensor< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move derived part
+//	static_cast< base_class_name< A_type > & >( *this ) = another;
+//	another = template_Mock_sensor< A_type >();
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace mocking
+} // namespace cule
+} // namespace jmsf

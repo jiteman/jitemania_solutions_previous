@@ -1,0 +1,213 @@
+#pragma once
+
+
+#include "Top_pool_allocator.hpp"
+
+#include "Heap_status_descriptor.h"
+//#include "Memory_block_descriptor.h"
+#include "Pool_block_descriptor.hin"
+
+#include "jmsf/memorying/Memory_address.h"
+#include "jmsf/memorying/Womp.hin"
+
+#include "jmsf/typeing/Aso.hin"
+#include "jmsf/typeing/Bitwise.hin"
+
+
+namespace jmsf {
+namespace memorying {
+namespace allocating {
+
+
+template< class A_type >
+Memory_address Top_pool_allocator< A_type >::allocate_memory( const typeing::Memory_natural a_size, const typeing::Memory_natural an_alignment ) {
+	if ( a_size != typeing::size_of< A_type >() || an_alignment != typeing::alignment_of< A_type >() ) {
+		// requested memory has not appropriate size and/or alignment (wrong type)
+		return Memory_address();
+	}
+
+	return get_empty_memory_block();
+}
+
+template< class A_type >
+void Top_pool_allocator< A_type >::deallocate_memory( const Memory_address &a_memory, const typeing::Memory_natural an_alignment ) {
+	if ( a_memory.is_empty() ) return;
+
+	if ( an_alignment != typeing::alignment_of< Memory_block_descriptor >() ) {
+		// wtf? is this template actual for Memory block descriptor only?
+		return;
+	}
+
+	const typeing::Memory_natural pool_block_address = typeing::align_down( a_memory.get(), typeing::size_of< Pool_block_descriptor< A_type > >() );
+
+	if ( get_pool_block_address( _quantity_of_pool_blocks_allocated - typeing::Memory_natural_one ) > pool_block_address ) {
+		// throw wrong address to deallocate (out of range) (from another block - ?)
+		return;
+	}
+
+	Womp< Pool_block_descriptor< A_type > > pool_block_descriptor =
+		Womp< Pool_block_descriptor< A_type > >::create(
+			Object_pointer< Pool_block_descriptor< A_type > >::create_from_address (
+			pool_block_address ) );
+
+	const typeing::Memory_natural memory_block_descriptor_index =
+		pool_block_descriptor->get_object_memory_block_index(
+			typeing::get_pointer_from_Memory_natural< A_type >( a_memory.get() ) );
+
+	if ( pool_block_descriptor->is_free( memory_block_descriptor_index ) ) {
+		// throw repeating deallocation (already freed)
+		return;
+	}
+
+	pool_block_descriptor->set_as_free( memory_block_descriptor_index );
+
+	if ( pool_block_descriptor->is_not_used() ) {
+		release_unused_pool_block_descriptors( pool_block_descriptor, pool_block_address );
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Top_pool_allocator< A_type >::~Top_pool_allocator() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Top_pool_allocator< A_type >::Top_pool_allocator() noexcept
+{}
+
+template< class A_type >
+Top_pool_allocator< A_type >::Top_pool_allocator( const memorying::Womp< Heap_status_descriptor > &heap_status_descriptor ) noexcept
+	:
+		_heap_status_descriptor( heap_status_descriptor )
+{
+	_aligned_heap_end_address = typeing::align_down( ++_heap_status_descriptor->get_memory_heap_end(), typeing::alignment_of< Pool_block_descriptor< A_type > >() );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Top_pool_allocator< A_type >::Top_pool_allocator( const Top_pool_allocator< A_type > &another ) noexcept
+	:
+		_heap_status_descriptor( another._heap_status_descriptor ),
+		_aligned_heap_end_address( another._aligned_heap_end_address ),
+		_quantity_of_pool_blocks_allocated( another._quantity_of_pool_blocks_allocated )
+{}
+
+template< class A_type >
+const Top_pool_allocator< A_type > &Top_pool_allocator< A_type >::operator =( const Top_pool_allocator< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_heap_status_descriptor = another._heap_status_descriptor;
+	_aligned_heap_end_address = another._aligned_heap_end_address;
+	_quantity_of_pool_blocks_allocated = another._quantity_of_pool_blocks_allocated;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+template< class A_type >
+typeing::Memory_natural Top_pool_allocator< A_type >::get_first_pool_block_address() noexcept {
+	return _aligned_heap_end_address - typeing::size_of< Pool_block_descriptor< A_type > >();
+}
+
+template< class A_type >
+typeing::Memory_natural Top_pool_allocator< A_type >::get_pool_block_address( const typeing::Memory_natural pool_block_index ) noexcept {
+	return get_first_pool_block_address() - typeing::size_of< Pool_block_descriptor< A_type > >() * ( pool_block_index + typeing::Memory_natural_one );
+}
+
+template< class A_type >
+Memory_address Top_pool_allocator< A_type >::get_empty_memory_block() noexcept {
+	Womp< Pool_block_descriptor< A_type >  > pool_block_descriptor = take_pool_block_with_empty_memory_block();
+
+	if ( pool_block_descriptor.is_empty() ) return Memory_address();
+
+	return Memory_address::create_from_pointer( get_empty_object_memory_block( pool_block_descriptor ) );
+}
+
+template< class A_type >
+Womp< Pool_block_descriptor< A_type > > Top_pool_allocator< A_type >::take_pool_block_with_empty_memory_block() noexcept {
+	Womp< Pool_block_descriptor< A_type > > pool_block_descriptor =
+		Womp< Pool_block_descriptor< A_type > >::create(
+			Object_pointer< Pool_block_descriptor< A_type > >::create_from_address(
+				get_first_pool_block_address() ) );
+
+	for ( typeing::Memory_natural counter = _quantity_of_pool_blocks_allocated; counter.is_not_nil(); --counter ) {
+		if ( pool_block_descriptor->is_not_full() ) {
+			return pool_block_descriptor;
+		}
+
+		pool_block_descriptor =
+			Womp< Pool_block_descriptor< A_type > >::create(
+				Object_pointer< Pool_block_descriptor< A_type > >::create_from_address(
+					pool_block_descriptor.get_object_address() - typeing::size_of< Pool_block_descriptor< A_type > >() ) );
+	}
+
+	return create_new_pool_block();
+}
+
+template< class A_type >
+Womp< Pool_block_descriptor< A_type > > Top_pool_allocator< A_type >::create_new_pool_block() noexcept {
+	Womp< Pool_block_descriptor< A_type > > result_pool_block;
+
+	if ( _heap_status_descriptor->get_middle_block_size() < typeing::size_of< Pool_block_descriptor< A_type > >() * typeing::Memory_natural::create( 2 ) ) {
+		// if empty middle area is smaller than two sizes of pool block descriptor ('cause we need to allocate not only pool block, but an object too)
+		return result_pool_block;
+	}
+
+	_heap_status_descriptor->set_middle_block_end(
+		_quantity_of_pool_blocks_allocated.is_nil() ?
+				_aligned_heap_end_address - typeing::size_of< Pool_block_descriptor< A_type > >() // take first
+			:
+				_heap_status_descriptor->get_middle_block_end() - typeing::size_of< Pool_block_descriptor< A_type > >() ); // take next
+
+	result_pool_block =
+		Womp< Pool_block_descriptor< A_type > >::create(
+			Object_pointer< Pool_block_descriptor< A_type > >::create_from_address(
+				get_pool_block_address( _quantity_of_pool_blocks_allocated ) ) );
+
+	++_quantity_of_pool_blocks_allocated;
+	return result_pool_block;
+}
+
+template< class A_type >
+void Top_pool_allocator< A_type >::release_unused_pool_block_descriptors( const Womp< Pool_block_descriptor< A_type > > &pool_block_descriptor, const typeing::Memory_natural /*pool_block_address*/ ) noexcept {
+	const typeing::Memory_natural last_pool_block_address = get_pool_block_address( _quantity_of_pool_blocks_allocated - typeing::Memory_natural_one );
+
+	Womp< Pool_block_descriptor< A_type > > descriptor_reverse_iterator =
+		last_pool_block_address == pool_block_descriptor.get_object_address()  ?
+			pool_block_descriptor :
+			Womp< Pool_block_descriptor< A_type > >::create(
+				Object_pointer< Pool_block_descriptor< A_type > >::create_from_address( last_pool_block_address ) );
+
+	const typeing::Memory_natural previous_quantity = _quantity_of_pool_blocks_allocated;
+
+	while ( _quantity_of_pool_blocks_allocated.is_not_nil() && descriptor_reverse_iterator->is_not_used() ) {
+		--_quantity_of_pool_blocks_allocated;
+
+		descriptor_reverse_iterator =
+			Womp< Pool_block_descriptor< A_type > >::create(
+				Object_pointer< Pool_block_descriptor< A_type > >::create_from_address(
+					descriptor_reverse_iterator.get_object_address() - typeing::size_of< Pool_block_descriptor< A_type > >() ) );
+	}
+
+	if ( previous_quantity != _quantity_of_pool_blocks_allocated ) {
+		_heap_status_descriptor->set_middle_block_end( _aligned_heap_end_address - typeing::size_of< Pool_block_descriptor< A_type > >() * _quantity_of_pool_blocks_allocated );
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+A_type *Top_pool_allocator< A_type >::get_empty_object_memory_block( Womp< Pool_block_descriptor< A_type > > &pool_block_descriptor ) noexcept {
+	const typeing::Memory_natural first_empty_memory_block_index = pool_block_descriptor->get_first_free_index();
+	pool_block_descriptor->set_as_used( first_empty_memory_block_index );
+	return pool_block_descriptor->take_object_memory_block_by( first_empty_memory_block_index );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace allocating
+} // namespace memorying
+} // namespace jmsf

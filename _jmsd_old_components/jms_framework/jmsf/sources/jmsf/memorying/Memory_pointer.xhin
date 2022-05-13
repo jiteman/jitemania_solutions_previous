@@ -1,0 +1,31 @@
+#pragma once
+
+#include "Memory_pointer.h"
+
+
+#include "jmsf/typeing/Naturals.hpp"
+
+#include "jmsf/validating/Should.hin"
+
+#include "jmsf/jmsf_logging_macroses.h"
+#include "jmsf/validating/Type_name_macros.h"
+
+
+namespace jmsf {
+namespace memorying {
+
+
+//// static
+//template< class A_type >
+//Memory_pointer Memory_pointer::create_from_pointer( const A_type *const a_memory ) {
+//	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( a_memory == nullptr, "Memory_pointer::create_from_pointer( a_memory )", JMSF_TYPE_NAME( A_type ) );
+//	jmsf_Should_never_be_null_native_pointer_with_type( a_memory, JMSF_TYPE_NAME( A_type ) );
+
+//	return
+//		typeing::create_address_from_pointer( a_memory );
+//}
+
+
+} // namespace memorying
+} // namespace jmsf
+

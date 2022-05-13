@@ -1,0 +1,37 @@
+#pragma once
+
+#include "native_type_name.hpp"
+
+
+#include <typeinfo>
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+
+
+template< class A_type >
+const char *get_type_name_literal() noexcept {
+	return typeid( A_type ).name();
+}
+
+template< class A_type >
+const char *get_type_name_literal( const A_type &type_object ) noexcept {
+	return typeid( type_object ).name();
+}
+
+template< class A_type >
+size_t get_type_identifier() noexcept {
+	return typeid( A_type ).hash_code();
+}
+
+template< class A_type >
+size_t get_type_identifier( const A_type &type_object ) noexcept {
+	return typeid( type_object ).hash_code();
+}
+
+
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

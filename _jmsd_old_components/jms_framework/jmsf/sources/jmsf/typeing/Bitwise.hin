@@ -1,0 +1,290 @@
+#pragma once
+
+
+#include "Bitwise.hpp"
+
+
+#include "Naturals.hin"
+#include "Aso.hin"
+#include "internals/internal_types.h"
+
+
+namespace jmsf {
+namespace typeing {
+
+
+template< class A_type >
+A_type Bitwise< A_type >::get_bits( const Memory_natural source_start_bit, const Memory_natural a_quantity ) const {
+	if ( isInRange( source_start_bit, a_quantity ).inversion() ) {
+		// throw
+	}
+
+	const A_type value_mask = create_value_mask( a_quantity );
+	const A_type bit_mask = create_bit_mask_from_value_mask( value_mask, source_start_bit );
+	return ( _the_value & bit_mask ) >> source_start_bit;
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::set_bits( const Memory_natural destination_start_bit, const Memory_natural a_quantity ) {
+	if ( isInRange( destination_start_bit, a_quantity ).inversion() ) {
+		// throw
+		return *this;
+	}
+
+	const A_type value_mask = create_value_mask( a_quantity );
+	const A_type bit_mask = create_bit_mask_from_value_mask( value_mask, destination_start_bit );
+	_the_value |= bit_mask;
+	return *this;
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::reset_bits( const Memory_natural destination_start_bit, const Memory_natural a_quantity ) {
+	if ( isInRange( destination_start_bit, a_quantity ).inversion() ) {
+		// throw
+		return *this;
+	}
+
+	const A_type value_mask = ~create_value_mask( a_quantity );
+	const A_type bit_mask = create_bit_mask_from_value_mask( value_mask, destination_start_bit );
+	_the_value &= bit_mask;
+	return *this;
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::copy_bits_from( const Memory_natural destination_start_bit, const A_type a_value, const Memory_natural source_start_bit, const Memory_natural a_quantity ) {
+	if ( isInRange( source_start_bit, a_quantity).inversion() ) {
+		// throw
+		return *this;
+	}
+
+	if ( isInRange( destination_start_bit, a_quantity ).inversion() ) {
+		// throw
+	}
+
+	const A_type source_value_mask = Bitwise< A_type >( a_value ).get_bits( source_start_bit, a_quantity );
+	const A_type destination_bit_mask = create_bit_mask_from_value_mask( source_value_mask, destination_start_bit );
+	reset_bits( destination_start_bit, a_quantity );
+	_the_value |= destination_bit_mask;
+	return *this;
+}
+
+template< class A_type >
+Boolean Bitwise< A_type >::is_set( const Memory_natural bit_index ) const {
+	return Boolean::create( get_bits( bit_index, Memory_natural_one ).is_not_nil() );
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::set( const Memory_natural bit_index ) {
+	set_bits( bit_index, Memory_natural_one );
+	return *this;
+}
+
+template< class A_type >
+Boolean Bitwise< A_type >::is_reset( const Memory_natural bit_index ) const {
+	return Boolean::create( get_bits( bit_index, Memory_natural_one ).is_nil() );
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::reset( const Memory_natural bit_index ) {
+	reset_bits( bit_index, Memory_natural_one );
+	return *this;
+}
+
+template< class A_type >
+Boolean Bitwise< A_type >::get_status( const Memory_natural bit_index ) const {
+	return is_set( bit_index );
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::set_status( const Memory_natural bit_index, const Boolean a_status ) const {
+	if ( a_status ) {
+		set( bit_index );
+	} else {
+		reset( bit_index );
+	}
+
+	return *this;
+}
+
+template< class A_type >
+Memory_natural Bitwise< A_type >::get_first_set_bit_index() const noexcept {
+	Memory_natural result_index = Memory_natural_max;
+
+	if ( _the_value.is_nill() ) {
+	} else if ( _the_value.is_max() ) {
+		result_index = Memory_natural_nil;
+	} else {
+		A_type the_value = Bitwise< A_type >().set( Memory_natural_nil ).get_value();
+
+		for ( Shortest_natural counter = bit_size_of< A_type >(); counter.is_not_nil(); --counter ) {
+			if ( ( the_value & _the_value ) != A_type() ) {
+				result_index = bit_size_of< A_type >() - counter;
+				break;
+			}
+
+			the_value.shift_left();
+		}
+	}
+
+	return result_index;
+}
+
+template< class A_type >
+Memory_natural Bitwise< A_type >::get_last_set_bit_index() const noexcept {
+	Memory_natural result_index = Memory_natural_max;
+
+	if ( _the_value.is_nill() ) {
+	} else if ( _the_value.is_max() ) {
+		result_index = --bit_size_of< A_type >();
+	} else {
+		A_type the_value = Bitwise< A_type >().set( --bit_size_of< A_type >() ).get_value();
+
+		for ( Memory_natural counter = bit_size_of< A_type >(); counter.is_not_nil(); --counter ) {
+			if ( ( the_value & _the_value ) != A_type() ) {
+				result_index = --counter;
+				break;
+			}
+
+			the_value.shift_right();
+		}
+	}
+
+	return result_index;
+}
+
+template< class A_type >
+Memory_natural Bitwise< A_type >::get_first_reset_bit_index() const noexcept {
+	Memory_natural result_index = Memory_natural_max;
+
+	if ( _the_value.is_nil() ) {
+		result_index = Memory_natural_nil;
+	} else if ( _the_value.is_max() ) {
+	} else {
+		A_type the_value = Bitwise< A_type >().set( Memory_natural_nil ).get_value();
+
+		for ( Memory_natural counter = bit_size_of< A_type >(); counter.is_not_nil(); --counter ) {
+			if ( ( the_value & _the_value ) == A_type() ) {
+				result_index = bit_size_of< A_type >() - counter;
+				break;
+			}
+
+			the_value.shift_left();
+		}
+	}
+
+	return result_index;
+}
+
+template< class A_type >
+Memory_natural Bitwise< A_type >::get_last_reset_bit_index() const noexcept {
+	Memory_natural result_index = Memory_natural_max;
+
+	if ( _the_value.is_nil() ) {
+		result_index = --bit_size_of< A_type >();
+	} else if ( _the_value.is_max() ) {
+	} else {
+		A_type the_value = Bitwise< A_type >().set( --bit_size_of< A_type >() ).get_value();
+
+		for ( Memory_natural counter = bit_size_of< A_type >(); counter.is_not_nil(); --counter ) {
+			if ( ( the_value & _the_value ) == A_type() ) {
+				result_index = --counter;
+				break;
+			}
+
+			the_value.shift_right();
+		}
+	}
+
+	return result_index;
+}
+
+template< class A_type >
+Memory_natural Bitwise< A_type >::get_quantity_of_bits() const noexcept {
+	return Shortest_natural::create( bit_size_of< A_type >().get_native_value() );
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::clear() noexcept {
+	_the_value = A_type();
+	return *this;
+}
+
+template< class A_type >
+Bitwise< A_type > &Bitwise< A_type >::fill() noexcept {
+	_the_value = ~A_type();
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+A_type Bitwise< A_type >::get_value() const noexcept {
+	return _the_value;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Bitwise< A_type >::~Bitwise() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Bitwise< A_type >::Bitwise() noexcept
+	:
+		_the_value( A_type() )
+{}
+
+// static
+template< class A_type >
+Bitwise< A_type > Bitwise< A_type >::create( const A_type a_value ) noexcept {
+	return Bitwise( a_value );
+}
+
+template< class A_type >
+Bitwise< A_type >::Bitwise( const A_type a_value ) noexcept
+	:
+		_the_value( a_value )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Bitwise< A_type >::Bitwise( const Bitwise< A_type > &another ) noexcept
+	:
+		_the_value( another._the_value )
+{}
+
+template< class A_type >
+const Bitwise< A_type > &Bitwise< A_type >::operator =( const Bitwise< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_value = another._the_value;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+Boolean Bitwise< A_type >::isInRange( const Memory_natural start_bit_index, const Memory_natural a_quantity ) noexcept {
+	const Memory_natural end_bit_index = start_bit_index + a_quantity;
+	const Memory_natural maximum_bit_index = --bit_size_of< A_type >();
+
+	return Boolean::create( !( end_bit_index > maximum_bit_index || start_bit_index > maximum_bit_index || start_bit_index > end_bit_index ) );
+}
+
+// static
+template< class A_type >
+A_type Bitwise< A_type >::create_value_mask( const Memory_natural a_quantity ) noexcept {
+	return ~( A_type() ) >> ( bit_size_of< A_type >() - a_quantity );
+}
+
+// static
+template< class A_type >
+A_type Bitwise< A_type >::create_bit_mask_from_value_mask( const A_type a_value, const Memory_natural start_bit_index ) noexcept {
+	return a_value << start_bit_index;
+}
+
+} // namespace typeing
+} // namespace jmsf

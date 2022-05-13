@@ -1,0 +1,41 @@
+===============================================================================================
+-----------------------------------------------------------------------------------------------
+New test syntax (details/new-assert-syntax.txt):
+
+
+-----------------------------------------------------------------------------------------------
+Reference counting:
+	@ create opportunity to share the same reference counter for the same object with
+		different interfaces using smart pointers
+
+-----------------------------------------------------------------------------------------------
+Traversed AVL tree (research):
+	tavl node set childs (left)
+	tavl node set childs (right)
+	? tavl node set parent
+	tavl node set childs with parent setting at the same time
+	rotation-?
+
+	+ change insert to receive object, not Omp
+	test insert/find for one object
+	test insert/find for 3 objects
+	test insert/find for 5 objects
+	
+	? create stack container
+	
+	@ change find to return traverser
+	test traverse for 3 objects
+	test traverse for 5 objects
+	
+	[write test requests for balancing]
+
+AVL-tree node:
+	?* has_parent
+	?* has_no_parent
+	? has_left_child
+	? has_no_left_child
+	? has_right_child
+	? has_no_right_child
+	?* is_left_child
+	?* is_right_child
+	

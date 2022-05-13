@@ -1,0 +1,46 @@
+#pragma once
+
+
+#include "Allocator.h"
+
+
+namespace jmsf {
+namespace memorying {
+
+
+class JMSF_SHARED_INTERFACE temporary_Allocator :
+	public Allocator
+{
+
+public:
+	// virtuals Allocator
+	Memory_pointer allocate_memory( typeing::Memory_natural a_size, typeing::Memory_natural an_alignment );
+	void deallocate_memory( const Memory_pointer &a_memory, typeing::Memory_natural an_alignment );
+	//~virtuals Allocator
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	// virtual Allocator
+	~temporary_Allocator() noexcept;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};
+
+
+
+} // namespace memorying
+} // namespace jmsf

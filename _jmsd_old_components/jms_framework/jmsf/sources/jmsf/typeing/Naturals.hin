@@ -1,0 +1,434 @@
+#pragma once
+
+#include "Naturals.hpp"
+
+
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+
+#include "jmsf/patterning/Singleton.hin"
+
+//#include "jmsf/pointing/Nonlinked.hin"
+#include "jmsf/pointing/Weak.hin"
+#include "jmsf/pointing/cWeak.hin"
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+
+#include "Aso.hin"
+#include "Boolean.h"
+
+#include <utility>
+#include <limits>
+
+
+namespace jmsf {
+namespace typeing {
+
+template< class A_type, int dummy >
+// static
+const Naturals< A_type, dummy > Naturals< A_type, dummy >::NATURALS_NIL;
+
+template< class A_type, int dummy >
+// static
+const Naturals< A_type, dummy > Naturals< A_type, dummy >::NATURALS_ONE = Naturals< A_type, dummy >::create( 1 );
+
+template< class A_type, int dummy >
+// static
+const Naturals< A_type, dummy > Naturals< A_type, dummy >::NATURALS_MAX = Naturals::create( ::std::numeric_limits< A_type >::max() );
+
+template< class A_type, int dummy >
+// static
+Naturals< A_type, dummy > Naturals< A_type, dummy >::GET_NATURALS_NIL() noexcept {
+	return Naturals();
+}
+
+template< class A_type, int dummy >
+// static
+Naturals< A_type, dummy > Naturals< A_type, dummy >::GET_NATURALS_ONE() noexcept {
+	return Naturals::create( 1 );
+}
+
+template< class A_type, int dummy >
+// static
+Naturals< A_type, dummy > Naturals< A_type, dummy >::GET_NATURALS_MAX() noexcept {
+	return Naturals::create( ::std::numeric_limits< A_type >::max() );
+}
+
+//template< class A_type, int dummy >
+//// static
+//const Naturals< A_type, dummy > Naturals< A_type, dummy >::NATURALS_BADMAX = Naturals::NATURALS_MAX;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// math
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator +( const Naturals< A_type, dummy > &another ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result += another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator +=( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value += another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator -( const Naturals< A_type, dummy > &another ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result -= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator -=( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value -= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator *( const Naturals< A_type, dummy > &another ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result *= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator *=( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value *= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator /( const Naturals< A_type, dummy > &another ) const {
+	if ( another._natural_value == A_type( 0 ) ) {
+		// throw division by zero
+	}
+
+	Naturals< A_type, dummy > result = *this;
+	return result /= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator /=( const Naturals< A_type, dummy > &another ) {
+	if ( another._natural_value == A_type( 0 ) ) {
+		// throw division by zero
+	}
+
+	_natural_value /= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator %( const Naturals< A_type, dummy > &another ) const {
+	if ( another._natural_value == A_type( 0 ) ) {
+		// throw division by zero
+	}
+
+	Naturals< A_type, dummy > result = *this;
+	return result %= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator %=( const Naturals< A_type, dummy > &another ) {
+	if ( another._natural_value == A_type( 0 ) ) {
+		// throw division by zero
+	}
+
+	_natural_value %= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+template< class Integer_type >
+Integer_type Naturals< A_type, dummy >::substruct_to_integer( const Naturals &another ) const {
+	return
+		Integer_type::create(
+			static_cast< typename Integer_type::my_integer_integral_type >( get_native_value() ) -
+			static_cast< typename Integer_type::my_integer_integral_type >( another.get_native_value() ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// bitwise
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator ^( const Naturals< A_type, dummy > &another ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result ^= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator ^=( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value ^= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator &( const Naturals< A_type, dummy > &another ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result &= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator &=( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value ^= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator |( const Naturals< A_type, dummy > &another ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result |= another;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator |=( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value |= another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator ~() const noexcept {
+	return Naturals< A_type, dummy >( static_cast< A_type >( ~_natural_value ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// comparison
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::operator ==( const Naturals< A_type, dummy > &another ) const noexcept {
+	return Boolean::create( _natural_value == another._natural_value );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::operator !=( const Naturals< A_type, dummy > &another ) const noexcept {
+	return Boolean::create( _natural_value != another._natural_value );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::operator <( const Naturals< A_type, dummy > &another ) const noexcept {
+	return Boolean::create( _natural_value < another._natural_value );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::operator <=( const Naturals< A_type, dummy > &another ) const noexcept {
+	return Boolean::create( _natural_value <= another._natural_value );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::operator >( const Naturals< A_type, dummy > &another ) const noexcept {
+	return Boolean::create( _natural_value > another._natural_value );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::operator >=( const Naturals< A_type, dummy > &another ) const noexcept {
+	return Boolean::create( _natural_value >= another._natural_value );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// shifts
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::get_shifted_left() const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result.shift_left();
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::shift_left() noexcept {
+	_natural_value <<= Memory_natural_one.get_native_value();
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator <<( const Memory_natural shift_value ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	result <<= shift_value;
+	return result;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator <<=( const Memory_natural shift_value ) noexcept {
+	_natural_value <<= shift_value.get_native_value();
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::get_shifted_right() const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	return result.shift_right();
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::shift_right() noexcept {
+	_natural_value >>= Memory_natural_one.get_native_value();
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator >>( const Memory_natural shift_value ) const noexcept {
+	Naturals< A_type, dummy > result = *this;
+	result >>= shift_value;
+	return result;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator >>=( const Memory_natural shift_value ) noexcept {
+	_natural_value >>= shift_value.get_native_value();
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// increment/decrement
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator ++() noexcept {
+	++_natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator ++( int ) noexcept {
+	return Naturals( _natural_value++ );
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator --() noexcept {
+	--_natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > Naturals< A_type, dummy >::operator --( int ) noexcept {
+	return Naturals( _natural_value-- );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::is_nil() const noexcept {
+	return Boolean::create( _natural_value == A_type( 0 ) );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::is_not_nil() const noexcept {
+	return Boolean::create( _natural_value != A_type( 0 ) );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::is_max() const noexcept {
+	return Boolean::create( _natural_value == ~A_type( 0 ) );
+}
+
+template< class A_type, int dummy >
+Boolean Naturals< A_type, dummy >::is_not_max() const noexcept {
+	return Boolean::create( _natural_value != ~A_type( 0 ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//	operator internals::platform_unsigned_char() const noexcept;
+template< class A_type, int dummy >
+A_type Naturals< A_type, dummy >::get_native_value() const noexcept {
+	return _natural_value;
+}
+
+template< class A_type, int dummy >
+Memory_natural Naturals< A_type, dummy >::get_sizeof() const noexcept {
+	return size_of< A_type >();
+}
+
+template< class A_type, int dummy >
+const pointing::cShared< texting::Ansii_text > Naturals< A_type, dummy >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	pointing::Shared< texting::Ansii_stream > ansii_stream = an_aaa->create_ansii_stream();
+	ansii_stream->put( *this );
+	return texting::Aaa_cs( an_aaa, ansii_stream );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type, int dummy >
+Naturals< A_type, dummy >::~Naturals() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+Naturals< A_type, dummy >::Naturals() noexcept {
+	_natural_value = A_type( 0 );
+}
+
+template< class A_type, int dummy >
+// static
+Naturals< A_type, dummy > Naturals< A_type, dummy >::create( const A_type natural_value ) noexcept {
+	return Naturals< A_type, dummy >( natural_value );
+}
+
+template< class A_type, int dummy >
+// static
+Naturals< A_type, dummy > Naturals< A_type, dummy >::create_max() noexcept {
+	return NATURALS_MAX;
+}
+
+//template< class A_type, int dummy >
+//// static
+//Naturals< A_type, dummy > Naturals< A_type, dummy >::create_badmax() noexcept {
+//	return NATURALS_BADMAX;
+//}
+
+//// static
+//template< class A_type, int dummy >
+//const Naturals< A_type, dummy > Naturals< A_type, dummy >::constant( const A_type natural_value ) noexcept {
+//	return Naturals< A_type, dummy >( natural_value );
+//}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy >::Naturals( A_type natural_value ) noexcept {
+	_natural_value = natural_value;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type, int dummy >
+Naturals< A_type, dummy >::Naturals( const Naturals< A_type, dummy > &another ) noexcept {
+	_natural_value = another._natural_value;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator =( const Naturals< A_type, dummy > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_natural_value = another._natural_value;
+	return *this;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy >::Naturals( Naturals< A_type, dummy > &&another ) noexcept
+	: // Seinsei: todonext - check if just copy is more effective
+		_natural_value( ::std::move( another._natural_value ) )
+{
+	another._natural_value = 0;
+}
+
+template< class A_type, int dummy >
+Naturals< A_type, dummy > &Naturals< A_type, dummy >::operator =( Naturals< A_type, dummy > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// Seinsei: todonext - check if just copy is more effective
+	_natural_value = ::std::move( another._natural_value );
+	another._natural_value = 0;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace typeing
+} // namespace jmsf
+
+
+namespace jmsf {
+namespace typeing {
+
+
+template< class A_type >
+A_type *get_pointer_from_Memory_natural( const Memory_natural memory_address ) noexcept {
+	return reinterpret_cast< A_type * >( memory_address.get_native_value() );
+}
+
+
+} // namespace typeing
+} // namespace jmsf

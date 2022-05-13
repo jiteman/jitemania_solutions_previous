@@ -1,0 +1,75 @@
+72.
+
+
+
+===============================================================================================
+Previous:
+
+71.
+-----------------------------------------------------------------------------------------------
+AVL-tree:	
+	+ insert comparator
+	+ find comparator
+	+ imprecise find (i.e., we possibly need move forth and back inside the tree)
+		+ imprecise find result
+
+70.
+-----------------------------------------------------------------------------------------------
+Update the codebase:
+	+ template realization for < operator and > operator (for typeing)
+		+ test with AVL-tree
+	+ default comparator
+		+ test with AVL-tree
+	+ rename Comparasion_result to Comparison_result
+
+69.
+-----------------------------------------------------------------------------------------------
+::jmsf::typeing::comparing::typeing_Comparator is renamed/moved to
+	::jmsf::algorithming::defaulting::default_Comparator	
+::jmsf::typeing::comparing::typeing_Incomparator is renamed/moved to
+	::jmsf::algorithming::defaulting::default_Incomparator
+	
+::jmsf::assisting::* is moved to ::jmsf::algorithming
+
+68.
+-----------------------------------------------------------------------------------------------
+Tests for ::jmsf::typeing::comparing::typeing_Comparator is completed.
+Tests for ::jmsf::typeing::comparing::typeing_Incomparator is completed.
+
+67.
+-----------------------------------------------------------------------------------------------
+Tests for ::jmsf::typeing::Comparison_result is completed.
+
+66.
+-----------------------------------------------------------------------------------------------
+jmsf::typeing:
+	Test added for jmsf::typeing::Comparison_result
+	typeing_Comparator and typeing_Incomparator added.
+	badmax is removed from Naturals
+	badmax is removed from Integers	
+
+65.
+-----------------------------------------------------------------------------------------------
+New documents added regarding memory management and corresponding (T)AVL-tree operations.
+Some documents updated.
+_documents/open_documents.sh script updated.
+
+64.
+-----------------------------------------------------------------------------------------------
+Avl-tree:
+	+ find disbalance point (update height till)
+	+ update height of nodes participating in rotation only
+	+ height recalculation after tree rearranging
+
+63.
+-----------------------------------------------------------------------------------------------
+Avl-tree:
+	+ balance maintaining (tree rearranging) (root maintenance)
+		+ (fix) simple left rotation without root involving
+		+ (fix) simple right rotation without root involving
+		+ simple left rotation involving root
+		+ simple right rotation involving root
+		+ (fix) complex left rotation (simple right, then simple left) without root involving
+		+ (fix) complex right rotation (simple left, the simple right) without root involving
+		+ complex left rotation (simple right, then simple left) involving root
+		+ complex right rotation (simple left, the simple right) involving root

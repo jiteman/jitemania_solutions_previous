@@ -1,0 +1,5 @@
+
+Yup, use -msse4.1 for pmovzx. That's the usual message for intrinsics that you haven't told the compiler the target supports. That also tells the compiler it can use up to sse4.1 when auto-vectorizing. If that's a problem (runtime CPU dispatching), then use separate compilation units. Also -march=nehalem would enable SSE4.2 support, and -mpopcnt. – Peter Cordes Mar 3 '16 at 13:01
+
+thanks both indeed adding set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4.1") in the cmakelist seems that did the trick. Thanks again
+

@@ -1,0 +1,14 @@
+#pragma once
+
+
+namespace jmsf {
+namespace pointing {
+namespace testing {
+
+
+class testing_Proxie;
+
+
+} // namespace testing
+} // namespace pointing
+} // namespace jmsf

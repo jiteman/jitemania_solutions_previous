@@ -1,0 +1,50 @@
+#pragma once
+
+#include "System_allocator.hxx"
+
+
+namespace jmsf {
+namespace memorying {
+namespace allocating {
+
+
+class System_allocator :
+	public Allocator
+{
+
+public:
+	// virtuals Allocator
+	//~virtuals Allocator
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+public:
+	// virtual Allocator
+	~System_allocator() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	System_allocator() noexcept;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+	System_allocator( const System_allocator &another ) noexcept;
+	const System_allocator &operator =( const System_allocator &another ) noexcept;
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};
+
+
+} // namespace allocating
+} // namespace memorying
+} // namespace jmsf

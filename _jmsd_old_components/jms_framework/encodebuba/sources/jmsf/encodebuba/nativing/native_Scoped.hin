@@ -1,0 +1,119 @@
+#pragma once
+
+#include "native_Scoped.hpp"
+
+
+#include <utility>
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+
+
+template< class A_type >
+bool native_Scoped< A_type >::is_empty() const noexcept {
+	return _the_object_pointer == nullptr;
+}
+
+template< class A_type >
+bool native_Scoped< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+A_type &native_Scoped< A_type >::operator *() {
+	return *_the_object_pointer;
+}
+
+template< class A_type >
+A_type *native_Scoped< A_type >::operator ->() {
+	return _the_object_pointer;
+}
+
+template< class A_type >
+const A_type &native_Scoped< A_type >::operator *() const {
+	return *_the_object_pointer;
+}
+
+template< class A_type >
+const A_type *native_Scoped< A_type >::operator ->() const {
+	return _the_object_pointer;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+native_Scoped< A_type >::~native_Scoped() noexcept {
+	delete _the_object_pointer;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Scoped< A_type >::native_Scoped() noexcept {
+	_the_object_pointer = nullptr;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Scoped< A_type >::native_Scoped( const A_type *const an_object_pointer) noexcept {
+	_the_object_pointer = const_cast< A_type * >( an_object_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+native_Scoped< A_type > native_Scoped< A_type >::create( const A_type *an_object_pointer ) {
+	return native_Scoped< A_type >( an_object_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Scoped< A_type >::native_Scoped( const native_Scoped< A_type > &another ) noexcept
+//	:
+//		_the_object_pointer( ::std::move( const_cast< native_Scoped< A_type > & >( another )._the_object_pointer ) )
+//{
+//	const_cast< native_Scoped< A_type > & >( another )._the_object_pointer = nullptr;
+//}
+
+//template< class A_type >
+//const native_Scoped< A_type > &native_Scoped< A_type >::operator =( const native_Scoped< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	delete _the_object_pointer;
+//	_the_object_pointer = ::std::move( const_cast< native_Scoped< A_type > & >( another )._the_object_pointer );
+//	const_cast< native_Scoped< A_type > & >( another )._the_object_pointer = nullptr;
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Scoped< A_type >::native_Scoped( native_Scoped< A_type > &&another ) noexcept
+	:
+		_the_object_pointer( ::std::move( another._the_object_pointer ) )
+{
+	another._the_object_pointer = nullptr;
+}
+
+template< class A_type >
+native_Scoped< A_type > &native_Scoped< A_type >::operator =( native_Scoped< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	delete _the_object_pointer;
+	_the_object_pointer = ::std::move( another._the_object_pointer );
+	another._the_object_pointer = nullptr;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

@@ -1,0 +1,42 @@
+#pragma once
+
+#include "native_Should.h"
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace validating {
+
+
+//// static
+//template< class A_type >
+//void Should::always_be_empty( const memorying::Object_pointer< A_type > &an_object_pointer, const File_and_line &file_and_line ) {
+//	if ( an_object_pointer.is_not_empty() ) {
+//		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::always_be_null( memorying::Object_pointer< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+//		throw_exception_with_type(
+//			JMSF_SL( "Object_pointer is not empty" ),
+//			JMSF_SL( "Should::always_be_null( memorying::Object_pointer< %A_type% > )" ),
+//			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+//			file_and_line );
+//	}
+//}
+
+//// static
+//template< class A_type >
+//void Should::never_be_empty( const memorying::Object_pointer< A_type > &an_object_pointer, const File_and_line &file_and_line ) {
+//	if ( an_object_pointer.is_empty() ) {
+//		JMSF_SHOULD_PRE_ERROR_LOG_OUTPUT_TYPED( "Should::never_be_null( memorying::Object_pointer< %A_type% > )", JMSF_TYPE_NAME( A_type ) );
+
+//		throw_exception_with_type(
+//			JMSF_SL( "Object_pointer is empty" ),
+//			JMSF_SL( "Should::never_be_null( memorying::Object_pointer< %A_type% > )" ),
+//			JMSF_SL( JMSF_TYPE_NAME( A_type ) ),
+//			file_and_line );
+//	}
+//}
+
+
+} // namespace validating
+} // namespace encodebuba
+} // namespace jmsf

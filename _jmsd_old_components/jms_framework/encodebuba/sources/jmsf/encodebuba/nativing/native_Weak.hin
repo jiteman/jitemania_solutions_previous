@@ -1,0 +1,100 @@
+#pragma once
+
+#include "native_Weak.hpp"
+
+
+#include "native_Shared.hin"
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+
+
+template< class A_type >
+bool native_Weak< A_type >::is_empty() const noexcept {
+	return true;
+}
+
+template< class A_type >
+bool native_Weak< A_type >::is_not_empty() const noexcept {
+	return !this->is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Shared< A_type > native_Weak< A_type >::get_as_shared() const noexcept {
+	return native_Shared< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+bool native_Weak< A_type >::operator ==( const native_Weak &another ) const noexcept {
+	return this->is_empty() && another.is_empty();
+}
+
+template< class A_type >
+bool native_Weak< A_type >::operator !=( const native_Weak &another ) const noexcept {
+	return !this->operator ==( another );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+native_Weak< A_type >::~native_Weak() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Weak< A_type >::native_Weak() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Weak< A_type >::native_Weak() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+native_Weak< A_type > native_Weak< A_type >::create() {
+	return native_Weak< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Weak< A_type >::native_Weak( const native_Weak< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//native_Weak< A_type > &native_Weak< A_type >::operator =( const native_Weak< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Weak< A_type >::native_Weak( native_Weak< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//native_Weak< A_type > &native_Weak< A_type >::operator =( native_Weak< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

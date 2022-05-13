@@ -1,0 +1,226 @@
+#pragma once
+
+#include "Awa_iterator.hpp"
+
+
+#include "internalling/Amp_data.hin"
+#include "jmsf/typeing/Naturals.hin"
+
+#include "jmsf/validating/macroses_Should.h"
+
+#include <utility>
+
+
+namespace jmsf {
+namespace memorying {
+
+template< class A_type >
+typeing::Boolean Awa_iterator< A_type >::is_empty() const noexcept {
+	return _the_amp_data.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Awa_iterator< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Awa_iterator< A_type >::is_in_range() const noexcept {
+	return _the_position < _the_quantity;
+}
+
+template< class A_type >
+typeing::Boolean Awa_iterator< A_type >::is_out_of_range() const noexcept {
+	return !is_in_range();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Memory_address Awa_iterator< A_type >::get_memory_pointer() const {
+	return Memory_address::create_from_address( get_current_begin_address() );
+}
+
+template< class A_type >
+const A_type &Awa_iterator< A_type >::operator *() const {
+	jmsf_Should_never_be( is_empty() );
+	jmsf_Should_never_be( is_out_of_range() );
+
+	return
+		*reinterpret_cast< const A_type * >(
+			get_current_object_address().get_native_value() );
+}
+
+template< class A_type >
+const A_type *Awa_iterator< A_type >::operator ->() const {
+	jmsf_Should_never_be( is_empty() );
+	jmsf_Should_never_be( is_out_of_range() );
+
+	return
+		reinterpret_cast< const A_type * >(
+			get_current_object_address().get_native_value() );
+}
+
+template< class A_type >
+A_type &Awa_iterator< A_type >::operator *() {
+	jmsf_Should_never_be( is_empty() );
+
+	if ( is_out_of_range() ) {
+		jmsf_Should_never_be( is_out_of_range() );
+	}
+
+	return
+		*reinterpret_cast< A_type * >(
+			get_current_object_address().get_native_value() );
+}
+
+template< class A_type >
+A_type *Awa_iterator< A_type >::operator ->() {
+	jmsf_Should_never_be( is_empty() );
+	jmsf_Should_never_be( is_out_of_range() );
+
+	return
+		reinterpret_cast< A_type * >(
+			get_current_object_address().get_native_value() );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awa_iterator< A_type > &Awa_iterator< A_type >::operator ++() noexcept {
+	if ( is_out_of_range() ) return *this;
+
+	++_the_position;
+	return *this;
+}
+
+template< class A_type >
+Awa_iterator< A_type > Awa_iterator< A_type >::operator ++( int ) noexcept {
+	if ( is_out_of_range() ) return *this;
+
+	Awa_iterator< A_type > previous_this_to_return = *this;
+	++_the_position;
+	return previous_this_to_return;
+}
+
+template< class A_type >
+Awa_iterator< A_type > &Awa_iterator< A_type >::operator --() noexcept {
+	if ( is_out_of_range() ) return *this;
+
+	if ( _the_position.is_not_nil() ) {
+		--_the_position;
+	} else {
+		_the_position = typeing::Memory_natural_max;
+	}
+
+	return *this;
+}
+
+template< class A_type >
+Awa_iterator< A_type > Awa_iterator< A_type >::operator --( int ) noexcept {
+	if ( is_out_of_range() ) return *this;
+
+	Awa_iterator< A_type > previous_this_to_return = *this;
+
+	if ( _the_position.is_not_nil() ) {
+		--_the_position;
+	} else {
+		_the_position = typeing::Memory_natural_max;
+	}
+
+	return previous_this_to_return;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Awa_iterator< A_type >::~Awa_iterator() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awa_iterator< A_type >::Awa_iterator() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awa_iterator< A_type >::Awa_iterator(
+	const internalling::Amp_data< A_type > &an_amp_data,
+	const typeing::Memory_natural a_quantity ) noexcept
+	:
+		_the_amp_data( an_amp_data ),
+		_the_quantity( a_quantity )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+Awa_iterator< A_type > Awa_iterator< A_type >::create(
+	const internalling::Amp_data< A_type > &an_amp_data,
+	const typeing::Memory_natural a_quantity )
+{
+	// Seinsei: todonext - add guards
+
+	return
+		Awa_iterator< A_type >(
+			an_amp_data,
+			a_quantity );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awa_iterator< A_type >::Awa_iterator( const Awa_iterator< A_type > &another ) noexcept
+	:
+		_the_amp_data( another._the_amp_data ),
+		_the_quantity( another._the_quantity ),
+		_the_position( another._the_position )
+{}
+
+template< class A_type >
+const Awa_iterator< A_type > &Awa_iterator< A_type >::operator =( const Awa_iterator< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_amp_data = another._the_amp_data;
+	_the_quantity = another._the_quantity;
+	_the_position = another._the_position;
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Awa_iterator< A_type >::Awa_iterator( Awa_iterator< A_type > &&another ) noexcept
+	:
+		_the_amp_data( ::std::move( another._the_amp_data ) ),
+		_the_quantity( ::std::move( another._the_quantity ) ),
+		_the_position( ::std::move( another._the_position ) )
+{}
+
+template< class A_type >
+Awa_iterator< A_type > &Awa_iterator< A_type >::operator =( Awa_iterator< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_amp_data = ::std::move( another._the_amp_data );
+	_the_quantity = ::std::move( another._the_quantity );
+	_the_position = ::std::move( another._the_position );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+template< class A_type >
+typeing::Memory_natural Awa_iterator< A_type >::get_current_object_address() const noexcept {
+	return typeing::create_address_from_pointer( _the_amp_data.get_object().get() ) + _the_amp_data.get_size() * _the_position;
+}
+
+template< class A_type >
+typeing::Memory_natural Awa_iterator< A_type >::get_current_begin_address() const noexcept {
+	return
+		_the_amp_data.get_displacement().is_nil() ?
+			_the_amp_data.get_object().get() + _the_amp_data.get_size() * _the_position :
+			_the_amp_data.get_object().get() + _the_amp_data.get_size() * _the_position - _the_amp_data.get_displacement();
+}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace memorying
+} // namespace jmsf

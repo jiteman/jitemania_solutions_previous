@@ -1,0 +1,152 @@
+#pragma once
+
+#include "cNonlinked.hpp"
+
+
+//#include "jmsf/texting/Ansii_allocating_assistor.h"
+//#include "jmsf/texting/Ansii_stream.hin"
+//#include "jmsf/texting/Ansii_text.h"
+//#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+
+#include "jmsf/memorying/Womp.hpp"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace pointing {
+
+
+template< class A_type >
+typeing::Boolean cNonlinked< A_type >::is_empty() const noexcept {
+	return _weak_memory_pointer.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean cNonlinked< A_type >::is_not_empty() const noexcept {
+	return _weak_memory_pointer.is_not_empty();
+}
+
+template< class A_type >
+const A_type &cNonlinked< A_type >::operator *() {
+	jmsf_Should_never_be_empty( _weak_memory_pointer );
+	return *_weak_memory_pointer;
+}
+
+template< class A_type >
+const A_type *cNonlinked< A_type >::operator ->() {
+	jmsf_Should_never_be_empty( _weak_memory_pointer );
+	return _weak_memory_pointer.operator ->();
+}
+
+template< class A_type >
+const A_type &cNonlinked< A_type >::operator *() const {
+	jmsf_Should_never_be_empty( _weak_memory_pointer );
+	return *_weak_memory_pointer;
+}
+
+template< class A_type >
+const A_type *cNonlinked< A_type >::operator ->() const {
+	jmsf_Should_never_be_empty( _weak_memory_pointer );
+	return _weak_memory_pointer.operator ->();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean cNonlinked< A_type >::operator ==( const cNonlinked &another ) const noexcept {
+	return _weak_memory_pointer == another._weak_memory_pointer;;
+}
+
+template< class A_type >
+typeing::Boolean cNonlinked< A_type >::operator !=( const cNonlinked &another ) const noexcept {
+	return !( *this == another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cShared< texting::Ansii_text > cNonlinked< A_type >::to_ansii_text( const memorying::Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	return _weak_memory_pointer.to_ansii_text( an_aaa );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+cNonlinked< A_type >::~cNonlinked() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cNonlinked< A_type >::cNonlinked() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cNonlinked< A_type >::cNonlinked( const memorying::Womp< A_type > &weak_memory_pointer ) noexcept
+	:
+		_weak_memory_pointer( weak_memory_pointer )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+cNonlinked< A_type > cNonlinked< A_type >::create_from_static( const memorying::Womp< A_type > &weak_memory_pointer ) {
+	jmsf_Should_never_be_empty( weak_memory_pointer );
+	return cNonlinked< A_type >( weak_memory_pointer );
+}
+
+// static
+template< class A_type >
+cNonlinked< A_type > cNonlinked< A_type >::create_from_nonlinked( const memorying::Womp< A_type > &weak_memory_pointer ) noexcept {
+	return cNonlinked< A_type >( weak_memory_pointer );
+}
+
+//// static
+//template< class A_type >
+//cNonlinked< A_type > cNonlinked< A_type >::create_from_scoped( const memorying::Womp< A_type > &weak_memory_pointer ) noexcept {
+//	return cNonlinked< A_type >( weak_memory_pointer );
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cNonlinked< A_type >::cNonlinked( const cNonlinked< A_type > &another ) noexcept
+	:
+		_weak_memory_pointer( another._weak_memory_pointer )
+{}
+
+template< class A_type >
+const cNonlinked< A_type > &cNonlinked< A_type >::operator =( const cNonlinked< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_weak_memory_pointer = another._weak_memory_pointer;
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cNonlinked< A_type >::cNonlinked( cNonlinked< A_type > &&another ) noexcept
+	:
+		_weak_memory_pointer( another._weak_memory_pointer )
+{
+//	another._weak_memory_pointer = memorying::Womp< A_type >();
+}
+
+template< class A_type >
+cNonlinked< A_type > &cNonlinked< A_type >::operator =( cNonlinked< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_weak_memory_pointer = another._weak_memory_pointer;
+//	another._weak_memory_pointer = memorying::Womp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace pointing
+} // namespace jmsf

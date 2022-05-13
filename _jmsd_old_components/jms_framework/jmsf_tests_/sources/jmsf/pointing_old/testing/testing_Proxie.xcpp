@@ -1,0 +1,161 @@
+#include "testing_Proxie.h"
+#include "jmsf/patterning/mixing/mixin_null_Object.h"
+#include "jmsf/patterning/mixing/mixin_exception_Object.h"
+#include "jmsf/patterning/Singleton.hin"
+
+#include "jmsf/pointing/Proxy.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/validating/Should.h"
+
+////#include "jmsf/debugging/ObjectCreationLogging.h"
+
+
+namespace jmsf {
+namespace pointing {
+namespace testing {
+
+
+class null_testing_Proxie :
+	public testing_Proxie,
+	public patterning::mixing::mixin_null_Object,
+	public patterning::Singleton< testing_Proxie >
+{
+
+public:
+	// virtuals testing_Proxie
+	//~virtuals
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+private:
+	// virtual
+	~null_testing_Proxie() noexcept {}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private: //friend Singleton< null_testing_Proxie >;
+	static null_testing_Proxie *create_singleton_instance() {
+		null_testing_Proxie *nullTestingProxie = new null_testing_Proxie;
+//		debugging::static_ObjectCreationLogger::registerCreation( debugging::createMulInformationForUnobjectedCreation( nullTestingProxie, MACROS_FILE_AND_LINE ) );
+		return nullTestingProxie;
+	}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+	null_testing_Proxie() noexcept {}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+protected:
+	// virtual
+// 	patterning::Proxy< testing_Proxie > createClone() const noexcept {
+// 		return Proxy< testing_Proxie >::createUnique( this );
+// 	}
+
+private:
+	null_testing_Proxie( const null_testing_Proxie &other ) noexcept
+		:
+			Singleton( other )
+	{} // other
+
+	const null_testing_Proxie &operator =( const null_testing_Proxie &other ) {
+		_jmsf_Should_never_violate_copy_prohibition_empty();
+
+		if ( this == &other ) return *this;
+
+		// copy
+		return *this;
+	}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};
+
+
+class exception_testing_Proxie :
+	public testing_Proxie,
+	public patterning::mixing::mixin_exception_Object,
+	public patterning::Singleton< testing_Proxie > {
+
+public:
+	// virtuals testing_Proxie
+	//~virtuals
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+public:
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+private:
+	// virtual
+	~exception_testing_Proxie() noexcept {}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private: friend Singleton< exception_testing_Proxie >;
+	static exception_testing_Proxie *create_singleton_instance() {
+		exception_testing_Proxie *exceptionTestingProxie = new exception_testing_Proxie;
+//		debugging::static_ObjectCreationLogger::registerCreation( debugging::createMulInformationForUnobjectedCreation( exceptionTestingProxie, MACROS_FILE_AND_LINE ) );
+		return exceptionTestingProxie;
+	}
+
+private:
+	exception_testing_Proxie() noexcept {}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+protected:
+	// virtual
+// 	Proxy< testing_Proxie > createClone() const noexcept {
+// 		return Proxy< testing_Proxie >::createUnique( this );
+// 	}
+
+private:
+	exception_testing_Proxie( const exception_testing_Proxie &other ) noexcept
+		:
+			Singleton( other )
+	{}
+
+	const exception_testing_Proxie &operator =( const exception_testing_Proxie &other ) {
+		_jmsf_Should_never_violate_copy_prohibition_empty();
+
+		if ( this == &other ) return *this;
+
+		// copy
+		return *this;
+	}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+private:
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private:
+
+};
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+memorying::Womp< testing_Proxie > &testing_Proxie::get_null_object() noexcept {
+	return null_testing_Proxie::instance();
+}
+
+// static
+memorying::Womp< testing_Proxie > &testing_Proxie::get_exception_object() noexcept {
+	return exception_testing_Proxie::instance();
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+} // namespace testing
+} // namespace pointing
+} // namespace jmsf

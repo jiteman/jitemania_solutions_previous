@@ -1,0 +1,234 @@
+#pragma once
+
+
+#include "Omp.hpp"
+
+
+#include "jmsf/texting/Ansii_allocating_assistor.h"
+#include "jmsf/texting/Ansii_stream.hin"
+#include "jmsf/texting/Ansii_text.h"
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+#include "Object_pointer.hin"
+
+#include "internalling/Omp_data.hpp"
+
+#include "Allocator.h"
+#include "jmsf/typeing/Boolean.h"
+#include "jmsf/typeing/Aso.hin"
+
+#include "Womp.hin"
+
+#include "jmsf/validating/macroses_Should.h"
+#include "jmsf/jmsf_logging_macroses.h"
+
+
+#include <utility>
+
+
+namespace jmsf {
+namespace memorying {
+
+
+template< class A_type >
+typeing::Boolean Omp< A_type >::is_empty() const noexcept {
+	return _the_omp_data.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean Omp< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+const A_type &Omp< A_type >::operator *() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Omp< A_type >::operator *()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return *_the_omp_data.get_object().get();
+}
+
+template< class A_type >
+const A_type *Omp< A_type >::operator ->() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Omp< A_type >::operator ->()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return _the_omp_data.get_object().get();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+A_type &Omp< A_type >::operator *() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Omp< A_type >::operator *()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return *_the_omp_data.take_object().take();
+}
+
+template< class A_type >
+A_type *Omp< A_type >::operator ->() {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Omp< A_type >::operator ->()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return _the_omp_data.take_object().take();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Memory_address Omp< A_type >::get_object_address() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Omp< A_type >::temp_get_memory()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return
+		_the_omp_data.get_displacement().is_nil() ?
+			Memory_address::create_from_pointer( _the_omp_data.get_object().get() ) :
+			Memory_address::create_from_address( _the_omp_data.get_object().get_address() - _the_omp_data.get_displacement() );
+}
+
+template< class A_type >
+Womp< Allocator > Omp< A_type >::get_allocator() const {
+	jmsf_Should_never_be_empty( *this );
+	return _the_allocator;
+}
+
+template< class A_type >
+typeing::Memory_natural Omp< A_type >::get_alignment() const {
+	jmsf_Should_never_be_empty( *this );
+	return typeing::Memory_natural::create( _the_alignment.get_native_value() );
+}
+
+template< class A_type >
+typeing::Memory_natural Omp< A_type >::get_displacement() const {
+	jmsf_Should_never_be_empty( *this );
+	return _the_omp_data.get_displacement();
+}
+
+template< class A_type >
+Womp< A_type > Omp< A_type >::get_as_womp() const {
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( is_empty(), "Omp< A_type >::get_as_weak()", JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_empty( *this );
+
+	return
+		Womp< A_type >::create(
+			_the_omp_data.get_object() );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+typeing::Boolean Omp< A_type >::operator ==( const Omp< A_type > &another ) const noexcept {
+	return _the_omp_data == another._the_omp_data;
+}
+
+template< class A_type >
+typeing::Boolean Omp< A_type >::operator !=( const Omp< A_type > &another ) const noexcept {
+	return !operator ==( another );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+pointing::cShared< texting::Ansii_text > Omp< A_type >::to_ansii_text( const Womp< texting::Ansii_allocating_assistor > &an_aaa ) const {
+	const pointing::cShared< texting::Ansii_text > comma_and_space = texting::Aaa_sl( an_aaa, JMSF_SL( ", " ) );
+	pointing::Shared< texting::Ansii_stream > ansii_stream = an_aaa->create_ansii_stream();
+
+	ansii_stream->put( texting::Aaa_sl( an_aaa, JMSF_SL( "[ " ) ) );
+	ansii_stream->put( _the_omp_data.to_ansii_text( an_aaa ) );
+	ansii_stream->put( comma_and_space );
+	ansii_stream->put( _the_allocator.to_ansii_text( an_aaa ) );
+	ansii_stream->put( comma_and_space );
+	ansii_stream->put( _the_alignment.to_ansii_text( an_aaa ) );
+	ansii_stream->put( texting::Aaa_sl( an_aaa, JMSF_SL( " ]" ) ) );
+
+	return texting::Aaa_cs( an_aaa, ansii_stream );
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Omp< A_type >::~Omp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp< A_type >::Omp() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp< A_type >::Omp(
+	const internalling::Omp_data< A_type > &an_omp_data,
+	const Womp< Allocator > &an_allocator,
+	typeing::Memory_natural an_alignment ) noexcept
+	:
+		_the_omp_data( an_omp_data ),
+		_the_allocator( an_allocator ),
+		_the_alignment( an_alignment )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+template< class A_created_type >
+Omp< A_type > Omp< A_type >::create(
+	const Memory_address &a_memory_address,
+	const Womp< Allocator > &an_allocator,
+	const typeing::Memory_natural an_alignment )
+{
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( a_memory_address.is_empty(), "Omp< A_type >::create( < memory_address >, allocator, alignment )", JMSF_TYPE_NAME( A_type ) );
+	JMSF_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( an_allocator.is_empty(), "Omp< A_type >::create( memory_address, < allocator >, alignment )", JMSF_TYPE_NAME( A_type ) );
+
+	jmsf_Should_never_be_with_type( a_memory_address.is_empty(), JMSF_TYPE_NAME( A_type ) );
+	jmsf_Should_never_be_with_type( an_allocator.is_empty(), JMSF_TYPE_NAME( A_type ) );
+
+	return
+		Omp< A_type >(
+			internalling::Omp_data< A_type >::template create< A_created_type >(
+				a_memory_address ),
+			an_allocator,
+			an_alignment );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Omp< A_type >::Omp( const Omp< A_type > &another ) noexcept
+	:
+		_the_omp_data( another._the_omp_data ),
+		_the_allocator( another._the_allocator ),
+		_the_alignment( another._the_alignment )
+{}
+
+template< class A_type >
+const Omp< A_type > &Omp< A_type >::operator =( const Omp< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_omp_data = another._the_omp_data;
+	_the_allocator = another._the_allocator;
+	_the_alignment = another._the_alignment;
+	return *this;
+}
+
+template< class A_type >
+Omp< A_type >::Omp( Omp< A_type > &&another ) noexcept
+	:
+		_the_omp_data( ::std::move( another._the_omp_data ) ),
+		_the_allocator( ::std::move( another._the_allocator ) ),
+		_the_alignment( ::std::move( another._the_alignment ) )
+{}
+
+template< class A_type >
+const Omp< A_type > &Omp< A_type >::operator =( Omp< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_omp_data = ::std::move( another._the_omp_data );
+	_the_allocator = ::std::move( another._the_allocator );
+	_the_alignment = ::std::move( another._the_alignment );
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace memorying
+} // namespace jmsf

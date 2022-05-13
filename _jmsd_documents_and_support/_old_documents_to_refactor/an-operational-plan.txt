@@ -1,0 +1,63 @@
+===============================================================================================
+-----------------------------------------------------------------------------------------------
+Add tests for the legacy code:
+	tests memorying:
+		test Amp
+		test Wamp
+		test Owomp
+		test Awamp
+		test Destructor
+		test Constructor
+
+	tests typeing:
+		test Boolean
+		test Naturals
+		test Integers
+		test Reals
+		test Aso
+
+-----------------------------------------------------------------------------------------------
+Add new functionality (TDD):
+	pointing/proxies:
+		null-object pattern
+		null-object support
+		Add xcShared
+		Add xcWeak
+		Add xShared
+		Add xWeak
+	array smart pointers:
+		copy/paste cAwa_iterator (from Awa_iterator)
+		? array smart pointer or may be it should be some container
+
+-----------------------------------------------------------------------------------------------
+Maintain the codebase:
+	CULE:
+		[Add long test detection, counting, grouping, listing and excluding.]
+		add hanged test detection
+			first print currently executing test file, line and name
+				line feed after ".", line feed after the message
+			add test execution in separate threads
+			limit test's duration (for acceptance test and for hanged tests)
+			move test to hanged test list
+			move test to acceptance test list
+		run test in separate thread (as a solution for hanged test detection)
+			create mechanism to pass exceptions through the thread
+		create multithreaded test execution
+			add multithreading support to output printer
+					(and to other parts, of course)
+
+		Do something meaningful in case when _the_test is empty.
+		? do we need adding of TEST_NO_EXCEPTION
+		Police "error/failure/test failure" exceptions.
+		Extract exception information printing to something at JMSF.		
+
+	JMSF:
+		Add unmangling for type_name result (linux).
+
+	JMSF:
+		Move all low level infrastructure to jmsf_basing:
+			- memorying
+			- low level structing
+			- low level validating (File_and_line, Type_name, etc.)
+		Remove all unnecessary copy constructors and assignment operators from exceptions
+				and disable these. ( delete, default, etc.)

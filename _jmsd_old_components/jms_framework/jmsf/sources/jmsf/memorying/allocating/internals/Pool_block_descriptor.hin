@@ -1,0 +1,176 @@
+#pragma once
+
+
+#include "Pool_block_descriptor.hpp"
+
+#include "jmsf/typeing/Boolean.h"
+#include "jmsf/typeing/Aso.hin"
+#include "jmsf/typeing/Bitwise.hin"
+
+
+
+namespace jmsf {
+namespace memorying {
+namespace allocating {
+
+
+// static
+template< class A_type >
+const typeing::Memory_natural Pool_block_descriptor< A_type >::_block_size = typeing::Memory_natural::create( _object_memory_block_quantity_constant );
+
+// template< class A_type >
+// typeing::Memory_natural Pool_block_descriptor< A_type >::get_usage_indicator() const noexcept {
+// 	return _usage_indicator;
+// }
+
+template< class A_type >
+typeing::Memory_natural Pool_block_descriptor< A_type >::get_first_free_index() const noexcept {
+	typeing::Bitwise< typeing::Memory_natural > bitwise_usage_indicator = get_bitwise_usage_indicator();
+	return bitwise_usage_indicator.get_first_reset_bit_index();
+}
+
+template< class A_type >
+typeing::Boolean Pool_block_descriptor< A_type >::is_not_used() const noexcept {
+	return _usage_indicator.is_nil();
+}
+
+template< class A_type >
+typeing::Boolean Pool_block_descriptor< A_type >::is_not_full() const noexcept {
+	return _usage_indicator.is_not_max();
+}
+
+template< class A_type >
+typeing::Boolean Pool_block_descriptor< A_type >::is_used( const typeing::Memory_natural object_memory_block_index ) const {
+	if ( object_memory_block_index >= _block_size ) {
+		// wrong index
+		return typeing::False;
+	}
+
+	typeing::Bitwise< typeing::Memory_natural > bitwise_usage_indicator = get_bitwise_usage_indicator();
+	return bitwise_usage_indicator.is_set( object_memory_block_index );
+}
+
+template< class A_type >
+typeing::Boolean Pool_block_descriptor< A_type >::is_free( const typeing::Memory_natural object_memory_block_index ) const {
+	if ( object_memory_block_index >= _block_size ) {
+		// wrong index
+		return typeing::False;
+	}
+
+	typeing::Bitwise< typeing::Memory_natural > bitwise_usage_indicator = get_bitwise_usage_indicator();
+	return bitwise_usage_indicator.is_reset( object_memory_block_index );
+}
+
+template< class A_type >
+const A_type *Pool_block_descriptor< A_type >::get_object_memory_block_by( const typeing::Shortest_natural object_memory_block_index ) const noexcept {
+	if ( typeing::Memory_natural::create( object_memory_block_index.get_native_value() ) >= get_max_quantity_of_desctriptors() ) {
+		// wrong index
+		return nullptr;
+	}
+
+	return &_object_memory_blocks[ object_memory_block_index.get_native_value() ];
+}
+
+template< class A_type >
+typeing::Memory_natural Pool_block_descriptor< A_type >::get_object_memory_block_index( const A_type *const object_memory_block ) const noexcept {
+	const typeing::Memory_natural address_to_find = typeing::create_address_from_pointer( object_memory_block );
+
+	if ( typeing::is_not_aligned< A_type >( address_to_find ) ) {
+		// address requested is not aligned
+		return typeing::Memory_natural_max;
+	}
+
+	const typeing::Memory_natural first_object_memory_block_address = typeing::create_address_from_pointer( _object_memory_blocks );
+	const typeing::Memory_natural last_object_memory_block_address = typeing::create_address_from_pointer( &_object_memory_blocks[ _object_memory_block_quantity_constant - 1 ] );
+
+	if ( address_to_find < first_object_memory_block_address || address_to_find > last_object_memory_block_address ) {
+		// address is not from this pool block
+		return typeing::Memory_natural_max;
+	}
+
+	const typeing::Memory_natural relative_address = address_to_find - first_object_memory_block_address;
+	return relative_address / typeing::size_of< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// template< class A_type >
+// void Pool_block_descriptor< A_type >::set_usage_indicator( const typeing::Memory_natural using_indicator ) noexcept {
+// 	_usage_indicator = using_indicator;
+// }
+
+template< class A_type >
+void Pool_block_descriptor< A_type >::set_as_used( const typeing::Memory_natural object_memory_block_index ) {
+	if ( object_memory_block_index >= _block_size ) {
+		// wrong index
+		return;
+	}
+
+	typeing::Bitwise< typeing::Memory_natural > bitwise_usage_indicator = get_bitwise_usage_indicator();
+	bitwise_usage_indicator.set( object_memory_block_index );
+}
+
+template< class A_type >
+void Pool_block_descriptor< A_type >::set_as_free( const typeing::Memory_natural object_memory_block_index ) {
+	if ( object_memory_block_index >= _block_size ) {
+		// wrong index
+		return;
+	}
+
+	typeing::Bitwise< typeing::Memory_natural > bitwise_usage_indicator = get_bitwise_usage_indicator();
+	bitwise_usage_indicator.reset( object_memory_block_index );
+}
+
+template< class A_type >
+A_type *Pool_block_descriptor< A_type >::take_object_memory_block_by( const typeing::Memory_natural object_memory_block_index ) noexcept {
+	if ( object_memory_block_index >= get_max_quantity_of_desctriptors() ) {
+		// wrong index
+		return nullptr;
+	}
+
+	return &_object_memory_blocks[ object_memory_block_index.get_native_value() ];
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+typeing::Memory_natural Pool_block_descriptor< A_type >::get_max_quantity_of_desctriptors() noexcept {
+	return _block_size;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Pool_block_descriptor< A_type >::~Pool_block_descriptor() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Pool_block_descriptor< A_type >::Pool_block_descriptor() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Pool_block_descriptor< A_type >::Pool_block_descriptor( const Pool_block_descriptor< A_type > & ) noexcept { // another
+}
+
+template< class A_type >
+const Pool_block_descriptor< A_type > &Pool_block_descriptor< A_type >::operator =( const Pool_block_descriptor< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// copy
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+template< class A_type >
+typeing::Bitwise< typeing::Memory_natural > Pool_block_descriptor< A_type >::get_bitwise_usage_indicator() const noexcept {
+	return typeing::Bitwise< typeing::Memory_natural >::create( _usage_indicator );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace allocating
+} // namespace memorying
+} // namespace jmsf

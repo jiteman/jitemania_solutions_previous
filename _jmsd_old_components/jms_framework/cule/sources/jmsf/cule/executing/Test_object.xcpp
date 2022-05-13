@@ -1,0 +1,33 @@
+#include "Test_object.h"
+
+#include "jmsf/validating/logging_macroses.h"
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+Test_object::~Test_object() noexcept {
+	JMSF_LOG_INFORMING_OUTPUT( "Test_object::~Test_object()" );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Test_object::Test_object() noexcept {
+	JMSF_LOG_INFORMING_OUTPUT( "Test_object::Test_object()" );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Test_object::Test_object( const Test_object &/*another*/ ) noexcept {
+}
+
+const Test_object &Test_object::operator =( const Test_object &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// copy
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

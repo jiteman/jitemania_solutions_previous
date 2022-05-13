@@ -1,0 +1,605 @@
+#pragma once
+
+#include "Avl_tree.hpp"
+
+
+#include "jmsf/structing/traversing/Avl_tree_traverser.hin"
+#include "jmsf/structing/noding/Avl_tree_node.hin"
+
+#include "jmsf/algorithming/defaulting/default_Comparator.hin"
+#include "jmsf/algorithming/Imprecise_find_result.hin"
+#include "jmsf/algorithming/Mathematics.hin"
+
+#include "jmsf/memorying/Constructor.hin"
+#include "jmsf/memorying/Destructor.hin"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Womp.hin"
+
+#include "jmsf/typeing/Naturals.hin"
+#include "jmsf/typeing/Integers.hin"
+#include "jmsf/typeing/Boolean.h"
+
+
+//#include <iostream>
+
+
+namespace jmsf {
+namespace structing {
+namespace containing {
+
+
+template< class A_type >
+typeing::Boolean Avl_tree< A_type >::is_empty() const noexcept {
+	return _the_quantity.is_nil();
+}
+
+template< class A_type >
+typeing::Boolean Avl_tree< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+typeing::Memory_natural Avl_tree< A_type >::get_quantity() const noexcept {
+	return _the_quantity;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+void Avl_tree< A_type >::insert( const A_type &an_object ) {
+	traversing::Avl_tree_traverser< A_type > exact_or_previous_node =
+		find_exact_or_previous_node( an_object );
+
+	if ( exact_or_previous_node.is_empty() ) {
+		_the_root =
+			noding::Avl_tree_node< A_type >::create(
+				_the_avl_tree_node_allocator,
+				an_object );
+
+		++_the_quantity;
+		return;
+	}
+
+	{
+		const typeing::Comparison_result comparison_result = _the_comparator->compare( an_object, exact_or_previous_node.get_object() );
+
+		if ( comparison_result.is_less() ) {
+			Avl_tree< A_type >::insert_left_child( _the_avl_tree_node_allocator, exact_or_previous_node.take_node(), an_object );
+			++_the_quantity;
+		} else if ( comparison_result.is_greater() ) {
+			Avl_tree< A_type >::insert_right_child( _the_avl_tree_node_allocator, exact_or_previous_node.take_node(), an_object );
+			++_the_quantity;
+		} else {
+			return;
+			// _jmsf_Should_never_reach_here_empty();
+		}
+	}
+
+	traversing::Avl_tree_traverser< A_type > unbalanced_node_traverser =
+		Avl_tree< A_type >::recalculate_height_upward_and_return_unbalanced_node_if_present( exact_or_previous_node );
+
+	if ( unbalanced_node_traverser.is_empty() ) return;
+
+	const typeing::Memory_integer balance = Avl_tree< A_type >::calculate_balance( unbalanced_node_traverser.get_node() );
+
+	if ( balance.is_positive() ) { // we need left rotation
+		const typeing::Memory_integer right_child_balance =
+			Avl_tree< A_type >::calculate_balance( unbalanced_node_traverser.get_node()->get_right_child() );
+
+		if ( right_child_balance.is_negative() ) { // we need complex left rotation
+			// rotate right child right
+			perform_right_rotation( unbalanced_node_traverser.get_node()->get_right_child() );
+			// rotate left
+			perform_left_rotation( unbalanced_node_traverser.get_node() );
+
+		} else { // right_child_balance.is_positive() or right_child_balance.is_nill() - we need simple left rotation
+			perform_left_rotation( unbalanced_node_traverser.get_node() );
+		}
+	} else if ( balance.is_negative() ) { // we need right rotation
+		const typeing::Memory_integer left_child_balance =
+			Avl_tree< A_type >::calculate_balance( unbalanced_node_traverser.get_node()->get_left_child() );
+
+		if ( left_child_balance.is_positive() ) { // we need complex right rotation
+			// rotate left child left
+			perform_left_rotation( unbalanced_node_traverser.get_node()->get_left_child() );
+			// rotate right
+			perform_right_rotation( unbalanced_node_traverser.get_node() );
+
+		} else { // left_child_balance.is_negative() or left_child_balance.is_nill() - we need simple right rotation
+			perform_right_rotation( unbalanced_node_traverser.get_node() );
+			// recalculate height for unbalanced_node and its ex_left_child
+		}
+	} else {
+		_jmsf_Should_never_reach_here_void();
+	}
+}
+
+template< class A_type >
+traversing::Avl_tree_traverser< A_type > Avl_tree< A_type >::find( const A_type &an_object ) const {
+	return const_cast< Avl_tree< A_type > * >( this )->find( an_object );
+}
+
+template< class A_type >
+traversing::Avl_tree_traverser< A_type > Avl_tree< A_type >::find( const A_type &an_object ) {
+	const traversing::Avl_tree_traverser< A_type > exact_or_previous_node =
+		find_exact_or_previous_node( an_object );
+
+	if ( exact_or_previous_node.is_empty() ) return exact_or_previous_node;
+
+	if ( _the_comparator->compare( an_object, exact_or_previous_node.get_object() ).is_equal() ) return exact_or_previous_node;
+
+	return traversing::Avl_tree_traverser< A_type >();
+}
+
+template< class A_type >
+algorithming::Imprecise_find_result< traversing::Avl_tree_traverser< A_type > > Avl_tree< A_type >::find_imprecise(
+	const A_type &an_object ) const
+{
+	return const_cast< Avl_tree< A_type > * >( this )->find_imprecise( an_object );
+}
+
+template< class A_type >
+algorithming::Imprecise_find_result< traversing::Avl_tree_traverser< A_type > > Avl_tree< A_type >::find_imprecise(
+	const A_type &an_object )
+{
+	algorithming::Imprecise_find_result< traversing::Avl_tree_traverser< A_type > > imprecise_find_result;
+	{
+		traversing::Avl_tree_traverser< A_type > exact_or_previous_node = traversing::Avl_tree_traverser< A_type >();
+		traversing::Avl_tree_traverser< A_type > node_traverser = traversing::Avl_tree_traverser< A_type >::create( _this_womp, _the_root );
+
+		while( node_traverser.is_not_empty() ) {
+			exact_or_previous_node = node_traverser;
+
+			const typeing::Comparison_result comparison_result = _the_comparator->compare( an_object, node_traverser.get_object() );
+
+			if ( comparison_result.is_less() ) {
+				if ( imprecise_find_result.get_minimum_greater().is_empty() ) {
+					imprecise_find_result.set_minimum_greater( node_traverser );
+				} else if ( _the_comparator->compare( imprecise_find_result.get_minimum_greater().get_object(), node_traverser.get_object() ).is_greater() ){
+					imprecise_find_result.set_minimum_greater( node_traverser );
+				}
+
+				node_traverser.move_one_step_down_left();
+			} else if ( comparison_result.is_greater() ) {
+				if ( imprecise_find_result.get_maximum_less().is_empty() ) {
+					imprecise_find_result.set_maximum_less( node_traverser );
+				} else if ( _the_comparator->compare( imprecise_find_result.get_maximum_less().get_object(), node_traverser.get_object() ).is_less() ){
+					imprecise_find_result.set_maximum_less( node_traverser );
+				}
+
+				node_traverser.move_one_step_down_right();
+			} else { // an_object == node_traverser.get_object()
+				break;
+			}
+		}
+
+		if ( _the_comparator->compare( an_object, exact_or_previous_node.get_object() ).is_equal() ) {
+			imprecise_find_result.set_exact( exact_or_previous_node );
+		}
+	}
+
+	return imprecise_find_result;
+}
+
+//template< class A_type >
+//void Avl_tree< A_type >::remove( const A_type &an_object ) {
+//	traversing::Avl_tree_traverser< A_type > found_object = find( an_object );
+//	remove( found_object );
+//}
+
+//template< class A_type >
+//void Avl_tree< A_type >::remove( const traversing::Avl_tree_traverser< A_type > &a_traverser ) {
+//	jmsf_Should_never_be_empty( a_traverser );
+//	jmsf_Should_always_be( _this_womp == a_traverser.get_tree() );
+
+//	const typeing::Memory_natural left_subtree_height =
+//		a_traverser.get_node()->get_left_child().is_empty() ?
+//			typeing::Memory_natural_nill :
+//			a_traverser.get_node()->get_left_child()->get_height();
+
+//	const typeing::Memory_natural right_subtree_height =
+//		a_traverser.get_node()->get_right_child().is_empty() ?
+//			typeing::Memory_natural_nill :
+//			a_traverser.get_node()->get_right_child()->get_heihgt();
+
+//	if ( left_subtree_height < right_subtree_height ) { // move leftmost node of the right subtree up to this node position
+//		traversing::Avl_tree_traverser< A_type > leftmost_node = find_leftmost_node( a_traverser.get_node()->get_right_child() );
+//		_key_and_data = leftmost_node->_key_and_data;
+//		leftmost_node->replace_with_its_child( leftmost_node->_right_child_node );
+//		leftmost_node->_parent_node->perform_balancing_if_necessary( a_root_node_pointer );
+//		node_to_delete = leftmost_node;
+//	} else if ( left_subtree_height > right_subtree_height ) { // move rightmost node of the left subtree up to this node position
+//		traversing::Avl_tree_traverser< A_type > rightmost_node = find_rightmost_node( a_traverser.get_node()->get_left_node() );
+//		_key_and_data = rightmost_node->_key_and_data;
+//		rightmost_node->replace_with_its_child( rightmost_node->_left_child_node );
+//		rightmost_node->_parent_node->perform_balancing_if_necessary( a_root_node_pointer );
+//		node_to_delete = rightmost_node;
+//	} else { // equal (both empty or realy equal)
+//		if ( !( has_left_child() || has_right_child() ) ) { // no children
+//			if ( !is_root() ) {
+//				if ( is_left_child() ) {
+//					_parent_node->_left_child_node = nullptr;
+//				} else if ( is_right_child() ) {
+//					_parent_node->_right_child_node = nullptr;
+//				} else {
+//					_jmsf_Should_never_reach_here_empty();
+//				}
+
+//				_parent_node->perform_balancing_if_necessary( a_root_node_pointer );
+//			} else { // the last node is the root
+//				*a_root_node_pointer = nullptr;
+//			}
+
+//			node_to_delete = this;
+//		} else { // has both left and right child with equal height
+//			researching_Avl_tree_node *leftmost_node = _right_child_node->find_leftmost();
+//			researching_Avl_tree_node *rightmost_node = _left_child_node->find_rightmost();
+
+//			if ( _node_height - leftmost_node->_node_height > _node_height - rightmost_node->_node_height ) { // deepest node is in the right subtree
+//				_key_and_data = leftmost_node->_key_and_data;
+//				leftmost_node->replace_with_its_child( leftmost_node->_right_child_node );
+//				leftmost_node->_parent_node->perform_balancing_if_necessary( a_root_node_pointer );
+//				node_to_delete = leftmost_node;
+//			} else { // deepest node is in the left subtree or there is no difference
+//				_key_and_data = rightmost_node->_key_and_data;
+//				rightmost_node->replace_with_its_child( rightmost_node->_left_child_node );
+//				rightmost_node->_parent_node->perform_balancing_if_necessary( a_root_node_pointer );
+//				node_to_delete = rightmost_node;
+//			}
+//		}
+//	}
+//}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Avl_tree< A_type >::~Avl_tree() noexcept {
+	delete_all_nodes( _the_root );
+	noding::Avl_tree_node< A_type >::destroy( _the_root );
+	algorithming::Comparator< A_type >::destroy( _the_comparator );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Avl_tree< A_type >::Avl_tree(
+	const memorying::Womp< memorying::Allocator > &avl_tree_node_allocator,
+	const memorying::Omp< algorithming::Comparator< A_type > > &a_comparator ) noexcept
+	:
+		_the_avl_tree_node_allocator( avl_tree_node_allocator ),
+		_the_comparator( a_comparator )
+{}
+
+template< class A_type >
+// static
+memorying::Omp< Avl_tree< A_type > > Avl_tree< A_type >::create(
+	const memorying::Womp< memorying::Allocator > &avl_tree_allocator,
+	const memorying::Womp< memorying::Allocator > &avl_tree_node_allocator,
+	const memorying::Womp< memorying::Allocator > &default_comparator_allocator)
+{
+	jmsf_Should_never_be_empty( avl_tree_allocator );
+	jmsf_Should_never_be_empty( avl_tree_node_allocator );
+	jmsf_Should_never_be_empty( default_comparator_allocator );
+
+	memorying::Omp< algorithming::Comparator< A_type > > the_comparator =
+		algorithming::defaulting::default_Comparator< A_type >::create( default_comparator_allocator );
+
+	return create( avl_tree_allocator, avl_tree_node_allocator, the_comparator );
+}
+
+template< class A_type >
+// static
+memorying::Omp< Avl_tree< A_type > > Avl_tree< A_type >::create(
+	const memorying::Womp< memorying::Allocator > &avl_tree_allocator,
+	const memorying::Womp< memorying::Allocator > &avl_tree_node_allocator,
+	const memorying::Omp< algorithming::Comparator< A_type > > &a_comparator )
+{
+	jmsf_Should_never_be_empty( avl_tree_allocator );
+	jmsf_Should_never_be_empty( avl_tree_node_allocator );
+	jmsf_Should_never_be_empty( a_comparator )
+
+	memorying::Omp< Avl_tree< A_type > > new_tree =
+		memorying::Constructor< Avl_tree< A_type >, Avl_tree< A_type > >::construct(
+			avl_tree_allocator,
+			avl_tree_node_allocator,
+			a_comparator );
+
+	new_tree->_this_womp = new_tree.get_as_womp();
+	return new_tree;
+}
+
+template< class A_type >
+// static
+void Avl_tree< A_type >::destroy( const memorying::Omp< Avl_tree< A_type > > &avl_tree_omp ) {
+	memorying::Destructor< Avl_tree< A_type > >::destruct( avl_tree_omp );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Avl_tree< A_type >::Avl_tree( const Avl_tree< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Avl_tree< A_type > &Avl_tree< A_type >::operator =( const Avl_tree< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Avl_tree< A_type >::Avl_tree( Avl_tree< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Avl_tree< A_type > &Avl_tree< A_type >::operator =( Avl_tree< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+traversing::Avl_tree_traverser< A_type > Avl_tree< A_type >::find_exact_or_previous_node( const A_type &an_object ) const {
+	traversing::Avl_tree_traverser< A_type > exact_or_previous_node = traversing::Avl_tree_traverser< A_type >();
+	traversing::Avl_tree_traverser< A_type > node_traverser = traversing::Avl_tree_traverser< A_type >::create( _this_womp, _the_root );
+
+	while( node_traverser.is_not_empty() ) {
+		exact_or_previous_node = node_traverser;
+
+		const typeing::Comparison_result comparison_result = _the_comparator->compare( an_object, node_traverser.get_object() );
+
+		if ( comparison_result.is_less() ) {
+			node_traverser.move_one_step_down_left();
+		} else if ( comparison_result.is_greater() ) {
+			node_traverser.move_one_step_down_right();
+		} else { // an_object == node_traverser.get_object()
+			break;
+		}
+	}
+
+	return exact_or_previous_node;
+}
+
+template< class A_type >
+traversing::Avl_tree_traverser< A_type > Avl_tree< A_type >::find_leftmost_node( const traversing::Avl_tree_traverser< A_type > &a_traverser ) const {
+	jmsf_Should_never_be_empty( a_traverser );
+
+	traversing::Avl_tree_traverser< A_type > leftmost_node;
+	{
+		traversing::Avl_tree_traverser< A_type > leftmost_node_traverser = a_traverser;
+
+		do {
+			leftmost_node = leftmost_node_traverser;
+			leftmost_node_traverser = traversing::Avl_tree_traverser< A_type >::create( _this_womp, leftmost_node_traverser.get_node()->get_left_child() );
+		} while ( leftmost_node_traverser.is_not_empty() );
+	}
+
+	return leftmost_node;
+}
+
+template< class A_type >
+traversing::Avl_tree_traverser< A_type > Avl_tree< A_type >::find_rightmost_node( const traversing::Avl_tree_traverser< A_type > &a_traverser ) const {
+	jmsf_Should_never_be_empty( a_traverser );
+
+	traversing::Avl_tree_traverser< A_type > rightmost_node;
+	{
+		traversing::Avl_tree_traverser< A_type > rightmost_node_traverser = a_traverser;
+
+		do {
+			rightmost_node = rightmost_node_traverser;
+			rightmost_node_traverser = traversing::Avl_tree_traverser< A_type >::create( _this_womp, rightmost_node_traverser.get_node()->get_right_child() );
+		} while ( rightmost_node_traverser.is_not_empty() );
+	}
+
+	return rightmost_node;
+}
+
+template< class A_type >
+// static
+void Avl_tree< A_type >::insert_left_child(
+	const memorying::Womp< memorying::Allocator > &avl_tree_node_allocator,
+	const memorying::Omp< noding::Avl_tree_node< A_type > > &a_parent_node,
+	const A_type &an_object )
+{
+	jmsf_Should_never_be_empty( avl_tree_node_allocator );
+	jmsf_Should_never_be_empty( a_parent_node );
+	jmsf_Should_always_be_empty( a_parent_node->get_left_child() );
+
+	memorying::Omp< noding::Avl_tree_node< A_type > > new_node =
+		noding::Avl_tree_node< A_type >::create(
+			avl_tree_node_allocator,
+			an_object );
+
+	new_node->set_parent( a_parent_node );
+	const_cast< memorying::Omp< noding::Avl_tree_node< A_type > > & >( a_parent_node )->set_left_child( new_node );
+}
+
+template< class A_type >
+// static
+void Avl_tree< A_type >::insert_right_child(
+	const memorying::Womp< memorying::Allocator > &avl_tree_node_allocator,
+	const memorying::Omp< noding::Avl_tree_node< A_type > > &a_parent_node,
+	const A_type &an_object )
+{
+	jmsf_Should_never_be_empty( avl_tree_node_allocator );
+	jmsf_Should_never_be_empty( a_parent_node );
+	jmsf_Should_always_be_empty( a_parent_node->get_right_child() );
+
+	memorying::Omp< noding::Avl_tree_node< A_type > > new_node =
+		noding::Avl_tree_node< A_type >::create(
+			avl_tree_node_allocator,
+			an_object );
+
+	new_node->set_parent( a_parent_node );
+	const_cast< memorying::Omp< noding::Avl_tree_node< A_type > > & >( a_parent_node )->set_right_child( new_node );
+}
+
+template< class A_type >
+// static
+traversing::Avl_tree_traverser< A_type > Avl_tree< A_type >::recalculate_height_upward_and_return_unbalanced_node_if_present(
+	const traversing::Avl_tree_traverser< A_type > &a_parent_traverser )
+{
+	for (
+		traversing::Avl_tree_traverser< A_type > node_traverser = a_parent_traverser;
+		node_traverser.is_not_empty();
+		node_traverser.move_one_step_up() )
+	{
+		node_traverser.take_node()->recalculate_height();
+
+		if ( is_unbalanced( node_traverser.take_node() ) ) {
+			return node_traverser;
+		}
+	}
+
+	return traversing::Avl_tree_traverser< A_type >();
+}
+
+template< class A_type >
+// static
+typeing::Boolean Avl_tree< A_type >::is_unbalanced( const memorying::Omp< noding::Avl_tree_node< A_type > > &a_node ) {
+	jmsf_Should_never_be_empty( a_node );
+
+	const typeing::Memory_integer balance = calculate_balance( a_node );
+
+	return algorithming::Mathematics::absolute( balance ) > typeing::Memory_integer_one;
+}
+
+template< class A_type >
+// static
+typeing::Memory_integer Avl_tree< A_type >::calculate_balance( const memorying::Omp< noding::Avl_tree_node< A_type > > &a_node ) {
+	jmsf_Should_never_be_empty( a_node );
+
+	const typeing::Memory_natural left_subtree_height =
+		a_node->get_left_child().is_empty() ?
+			typeing::Memory_natural_nil :
+			a_node->get_left_child()->get_height();
+
+	const typeing::Memory_natural right_subtree_height =
+		a_node->get_right_child().is_empty() ?
+			typeing::Memory_natural_nil :
+			a_node->get_right_child()->get_height();
+
+	return right_subtree_height.substruct_to_integer< typeing::Memory_integer >( left_subtree_height );
+}
+
+template< class A_type >
+void Avl_tree< A_type >::perform_left_rotation( const memorying::Omp< noding::Avl_tree_node< A_type > > &a_node ) {
+	jmsf_Should_never_be_empty( a_node );
+	jmsf_Should_never_be_empty( a_node->get_right_child() );
+
+	memorying::Omp< noding::Avl_tree_node< A_type > > the_node = a_node;
+	memorying::Omp< noding::Avl_tree_node< A_type > > ex_right_child = the_node->take_right_child();
+	memorying::Omp< noding::Avl_tree_node< A_type > > left_child_of_ex_right_child = the_node->take_right_child()->take_left_child();
+
+	// replace a_node in parent to a_node's right child
+	if ( the_node->get_parent().is_not_empty() ) { // is not root
+		if ( the_node->get_parent()->get_left_child() == the_node ) { // is left child
+			the_node->take_parent()->set_left_child( ex_right_child );
+		} else if ( the_node->get_parent()->get_right_child() == the_node ) { // is right child
+			the_node->take_parent()->set_right_child( ex_right_child );
+		} else {
+			_jmsf_Should_never_reach_here_void();
+		}
+	}
+
+	// set right child's parent to be a_node's parent
+	ex_right_child->set_parent( the_node->get_parent() );
+
+	// set a_node's parent to be a_node's right child
+	the_node->set_parent( ex_right_child );
+
+	// update root if necessary
+	if ( ex_right_child->get_parent().is_empty() ) { // is root
+		_the_root = ex_right_child;
+	}
+
+	// set right child's left child to be a_node
+	ex_right_child->set_left_child( the_node );
+
+	// move right child's left child to node's opposite child
+	the_node->set_right_child( left_child_of_ex_right_child );
+
+	if ( left_child_of_ex_right_child.is_not_empty() ) {
+		// set a_node to be a parent of right child's left child
+		left_child_of_ex_right_child->set_parent( the_node );
+	}
+
+	the_node->recalculate_height();
+	ex_right_child->recalculate_height();
+}
+
+template< class A_type >
+void Avl_tree< A_type >::perform_right_rotation( const memorying::Omp< noding::Avl_tree_node< A_type > > &a_node ) {
+	jmsf_Should_never_be_empty( a_node );
+	jmsf_Should_never_be_empty( a_node->get_left_child() );
+
+	memorying::Omp< noding::Avl_tree_node< A_type > > the_node = a_node;
+	memorying::Omp< noding::Avl_tree_node< A_type > > ex_left_child = the_node->take_left_child();
+	memorying::Omp< noding::Avl_tree_node< A_type > > right_child_of_ex_left_child = the_node->take_left_child()->take_right_child();
+
+	// replace a_node in parent to a_node's left child
+	if ( the_node->get_parent().is_not_empty() ) { // is not root
+		if ( the_node->get_parent()->get_left_child() == the_node ) { // is left child
+			the_node->take_parent()->set_left_child( ex_left_child );
+		} else if ( the_node->get_parent()->get_right_child() == the_node ) { // is right child
+			the_node->take_parent()->set_right_child( ex_left_child );
+		} else {
+			_jmsf_Should_never_reach_here_void();
+		}
+	}
+
+	// set left child's parent to be a_node's parent
+	ex_left_child->set_parent( the_node->get_parent() );
+
+	// set a_node's parent to be a_node's left child
+	the_node->set_parent( ex_left_child );
+
+	// update root if necessary
+	if ( ex_left_child->get_parent().is_empty() ) { // is root
+		_the_root = ex_left_child;
+	}
+
+	// set left child's right child to be a_node
+	ex_left_child->set_right_child( the_node );
+
+	// move left child's right child to node's opposite child
+	the_node->set_left_child( right_child_of_ex_left_child );
+
+	if ( right_child_of_ex_left_child.is_not_empty() ) {
+		// set a_node to be a parent of left child's right child
+		right_child_of_ex_left_child->set_parent( the_node );
+	}
+
+	the_node->recalculate_height();
+	ex_left_child->recalculate_height();
+}
+
+template< class A_type >
+// static
+void Avl_tree< A_type >::delete_all_nodes( const memorying::Omp< noding::Avl_tree_node< A_type > > &a_parent )
+{
+	if ( a_parent.is_empty() ) return;
+
+//	static size_t counter = 0;
+//	::std::cout << ::std::endl << "Avl_tree< A_type >::delete_all_nodes() - counter " << ++counter <<
+//		", Node: " << a_parent->get_object().get_native_value() <<
+//		", P: " << ( a_parent->get_parent().is_empty() ? 0 : a_parent->get_parent()->get_object().get_native_value() ) <<
+//		", L: " << ( a_parent->get_left_child().is_empty() ? 0 : a_parent->get_left_child()->get_object().get_native_value() ) <<
+//		", LP: " << ( a_parent->get_left_child().is_empty() ? 0 : a_parent->get_left_child()->get_parent()->get_object().get_native_value() ) <<
+//		", R: " << ( a_parent->get_right_child().is_empty() ? 0 : a_parent->get_right_child()->get_object().get_native_value() ) <<
+//		", RP: " << ( a_parent->get_right_child().is_empty() ? 0 : a_parent->get_right_child()->get_parent()->get_object().get_native_value() ) << ::std::endl;
+
+	delete_all_nodes( a_parent->get_left_child() );
+	delete_all_nodes( a_parent->get_right_child() );
+	noding::Avl_tree_node< A_type >::destroy( a_parent->get_left_child() );
+	noding::Avl_tree_node< A_type >::destroy( a_parent->get_right_child() );
+}
+
+
+} // namespace containing
+} // namespace structing
+} // namespace jmsf

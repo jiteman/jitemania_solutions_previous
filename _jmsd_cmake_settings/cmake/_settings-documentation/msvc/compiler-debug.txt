@@ -1,0 +1,7 @@
+#/GS # Buffer security check: enabled
+#/sdl # SDL checks: (yes) // additional security checks
+#/Od # Optimization: Disabled
+#/RTCc # Smaller type check: (yes)
+#/RTC1 # Basic runtime checks: Both [ RTCs | RTCu | RTC1/RTCsu ] // stack frames, unitialized variables
+#/Oy- # Omit frame pointers: (no)
+#/MDd # Runtime library: multi-threaded debug dll [ MT | MTd | MD | MDd ] // multi-threaded, debug, dll

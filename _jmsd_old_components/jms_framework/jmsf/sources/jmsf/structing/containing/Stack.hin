@@ -1,0 +1,76 @@
+#pragma once
+
+#include "Stack.hpp"
+
+
+#include "jmsf/typeing/Boolean.h"
+
+
+namespace jmsf {
+namespace structing {
+namespace containing {
+
+
+template< class A_type >
+typeing::Boolean Stack< A_type >::is_empty() const noexcept {
+	return typeing::True;
+}
+
+template< class A_type >
+typeing::Boolean Stack< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+template< class A_type >
+typeing::Memory_natural Stack< A_type >::get_quantity() const noexcept {
+	return typeing::Memory_natural_nil;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Stack< A_type >::~Stack() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Stack< A_type >::Stack() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Stack< A_type >::Stack( const Stack< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Stack< A_type > &Stack< A_type >::operator =( const Stack< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Stack< A_type >::Stack( Stack< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Stack< A_type > &Stack< A_type >::operator =( Stack< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace containing
+} // namespace structing
+} // namespace jmsf

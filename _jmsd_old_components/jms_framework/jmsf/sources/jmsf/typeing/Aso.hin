@@ -1,0 +1,141 @@
+#pragma once
+
+#include "Aso.hpp"
+
+
+#include "Naturals.hin"
+#include "Boolean.h"
+#include "Aso.h"
+
+
+#include "internals/internal_types.h"
+
+
+namespace jmsf {
+namespace typeing {
+
+
+// Seinsei: todonext - use encodebuba
+// alignment
+#if defined( _MSC_VER ) && ( _MSC_VER >= 1300 ) // If VC7.0 or later...
+
+	template< class A_type >
+	Memory_natural alignment_of() noexcept {
+		return Memory_natural::create( __alignof( A_type ) );
+	}
+
+// 	template< class A_type >
+// 	Memory_natural alignment_of( const A_type & ) { // anObject
+// 		return Memory_natural::create( __alignof( A_type ) );
+// 	}
+
+#elif defined( __GNUC__ ) || defined( __MWERKS__ )
+
+	template< class A_type >
+	Memory_natural alignment_of() noexcept {
+		return Memory_natural::create( __alignof__( A_type ) );
+	}
+
+// 	template< class A_type >
+// 	Memory_natural alignment_of( const A_type & ) { // anObject
+// 		return Memory_natural::create( __alignof__( A_type ) );
+// 	}
+
+#else
+
+	template< typename A_type >
+	struct JMSFAlignOfTemplate {
+		struct AlightStruct {
+			char charMember;
+			A_type typeMember;
+		};
+
+		static const size_t alignValue = ( size_t )( ( char * ) &( ( struct AlightStruct * )0 )->typeMember - ( char * )0 );
+	};
+
+	template< class A_type >
+	Memory_natural alignment_of() noexcept {
+		return Memory_natural::create( JMSFAlignOfTemplate< A_type >::alignValue );
+	}
+
+// 	template< class A_type >
+// 	Memory_natural alignment_of( const A_type & ) { // anObject
+// 		return Memory_natural::create( JMSFAlignOfTemplate< A_type >::alignValue );
+// 	}
+
+#endif
+
+template< class A_type >
+Memory_natural align_up( const Memory_natural an_address ) noexcept {
+	return align_up( an_address, alignment_of< A_type >() );
+}
+
+template< class A_type >
+Memory_natural align_down( const Memory_natural an_address ) noexcept {
+	return align_down( an_address, alignment_of< A_type >() );
+}
+
+template< class A_type >
+Memory_natural get_alignment_up_value( const Memory_natural an_address ) noexcept {
+	return get_alignment_up_value( an_address, alignment_of< A_type >() );
+}
+
+template< class A_type >
+Memory_natural get_alignment_down_value( const Memory_natural an_address ) noexcept {
+	return get_alignment_down_value( an_address, alignment_of< A_type >() );
+}
+
+template< class A_type >
+Boolean is_aligned( const Memory_natural an_address ) noexcept {
+	return is_aligned( an_address, alignment_of< A_type >() );
+}
+
+template< class A_type >
+Boolean is_not_aligned( const Memory_natural an_address ) noexcept {
+	return is_not_aligned( an_address, alignment_of< A_type >() );
+}
+//~alignment
+
+
+// size of
+template< class A_type >
+Memory_natural size_of() noexcept {
+	return Memory_natural::create( sizeof( A_type ) );
+}
+
+template< class A_type >
+Memory_natural size_of( const A_type & ) { // anObject
+	return size_of< A_type >();
+}
+//~size of
+
+
+// displacement of
+template< class A_type, class A_creating_type >
+Memory_natural displacement_of() {
+	// Seinsei: todonext - check it on Windows
+	const A_creating_type *creating_type = reinterpret_cast< A_creating_type * >( 0x1 );
+
+	return
+		Memory_natural::create(
+			reinterpret_cast< memory_natural_value_type >( static_cast< const A_type * >( creating_type ) ) -
+			reinterpret_cast< memory_natural_value_type >( creating_type ) );
+}
+//~displacement of
+
+
+// bits
+template< class A_type >
+Memory_natural bit_size_of() noexcept {
+	return Memory_natural::create( CHAR_BIT_SIZE ) * size_of< A_type >();
+}
+
+template< class A_type >
+Memory_natural bit_size_of( const A_type & ) { // anObject
+	return bit_size_of< A_type >();
+}
+//~bits
+
+
+} // namespace typeing
+} // namespace jmsf

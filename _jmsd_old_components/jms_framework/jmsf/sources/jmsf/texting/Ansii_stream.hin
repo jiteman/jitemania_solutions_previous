@@ -1,0 +1,113 @@
+#pragma once
+
+#include "Ansii_stream.hpp"
+
+
+#include "jmsf/pointing/Shared.hin"
+#include "jmsf/pointing/cShared.hin"
+#include "jmsf/pointing/cWeak.hin"
+
+#include "jmsf/typeing/Naturals.hin"
+#include "jmsf/typeing/Integers.hin"
+#include "jmsf/typeing/Reals.hin"
+#include "jmsf/typeing/Boolean.h"
+
+
+namespace jmsf {
+namespace texting {
+
+
+template< class A_typeing_type, int dummy >
+void Ansii_stream::put( const typeing::Naturals< A_typeing_type, dummy > natural ) {
+	put( natural, typeing::False );
+}
+
+template< class A_typeing_type, int dummy >
+void Ansii_stream::put( const typeing::Naturals< A_typeing_type, dummy > natural, const typeing::Boolean as_hexadecimal ) {
+	const typeing::Memory_natural type_size = natural.get_sizeof();
+	pointing::cShared< Ansii_text > ansii_text_to_put;
+
+	switch ( type_size.get_native_value() ) {
+		case 1:
+			ansii_text_to_put = create_natural_1( static_cast< typeing::shortest_fast_natural_value_type >( natural.get_native_value() ), as_hexadecimal );
+			break;
+
+		case 2:
+			ansii_text_to_put = create_natural_2( static_cast< typeing::short_fast_natural_value_type >( natural.get_native_value() ), as_hexadecimal );
+			break;
+
+		case 4:
+			ansii_text_to_put = create_natural_4( static_cast< typeing::fast_natural_value_type >( natural.get_native_value() ), as_hexadecimal );
+			break;
+
+		case 8:
+			ansii_text_to_put = create_natural_8( static_cast< typeing::long_fast_natural_value_type >( natural.get_native_value() ), as_hexadecimal );
+			break;
+
+		default:
+			// throw natural size error
+			return;
+	}
+
+	put( ansii_text_to_put );
+}
+
+template< class A_typeing_type, int dummy >
+void Ansii_stream::put( const typeing::Integers< A_typeing_type, dummy > integer ) {
+	const typeing::Memory_natural type_size = integer.get_sizeof();
+	pointing::cShared< Ansii_text > ansii_text_to_put;
+
+	switch ( type_size.get_native_value() ) {
+		case 1:
+			ansii_text_to_put = create_integer_1( static_cast< typeing::shortest_fast_integer_value_type >( integer.get_native_value() ) );
+			break;
+
+		case 2:
+			ansii_text_to_put = create_integer_2( static_cast< typeing::short_fast_integer_value_type >( integer.get_native_value() ) );
+			break;
+
+		case 4:
+			ansii_text_to_put = create_integer_4( static_cast< typeing::fast_integer_value_type >( integer.get_native_value() ) );
+			break;
+
+		case 8:
+			ansii_text_to_put = create_integer_8( static_cast< typeing::long_fast_integer_value_type >( integer.get_native_value() ) );
+			break;
+
+		default:
+			// throw integer size error
+			return;
+	}
+
+	put( ansii_text_to_put );
+}
+
+template< class A_typeing_type, int dummy >
+void Ansii_stream::put( const typeing::Reals< A_typeing_type, dummy > real ) {
+	const typeing::Memory_natural type_size = real.get_sizeof();
+	pointing::cShared< Ansii_text > ansii_text_to_put;
+
+	switch ( type_size.get_native_value() ) {
+		case 4:
+			ansii_text_to_put = create_real_4( static_cast< typeing::short_real_value_type >( real.get_native_value() ) );
+			break;
+
+		case 8:
+			ansii_text_to_put = create_real_8( static_cast< typeing::real_value_type >( real.get_native_value() ) );
+			break;
+
+		case 12:
+			ansii_text_to_put = create_real_12( static_cast< typeing::long_real_value_type >( real.get_native_value() ) );
+			break;
+
+		default:
+			// throw real size error
+			return;
+	}
+
+	put( ansii_text_to_put );
+}
+
+
+} // namespace texting
+} // namespace jmsf

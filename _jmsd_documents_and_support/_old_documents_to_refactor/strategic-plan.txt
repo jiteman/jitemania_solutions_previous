@@ -1,0 +1,47 @@
+===============================================================================================
+-----------------------------------------------------------------------------------------------
+Add new functionality:
+	memory management:
+		memory pool allocator [quantity, bitsets, ..., blocks]
+		memory heap allocator [quantity, bitsets with blocks, ..., chunks]
+
+-----------------------------------------------------------------------------------------------
+Update codebase:
+	CULE:
+		? find another path for disabled test information
+		color output for windows/linux consoles
+	JMSF:
+		? decide do we need to transfer to_ansii_string() call from omp<> to underlying object
+		? decide do we need get_sizeof() method for Types
+
+-----------------------------------------------------------------------------------------------
+Initialization/deinitialization refactoring:
+	complete and check all subsystems initialization/deinitialization
+	+ refactor initialize and deinitialize methods for all subsystems
+
+-----------------------------------------------------------------------------------------------
+Update the codebase to conform C++Wizardry:
+	* add equality tests to existing suits
+	? create-clone
+	factory for pointing reference conters
+	+ in tests: create and use test_Allocator::instance()->get_ansii_allocating_assistor()
+	move object creation into fabrics, fabric method only should do parameter cheching
+	add "override", "final", etc.
+
+-----------------------------------------------------------------------------------------------
+Update the codebase (refactor):
+	@ optimize pointer arithmetics
+		+ Omp
+		+ Awa_iterator
+		optimize Awa_iterator: store original Object_pointer, create current_object_pointer 
+				on iteration
+	add "clear logs" on initialization
+	% move log to encodebuba, create log types:
+		+ application initialization/deinitialization logs
+		+ conditional logs before throwing an exception
+		+ unconditional logs before throwing an exception
+		? informing logs
+	% move type_name to encodebuba (partially done)
+	? encodebuba_Should - ?
+	? encodebuba native_Shared/Weak
+		(for example, environment instance counting, allocator instance counting, etc.)

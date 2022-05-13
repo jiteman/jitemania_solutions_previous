@@ -1,0 +1,140 @@
+#pragma once
+
+#include "cScoped.hpp"
+
+
+//#include "cNonlinked.hin"
+
+#include "jmsf/memorying/Destructor.hin"
+#include "jmsf/memorying/Owomp.hin"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace pointing {
+
+
+template< class A_type >
+typeing::Boolean cScoped< A_type >::is_empty() const noexcept {
+	return _object_memory_pointer.is_empty();
+}
+
+template< class A_type >
+typeing::Boolean cScoped< A_type >::is_not_empty() const noexcept {
+	return _object_memory_pointer.is_not_empty();
+}
+
+template< class A_type >
+const A_type &cScoped< A_type >::operator *() {
+	jmsf_Should_never_be_empty( _object_memory_pointer );
+	return *_object_memory_pointer;
+}
+
+template< class A_type >
+const A_type *cScoped< A_type >::operator ->() {
+	jmsf_Should_never_be_empty( _object_memory_pointer );
+	return _object_memory_pointer.operator ->();
+}
+
+template< class A_type >
+const A_type &cScoped< A_type >::operator *() const {
+	jmsf_Should_never_be_empty( _object_memory_pointer );
+	return *_object_memory_pointer;
+}
+
+template< class A_type >
+const A_type *cScoped< A_type >::operator ->() const {
+	jmsf_Should_never_be_empty( _object_memory_pointer );
+	return _object_memory_pointer.operator ->();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//cNonlinked< A_type > cScoped< A_type >::get_as_cnonlinked() const noexcept {
+//	if ( is_empty() ) return cNonlinked< A_type >();
+
+//	return cNonlinked< A_type >::create_from_scoped( _object_memory_pointer.get_as_womp() );
+//}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+cScoped< A_type >::~cScoped() noexcept {
+	memorying::Destructor< A_type >::destruct( _object_memory_pointer );
+	_object_memory_pointer = memorying::Omp< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cScoped< A_type >::cScoped() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cScoped< A_type >::cScoped( const memorying::Omp< A_type > &object_memory_pointer ) noexcept
+	:
+		_object_memory_pointer( object_memory_pointer )
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+cScoped< A_type > cScoped< A_type >::create( const memorying::Omp< A_type > &object_memory_pointer ) {
+	jmsf_Should_never_be_empty( object_memory_pointer );
+	return cScoped< A_type >( object_memory_pointer );
+}
+
+// static
+template< class A_type >
+cScoped< A_type > cScoped< A_type >::create_from_scoped( const memorying::Omp< A_type > &object_memory_pointer ) noexcept {
+	return cScoped< A_type >( object_memory_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cScoped< A_type >::cScoped( const cScoped< A_type > &another ) noexcept
+	:
+		_object_memory_pointer( another._object_memory_pointer )
+{
+	const_cast< cScoped< A_type > & >( another )._object_memory_pointer = memorying::Omp< A_type >();
+}
+
+template< class A_type >
+const cScoped< A_type > &cScoped< A_type >::operator =( const cScoped< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	memorying::Destructor< A_type >::destruct( _object_memory_pointer );
+	_object_memory_pointer = memorying::Omp< A_type >();
+//	_object_memory_pointers = another._object_memory_pointers;
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+cScoped< A_type >::cScoped( cScoped< A_type > &&another ) noexcept
+	:
+		_object_memory_pointer( another._object_memory_pointer )
+{
+	another._object_memory_pointer = memorying::Omp< A_type >();
+}
+
+template< class A_type >
+cScoped< A_type > &cScoped< A_type >::operator =( cScoped< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_object_memory_pointer = another._object_memory_pointer;
+	another._object_memory_pointer = memorying::Omp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace pointing
+} // namespace jmsf

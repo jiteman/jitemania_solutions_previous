@@ -1,0 +1,67 @@
+#pragma once
+
+
+#include "Destructor.hpp"
+
+#include "Omp.hin"
+#include "Amp.hin"
+#include "Allocator.h"
+#include "jmsf/typeing/Aso.hin"
+
+
+//#include "jmsf/jmsf_logging_macroses.h"
+
+
+namespace jmsf {
+namespace memorying {
+
+
+template< class A_type >
+void Destructor< A_type >::destruct( const Omp< A_type > &an_object_memory_pointer ) {
+	if ( an_object_memory_pointer.is_empty() ) return;
+	if ( an_object_memory_pointer.get_allocator().is_empty() ) return;
+
+	an_object_memory_pointer -> ~A_type();
+
+	const Memory_address the_memory_address = an_object_memory_pointer.get_object_address();
+	const typeing::Memory_natural the_alignment = an_object_memory_pointer.get_alignment();
+
+	Womp< Allocator > the_allocator = an_object_memory_pointer.get_allocator();
+
+	the_allocator->deallocate_memory( the_memory_address, the_alignment );
+}
+
+template< class A_type >
+void Destructor< A_type >::destruct( const Amp< A_type > &an_array_memory_pointer ) {
+	if ( an_array_memory_pointer.is_empty() ) return;
+	if ( an_array_memory_pointer.get_allocator().is_empty() ) return;
+
+	Awa_iterator< A_type > pointer_to_object = an_array_memory_pointer.get();
+
+	for ( typeing::Memory_natural counter = an_array_memory_pointer.get_quantity(); counter.is_not_nil(); --counter ) {
+		// Seinsei: todonext - make this fix for buggy Win compiler only
+		// ( pointer_to_object++ )->~A_type();
+		( *pointer_to_object++ ).~A_type();
+	}
+
+	const Memory_address the_memory_pointer = an_array_memory_pointer.get_object_address();
+	const typeing::Memory_natural the_alignment = an_array_memory_pointer.get_alignment();
+
+	Womp< Allocator > the_allocator = an_array_memory_pointer.get_allocator();
+
+	the_allocator->deallocate_memory( the_memory_pointer, the_alignment );
+}
+
+// template< typename A_type >
+// void Destruct( const Omp< A_type > &an_object_memory_pointer ) {
+// 	Destructor< A_type >::destruct( object );
+// }
+//
+// template< typename A_type >
+// void Destruct( const Amp< A_type > &an_array_memory_pointer ) {
+// 	Destructor< A_type >::destruct( object );
+// }
+
+
+} // namespace memorying
+} // namespace jmsf

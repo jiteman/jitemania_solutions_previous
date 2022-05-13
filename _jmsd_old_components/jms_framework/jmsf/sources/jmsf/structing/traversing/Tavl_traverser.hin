@@ -1,0 +1,85 @@
+#pragma once
+
+#include "Tavl_traverser.hpp"
+
+
+#include "jmsf/typeing/Boolean.h"
+
+
+namespace jmsf {
+namespace structing {
+namespace traversing {
+
+
+template< class A_type >
+typeing::Boolean Tavl_traverser< A_type >::is_empty() const noexcept {
+	return typeing::True;
+}
+
+template< class A_type >
+typeing::Boolean Tavl_traverser< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Tavl_traverser< A_type >::~Tavl_traverser() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Tavl_traverser< A_type >::Tavl_traverser() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Tavl_traverser< A_type >::Tavl_traverser() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// static
+template< class A_type >
+Tavl_traverser< A_type > Tavl_traverser< A_type >::create() {
+	return Tavl_traverser< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Tavl_traverser< A_type >::Tavl_traverser( const Tavl_traverser< A_type > &/*another*/ ) noexcept {
+}
+
+template< class A_type >
+const Tavl_traverser< A_type > &Tavl_traverser< A_type >::operator =( const Tavl_traverser< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// copy
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Tavl_traverser< A_type >::Tavl_traverser( Tavl_traverser< A_type > &&/*another*/ ) noexcept {
+}
+
+template< class A_type >
+Tavl_traverser< A_type > &Tavl_traverser< A_type >::operator =( Tavl_traverser< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	// move
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace traversing
+} // namespace structing
+} // namespace jmsf

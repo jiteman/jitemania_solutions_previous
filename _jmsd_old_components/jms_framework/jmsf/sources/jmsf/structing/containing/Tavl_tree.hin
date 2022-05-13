@@ -1,0 +1,104 @@
+#pragma once
+
+#include "Tavl_tree.hpp"
+
+
+#include "jmsf/memorying/Constructor.hin"
+#include "jmsf/memorying/Allocator.h"
+#include "jmsf/memorying/Omp.hin"
+#include "jmsf/memorying/Womp.hin"
+#include "jmsf/typeing/Boolean.h"
+
+#include "jmsf/validating/macroses_Should.h"
+
+
+namespace jmsf {
+namespace structing {
+namespace containing {
+
+
+template< class A_type >
+typeing::Boolean Tavl_tree< A_type >::is_empty() const noexcept {
+	return typeing::True;
+}
+
+template< class A_type >
+typeing::Boolean Tavl_tree< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+void Tavl_tree< A_type >::insert(
+	const memorying::Womp< memorying::Allocator > &a_tavl_node_allocator,
+	const A_type &an_object )
+{
+	jmsf_Should_never_be_empty( a_tavl_node_allocator );
+
+	_the_root = noding::Tavl_node< A_type >::create( a_tavl_node_allocator, an_object );
+}
+
+template< class A_type >
+memorying::Omp< noding::Tavl_node< A_type > > Tavl_tree< A_type >::find( const A_type &/*an_object*/ ) const {
+	return _the_root;
+}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Tavl_tree< A_type >::~Tavl_tree() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Tavl_tree< A_type >::Tavl_tree() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Tavl_tree< A_type >::Tavl_tree() noexcept
+//{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+memorying::Omp< Tavl_tree< A_type > > Tavl_tree< A_type >::create( const memorying::Womp< memorying::Allocator > &a_tavl_tree_allocator ) {
+	return memorying::Constructor< Tavl_tree< A_type >, Tavl_tree< A_type > >::construct( a_tavl_tree_allocator );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Tavl_tree< A_type >::Tavl_tree( const Tavl_tree< A_type > &/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//const Tavl_tree< A_type > &Tavl_tree< A_type >::operator =( const Tavl_tree< A_type > &another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//Tavl_tree< A_type >::Tavl_tree( Tavl_tree< A_type > &&/*another*/ ) noexcept {
+//}
+
+//template< class A_type >
+//Tavl_tree< A_type > &Tavl_tree< A_type >::operator =( Tavl_tree< A_type > &&another ) noexcept {
+//	if ( &another == this ) return *this;
+
+//	// move
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace containing
+} // namespace structing
+} // namespace jmsf

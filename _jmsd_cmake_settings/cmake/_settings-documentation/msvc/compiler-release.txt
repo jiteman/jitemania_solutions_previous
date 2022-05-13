@@ -1,0 +1,10 @@
+#/GS- # Buffer security check: disabled
+#/GL # Whole program optimization: (yes)
+#/Gy # Enable function level linking: (yes)
+#/Ox # Optimization: full optimization //
+#/Ob2 # Inline functions expansion: any suitable
+#/GT # Enable fiber-safe optimiztions: (yes)
+#/Oy # Omit frame pointers: (yes)
+#/Oi # Enable intrinsic functions: (yes)
+#/MD # Runtime library: multi-threaded dll [ MT | MTd | MD | MDd ] // multi-threaded, debug, dll
+#/Ot # Favor size or speed: favor fast code // [ s | t ]

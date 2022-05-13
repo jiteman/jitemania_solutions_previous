@@ -1,0 +1,117 @@
+#pragma once
+
+#include "native_Nonlinked.hpp"
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+
+
+template< class A_type >
+bool native_Nonlinked< A_type >::is_empty() const noexcept {
+	return _the_object_pointer == nullptr;
+}
+
+template< class A_type >
+bool native_Nonlinked< A_type >::is_not_empty() const noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+A_type &native_Nonlinked< A_type >::operator *() {
+	return *_the_object_pointer;
+}
+
+template< class A_type >
+A_type *native_Nonlinked< A_type >::operator ->() {
+	return _the_object_pointer;
+}
+
+template< class A_type >
+const A_type &native_Nonlinked< A_type >::operator *() const {
+	return *_the_object_pointer;
+}
+
+template< class A_type >
+const A_type *native_Nonlinked< A_type >::operator ->() const {
+	return _the_object_pointer;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//bool native_Nonlinked< A_type >::operator ==( const Nonlinked< A_type > &another ) const noexcept {
+//	return _the_object_pointer == another._object_pointer;;
+//}
+
+//template< class A_type >
+//bool native_Nonlinked< A_type >::operator !=( const Nonlinked< A_type > &another ) const noexcept {
+//	return !( *this == another );
+//}
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+native_Nonlinked< A_type >::~native_Nonlinked() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Nonlinked< A_type >::native_Nonlinked() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Nonlinked< A_type >::native_Nonlinked( const A_type *an_object_pointer ) noexcept {
+	_the_object_pointer = const_cast< A_type * >( an_object_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+// static
+native_Nonlinked< A_type > native_Nonlinked< A_type >::create_from_static( const A_type *an_object_pointer ) {
+	return native_Nonlinked< A_type >( an_object_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Nonlinked< A_type >::native_Nonlinked( const native_Nonlinked< A_type > &another ) noexcept {
+	_the_object_pointer = another._the_object_pointer;
+}
+
+template< class A_type >
+const native_Nonlinked< A_type > &native_Nonlinked< A_type >::operator =( const native_Nonlinked< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_object_pointer = another._the_object_pointer;
+	return *this;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Nonlinked< A_type >::native_Nonlinked( native_Nonlinked< A_type > &&another ) noexcept {
+	_the_object_pointer = another._the_object_pointer;
+	another._the_object_pointer = nullptr;
+}
+
+template< class A_type >
+native_Nonlinked< A_type > &native_Nonlinked< A_type >::operator =( native_Nonlinked< A_type > &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	_the_object_pointer = another._the_object_pointer;
+	another._the_object_pointer = nullptr;
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf

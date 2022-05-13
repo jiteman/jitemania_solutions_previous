@@ -1,0 +1,104 @@
+#pragma once
+
+#include "Buffer.hpp"
+
+#include "jmsf/memorying/Awamp.hin"
+
+#include "jmsf/memorying/Destructor.hin"
+#include "jmsf/memorying/Amp.hin"
+#include "jmsf/memorying/Omp.hin"
+
+#include "jmsf/validating/macroses_Should."
+
+
+namespace jmsf {
+namespace structing {
+namespace containing {
+
+
+template< class A_type >
+const memorying::Wamp< A_type > &Buffer< A_type >::get_array() const noexcept {
+	return _awamp_memory_buffer.get_wamp();
+}
+
+template< class A_type >
+memorying::Wamp< A_type > &Buffer< A_type >::take_array() noexcept {
+	return _awamp_memory_buffer.take_wamp();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+Buffer< A_type >::~Buffer() noexcept {
+	memorying::Destructor< A_type >::destruct( _awamp_memory_buffer.get_amp() );
+
+	if ( _awamp_memory_buffer.is_not_empty() ) {
+		_awamp_memory_buffer = memorying::Awamp< A_type >();
+	}
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Buffer< A_type >::Buffer() noexcept
+{}
+
+template< class A_type >
+Buffer< A_type >::Buffer( const memorying::Amp< A_type > &an_array_memory_pointer ) noexcept
+	:
+		_awamp_memory_buffer( memorying::Awamp< A_type >::create( an_array_memory_pointer ) )
+{}
+
+// static
+template< class A_type >
+Buffer< A_type > Buffer< A_type >::create( const memorying::Amp< A_type > &an_array_memory_pointer ) {
+	jmsf_Should_never_be_empty( an_array_memory_pointer );
+	return Buffer< A_type >( an_array_memory_pointer );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+Buffer< A_type >::Buffer( const Buffer< A_type > &another ) noexcept
+	:
+		_awamp_memory_buffer( another._awamp_memory_buffer )
+{}
+
+template< class A_type >
+const Buffer< A_type > &Buffer< A_type >::operator =( const Buffer< A_type > &another ) noexcept {
+	if ( &another == this ) return *this;
+
+	memorying::Destructor< A_type >::destruct( _awamp_memory_buffer.get_amp() );
+	_awamp_memory_buffer = another._awamp_memory_buffer;
+	return *this;
+}
+
+template< class A_type >
+Buffer< A_type >::Buffer( Buffer &&another ) noexcept
+	:
+		_awamp_memory_buffer( another._awamp_memory_buffer )
+{
+	another._awamp_memory_buffer = memorying::Awamp< A_type >();
+}
+
+template< class A_type >
+Buffer< A_type > &Buffer< A_type >::operator =( Buffer &&another ) noexcept {
+	if ( &another == this ) return *this;
+
+	memorying::Destructor< A_type >::destruct( _awamp_memory_buffer.get_amp() );
+	_awamp_memory_buffer = another._awamp_memory_buffer;
+	another._awamp_memory_buffer = memorying::Awamp< A_type >();
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace containing
+} // namespace structing
+} // namespace jmsf

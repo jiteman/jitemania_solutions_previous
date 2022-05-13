@@ -1,0 +1,27 @@
+#/MP # Multi-processor compilation: (yes)
+#/Zc:rvalueCast # Enforce type conversion rules: (yes)
+#/analyze- # Static analysis: is off // /analyze:WX- don't threat analyzer warnings as errors
+#/Wall # Warning level: EnableAllWarnings
+#/Zc:wchar_t # Treat wchar_t as built in type: (yes)
+#/Zi # Debug information output: Program database
+#/Gm- # Enable minimal rebuild: (no)
+#/Zc:inline # Remove unreferenced code and data: (yes)
+#/fp:precise # Floating point model: precise [ precise | strict | fast ]
+##/errorReport:none # Internal compiler error reporting: prompt immediately [/errorReport:none]
+#/WX # Treat warnings as errors: (yes)
+#/Zc:forScope # Force conformance in for loop scope: (yes)
+#/GR # Enable run-time type information: (yes)
+##/Gd # Calling conventions: __cdecl [ Gd | Gr | Gz | Gv ] // __cdecl, __fastcall, __stdcall, __vectorcall
+#/EHa # Enable C++ exceptions: [ EHsc | EHa ] // yes, yes with SEH
+##/nologo # Suppress startup banner: (yes) // Suppresses the display of the copyright banner when the compiler starts up and display of informational messages during compiling.
+#/Za # Disable language extensions: (yes)
+
+##/D "WIN32"
+##/D "_DEBUG" # for debug
+##/D "NDEBUG" # for release
+##/D "_WINDOWS"
+##/D "_USRDLL"
+##/D "SHAREDSETTINGSEXAMPLE_EXPORTS"
+##/D "_WINDLL"
+##/D "_UNICODE" # Character set: [ _UNICODE | _MBCS ]
+##/D "UNICODE"

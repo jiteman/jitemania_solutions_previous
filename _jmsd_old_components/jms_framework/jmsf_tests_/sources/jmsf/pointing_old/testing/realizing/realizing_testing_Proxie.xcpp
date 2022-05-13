@@ -1,0 +1,73 @@
+#include "realizing_testing_Proxie.h"
+
+
+#include "jmsf/pointing/sensing/sensing_Pointie.h"
+//#include "../../sensing/sensing_Pointie.h"
+
+#include "jmsf/pointing/Proxy.hin"
+#include "jmsf/pointing/Pointer.hin"
+//#include "jmsf/memorying/Constructor.hin"
+////#include "jmsf/debugging/ObjectCreationLogging.h"
+
+
+namespace jmsf {
+namespace pointing {
+namespace testing {
+namespace realizing {
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+realizing_testing_Proxie::~realizing_testing_Proxie() noexcept {
+	_sensingPointie->registerDestruction();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+realizing_testing_Proxie::realizing_testing_Proxie( const ::jmsf::pointing::Pointer< sensing::sensing_Pointie > &sensingPointie ) noexcept
+	:
+		_sensingPointie( sensingPointie )
+{
+	_sensingPointie->registerConstruction();
+}
+
+// static
+Proxy< testing_Proxie > realizing_testing_Proxie::create(
+	const memorying::Womp< memorying::Allocator > &reference_counters_allocator,
+	const memorying::Womp< memorying::Allocator > &testing_proxie_allocator,
+	const ::jmsf::pointing::Pointer< sensing::sensing_Pointie > &sensing_pointie ) noexcept
+{
+	return
+		Proxy< testing_Proxie >::create_shared(
+			reference_counters_allocator,
+			memorying::Constructor< testing_Proxie, realizing_testing_Proxie >::construct(
+				testing_proxie_allocator,
+				sensing_pointie ) );
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// ::jmsf::pointing::Proxy< testing_Proxie > realization_testing_Proxie::createClone() const noexcept {
+// 	testing_Proxie *testingProxie = new realization_testing_Proxie( *this );
+// 	debugging::static_ObjectCreationLogger::registerCreation( debugging::createMulInformationForObjectedCreation( testingProxie, MACROS_FILE_AND_LINE ) );
+// 	return ::jmsf::Proxy< testing_Proxie >::createUnique( testingProxie );
+// }
+
+realizing_testing_Proxie::realizing_testing_Proxie( const realizing_testing_Proxie & ) noexcept // other
+{}
+
+const realizing_testing_Proxie &realizing_testing_Proxie::operator =( const realizing_testing_Proxie &other ) noexcept {
+	if ( this == &other ) return *this;
+
+	// copy
+	return *this;
+}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+} // namespace realizing
+} // namespace testing
+} // namespace pointing
+} // namespace jmsf

@@ -1,0 +1,112 @@
+#pragma once
+
+#include "native_Singleton.hpp"
+
+#include "internalling/internal_native_Scoped.hin"
+
+#include "native_Nonlinked.hin"
+#include "native_type_name.hin"
+
+#include "jmsf/encodebuba/encodebuba_logging_macroses_.h"
+
+#include <utility>
+//#include <iostream>
+
+
+namespace jmsf {
+namespace encodebuba {
+namespace nativing {
+
+
+template< class A_type >
+// static
+bool native_Singleton< A_type >::is_empty() noexcept {
+	return static_scoped_instance.is_empty();
+}
+
+template< class A_type >
+// static
+bool native_Singleton< A_type >::is_not_empty() noexcept {
+	return !is_empty();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+template< class A_type >
+native_Singleton< A_type >::~native_Singleton() noexcept
+{}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+// static
+native_Nonlinked< A_type > native_Singleton< A_type >::instance() {
+	ENCODEBUBA_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( static_scoped_instance.is_empty(), "native_Singleton< A_type >::instance() - is empty", ENCODEBUBA_TYPE( A_type ) );
+
+	if ( static_scoped_instance.is_empty() ) return native_Nonlinked< A_type >();
+
+	return
+		native_Nonlinked< A_type >::create_from_static(
+			static_scoped_instance.operator ->() );
+}
+
+template< class A_type >
+// static
+void native_Singleton< A_type >::set_instance( A_type *an_object_pointer ) noexcept {
+	if ( an_object_pointer == nullptr ) return;
+
+	static_scoped_instance = ::std::move( internalling::internal_native_Scoped< A_type >::create( an_object_pointer ) );
+}
+
+//template< class A_type >
+//// static
+//A_type *native_Singleton< A_type >::take_instance() noexcept {
+//	return static_scoped_instance.operator ->();
+//}
+
+template< class A_type >
+// static
+void native_Singleton< A_type >::destroy_instance() {
+	ENCODEBUBA_PRE_ERROR_LOG_CONDITIONAL_OUTPUT_TYPED( static_scoped_instance.is_empty(), "native_Singleton< A_type >::instance() - is empty", ENCODEBUBA_TYPE( A_type ) );
+
+	static_scoped_instance = internalling::internal_native_Scoped< A_type >();
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+native_Singleton< A_type >::native_Singleton() noexcept
+{}
+
+// template< class A_type >
+// A_type *Singleton< A_type >::testing_setInstance( A_type *testingInstance ) {
+// 	A_type *previousInstance = static_cast< A_type * >( _instance.releasePointer() );
+// 	_instance.setPointer( testingInstance );
+// 	return previousInstance;
+// }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//template< class A_type >
+//native_Singleton< A_type >::native_Singleton( const native_Singleton< A_type > & ) noexcept // other
+//{}
+
+//template< class A_type >
+//const native_Singleton< A_type > &native_Singleton< A_type >::operator =( const native_Singleton< A_type > &another ) noexcept {
+//	if ( this == &another ) return *this;
+
+//	// copy
+//	return *this;
+//}
+
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+template< class A_type >
+// static
+internalling::internal_native_Scoped< A_type > native_Singleton< A_type >::static_scoped_instance;
+
+
+} // namespace nativing
+} // namespace encodebuba
+} // namespace jmsf
+
+

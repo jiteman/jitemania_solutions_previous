@@ -1,0 +1,4 @@
+##/LTCG:incremental
+#/OPT:REF # References (optimization)
+#/SAFESEH # Image has safe exception handlers: (yes)
+#/OPT:ICF # Enable COMDAT folding (optimization)
